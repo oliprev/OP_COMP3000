@@ -2,6 +2,8 @@
 
 # Supervisor: Professor Nathan Clarke
 
+## Technologies being used: MongoDB, Express, React, Node.JS, Ajax
+
 ## Project vision
 The aim of this project is to develop a solution targeted at both companies and their workforces, as well as everyday technology users who wish to enhance their cybersecurity skills. The web application is designed to address the growing issue of online vulnerabilities, which can lead to significant social, economic, and even political repercussions for organisations.
  

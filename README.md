@@ -1,6 +1,6 @@
 # Teaching and Reinforcing Vital Cybersecurity Skills using OpenAI’s ChatGPT
 
-# Supervisor: Professor Nathan Clarke
+## Supervisor: Professor Nathan Clarke
 
 ## Technologies being used: MongoDB, Express, React, Node.JS, Ajax
 

@@ -18,7 +18,8 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.4",
-    "op_comp3000": "file:.."
+    "op_comp3000": "file:..",
+    "openai": "^4.78.1"
   },
   "devDependencies": {
     "supertest": "^7.0.0"

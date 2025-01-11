@@ -19,5 +19,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.4",
     "op_comp3000": "file:.."
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
   }
 }

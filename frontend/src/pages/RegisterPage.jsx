@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function RegisterPage() {
@@ -7,7 +7,6 @@ function RegisterPage() {
         name: "",
         email: "",
         password: "",
-        role: "",
         dateOfBirth: ""
     });
     const navigate = useNavigate();
@@ -18,24 +17,20 @@ function RegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("Form Data:", formData); // Log form data
         try {
             const response = await axios.post("http://localhost:9000/api/users/register", formData);
+            console.log("Response:", response); // Log response
             navigate("/login");
         } catch (error) {
-            console.error(error);
+            console.error("Error:", error); // Log error
         }
     };
+
     return (
         <div>
           <h1>Register</h1>
           <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-            />
             <input
               type="text"
               name="name"

@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 function HomePage() {
     return (
         <div>
-            <h1>COMP3000</h1>
-            <Link to="/login">Login</Link><br></br>
-            <Link to="/register">Register</Link>
+            <h1>Untitled Cybersecurity Platform</h1>
+            <Link to="/register">Register</Link><br></br>
+            <Link to="/login">Login</Link>
         </div>
     );
 }

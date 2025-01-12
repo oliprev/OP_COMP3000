@@ -6,10 +6,10 @@ const User = require('../models/User');
 
 // CREATE route - for registration
 router.post('/register', async (req, res) => {
-    const { name, email, password, role, dateOfBirth } = req.body;
+    const { name, email, password, dateOfBirth } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ name, email, password: hashedPassword, role, dateOfBirth });
+        const newUser = new User({ name, email, password: hashedPassword, dateOfBirth });
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
     } catch (error) {

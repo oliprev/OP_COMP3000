@@ -3,25 +3,25 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function RegisterPage() {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({ // Initialise state for form data with empty strings
         name: "",
         email: "",
         password: "",
         dateOfBirth: ""
     });
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Get navigate function from useNavigate hook
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const handleChange = (e) => { // Handle form input changes
+        setFormData({ ...formData, [e.target.name]: e.target.value }); // Update form data
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default form submission
         console.log("Form Data:", formData); // Log form data
         try {
-            const response = await axios.post("http://localhost:9000/api/users/register", formData);
+            const response = await axios.post("http://localhost:9000/api/users/register", formData); // Send POST request to register route
             console.log("Response:", response); // Log response
-            navigate("/login");
+            navigate("/login"); // Navigate to login page
         } catch (error) {
             console.error("Error:", error); // Log error
         }
@@ -35,29 +35,29 @@ function RegisterPage() {
               type="text"
               name="name"
               placeholder="Name"
-              value={formData.name}
-              onChange={handleChange}
+              value={formData.name} // Gets value from formData
+              onChange={handleChange} // Call handleChange function on input change
             />
             <input
               type="email"
               name="email"
               placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
+              value={formData.email} // Gets value from formData
+              onChange={handleChange} // Call handleChange function on input change
             />
             <input
               type="password"
               name="password"
               placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
+              value={formData.password} // Gets value from formData
+              onChange={handleChange} // Call handleChange function on input change
             />
             <input
               type="date"
               name="dateOfBirth"
               placeholder="Date of Birth"
-              value={formData.dateOfBirth}
-              onChange={handleChange}
+              value={formData.dateOfBirth} // Gets value from formData
+              onChange={handleChange} // Call handleChange function on input change
             />
             <button type="submit">Register</button>
           </form>

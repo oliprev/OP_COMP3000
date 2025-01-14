@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
+import ProtectedRoute from './pages/ProtectedRoute'
 import LandingPage from './pages/LandingPage'
 import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'

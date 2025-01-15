@@ -32,4 +32,17 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// READ route - for getting all user information
+router.get('/:userId', authenticateToken, async (req, res) => {   
+    const { userId } = req.params;
+    if (!validateIds([userId])) return res.status(400).json({ message: "Invalid credentials provided." });
+    try {
+        const user = await User.findOne({ _id: userId });
+        if (!user) return res.status(404).json({ message: "Invalid credentials provided." });
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });       
+    }
+});
+
 module.exports = router;

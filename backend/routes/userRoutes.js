@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/User');
 const authenticateToken = require('../functions/authenticateToken');
+const validateIds = require('../functions/validateIds');
 
 // CREATE route - for registration
 router.post('/register', async (req, res) => {

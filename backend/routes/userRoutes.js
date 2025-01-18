@@ -47,4 +47,24 @@ router.get('/:userId', authenticateToken, async (req, res) => {
     }
 });
 
+// UPDATE route - for updating password
+router.put('/updatepassword', authenticateToken, async (req, res) => {
+    const { userId } = req.user;
+    const { currentPassword, newPassword } = req.body;
+
+    try {
+        const user = await User.findOne({ _id: userId });
+        if (!validateIds([userId])) return res.status(400).json({ message: "Invalid userId." });
+        const passwordMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!passwordMatch) return res.status(400).json({ message: "Invalid credentials provided." });
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedNewPassword;
+        await user.save();
+
+        res.json({ message: "Password updated successfully." });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 module.exports = router;

@@ -41,6 +41,7 @@ function ProfilePage() {
                 <p>Name: {profileData.name}</p>
                 <p>Email: {profileData.email}</p>
                 <p>Date of Birth: {new Date(profileData.dateOfBirth).toLocaleDateString()}</p>
+                <Link to = "/main/profile/updatepassword">Update Password</Link>
               </div>
             ) : (
               <p>Loading profile data...</p>

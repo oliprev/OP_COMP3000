@@ -20,7 +20,8 @@ function ProfilePage() {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setProfileData(response.data);
+                const data = await response.json();
+                setProfileData(data);
             } catch (error) {
                 console.error("Error fetching profile data:", error);
             }

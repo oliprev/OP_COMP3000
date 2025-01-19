@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.back-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 10px;
+}

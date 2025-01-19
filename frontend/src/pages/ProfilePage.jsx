@@ -32,7 +32,7 @@ function ProfilePage() {
     
     return (
         <div>
-          <Link to = "/main">Back</Link><br></br>
+          <Link to="/main" className="back-link">Back to Dashboard</Link>
           <h1>Profile</h1>
           <p>Find your profile information below</p>
           <div>

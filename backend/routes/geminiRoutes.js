@@ -1,5 +1,6 @@
 const express = require('express');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
+const authenticateToken = require('../middleware/authenticateToken');
 const natural = require('natural');
 const router = express.Router();
 
@@ -15,7 +16,7 @@ function isQueryRelevant(prompt) {
 }
 
 
-router.post('/generate', async (req, res) => {
+router.post('/generate', authenticateToken, async (req, res) => {
     const { prompt } = req.body;
     
     if (!isQueryRelevant(prompt)) {

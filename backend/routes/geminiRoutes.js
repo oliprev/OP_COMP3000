@@ -1,6 +1,6 @@
 const express = require('express');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-const authenticateToken = require('../middleware/authenticateToken');
+const authenticateToken = require('../functions/authenticateToken');
 const natural = require('natural');
 const router = express.Router();
 

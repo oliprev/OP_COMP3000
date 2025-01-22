@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function DeleteProfilePage() {
@@ -15,6 +15,7 @@ function DeleteProfilePage() {
             });
             if (response.status === 200) {
                 localStorage.removeItem("token");
+                localStorage.removeItem("userId");
                 navigate("/");
             }
         } catch (error) {
@@ -26,7 +27,7 @@ function DeleteProfilePage() {
         <div>
             <h1>Delete Profile</h1>
             <button onClick={handleDelete}>Delete Profile</button>
-            <Link to="/">Cancel</Link>
+            <Link to="/main/profile">Cancel</Link>
         </div>
     );
 }

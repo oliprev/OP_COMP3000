@@ -15,6 +15,7 @@ function MainPage() {
             <Link to = "/" onClick={handleLogout} className="back-link">Log out</Link><br></br>
             <h1>Dashboard</h1>
             <Link to = "/main/modules">Training Modules</Link><br></br>
+            <Link to = "/main/gemini">Ask Cybersecurity Related Questions</Link><br></br>
             <Link to = "/main/profile">Profile</Link><br></br>
         </div>
     );

@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
 import ProfilePage from './pages/ProfilePage'
+import CybersecurityQueryPage from './pages/CybersecurityQueryPage'
 import ModulePage from './pages/ModulePage'
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/main" element={<ProtectedRoute element ={MainPage} />} />
         <Route path="/main/modules/" element={<ProtectedRoute element ={ModulePage} />} />
+        <Route path="/main/gemini" element={<ProtectedRoute element ={CybersecurityQueryPage} />} />
         <Route path="/main/profile" element={<ProtectedRoute element ={ProfilePage} />} />
       </Routes>
     </Router>

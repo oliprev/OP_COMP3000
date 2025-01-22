@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
 import ProfilePage from './pages/ProfilePage'
+import DeleteProfilePage from './pages/DeleteProfilePage'
 import ModulePage from './pages/ModulePage'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/main" element={<ProtectedRoute element ={MainPage} />} />
         <Route path="/main/modules/" element={<ProtectedRoute element ={ModulePage} />} />
         <Route path="/main/profile" element={<ProtectedRoute element ={ProfilePage} />} />
+        <Route path="/main/profile/deleteprofile" element={<ProtectedRoute element ={DeleteProfilePage} />} />
       </Routes>
     </Router>
   );

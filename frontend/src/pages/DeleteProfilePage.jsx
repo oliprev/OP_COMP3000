@@ -16,6 +16,7 @@ function DeleteProfilePage() {
             if (response.status === 200) {
                 localStorage.removeItem("token");
                 localStorage.removeItem("userId");
+                alert(response.data.message);
                 navigate("/");
             }
         } catch (error) {

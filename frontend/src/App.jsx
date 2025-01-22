@@ -7,12 +7,9 @@ import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
 import ProfilePage from './pages/ProfilePage'
-<<<<<<< HEAD
-import CybersecurityQueryPage from './pages/CybersecurityQueryPage'
-=======
 import UpdatePasswordPage from './pages/UpdatePasswordPage'
 import DeleteProfilePage from './pages/DeleteProfilePage'
->>>>>>> 5842b9966596750d3644e708010aa0cb890ac0bd
+import CybersecurityQueryPage from './pages/CybersecurityQueryPage'
 import ModulePage from './pages/ModulePage'
 
 function App() {

@@ -1,12 +1,13 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function LoginPage() {
-    const [formData, setFormData] = React.useState({ // Initialise state for form data with empty strings
+    const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
+    const [error, setError] = useState(""); // State to manage error message
 
     const navigate = useNavigate(); // Get navigate function from useNavigate hook
 
@@ -24,12 +25,13 @@ function LoginPage() {
                 navigate("/main"); // Navigate to main page
             }
         } catch (error) {
-            console.error("Error logging in:", error); // Log error
+            setError(error.response?.data?.message || "An error occurred."); // Set error message
         }
     };
 
     return (
         <div>
+          <Link to="/" className="back-link">Back</Link>
           <h1>Login</h1>
           <form onSubmit={handleSubmit}>
             <input
@@ -46,10 +48,12 @@ function LoginPage() {
               value={formData.password} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
             />
+            <br></br><Link to ="/register">No login? Make an account</Link><br></br>
             <button type="submit">Login</button>
+            {error && <p style={{ color: "red" }}>{error}</p>}
           </form>
         </div>
-      );
+    );
 }
 
 export default LoginPage;

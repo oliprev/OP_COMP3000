@@ -1,4 +1,4 @@
-# Teaching and Reinforcing Vital Cybersecurity Skills using OpenAI’s ChatGPT
+# Teaching and Reinforcing Vital Cybersecurity Skills using Google Gemini
 
 ## Supervisor: Professor Nathan Clarke
 

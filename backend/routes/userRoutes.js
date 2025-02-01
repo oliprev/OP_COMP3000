@@ -8,10 +8,9 @@ const validateIds = require('../functions/validateIds');
 
 // CREATE route - for registration
 router.post('/register', async (req, res) => {
-    const { name, email, password, dateOfBirth, skillTestAnswers } = req.body;
+    const { name, email, password, dateOfBirth } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const experienceLevel = determineExperienceLevel(skillTestAnswers); // Determine experience level based on skill test answers
         const newUser = new User({ name, email, password: hashedPassword, dateOfBirth, experienceLevel });
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
@@ -20,12 +19,10 @@ router.post('/register', async (req, res) => {
     }
 });
 
-function determineExperienceLevel(answers) {
-    const correctAnswers = answers.filter(answer => answer.isCorrect).length;
-    if (correctAnswers >= 5) return 'intermediate';
-    if (correctAnswers >= 8) return 'advanced';
-    return 'beginner';
-}
+// CREATE route - for determining skill level
+router.post('/skilltest', authenticateToken, async (req, res) => {
+    const { userId } = req.params;
+});
 
 // CREATE route - for login
 router.post('/login', async (req, res) => {

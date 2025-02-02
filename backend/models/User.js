@@ -1,4 +1,3 @@
-const { type } = require('mocha/lib/utils');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({

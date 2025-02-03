@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
 });
 
 // READ route - for getting name for dashboard display
-router.get(':/userId/name', authenticateToken, async (req, res) => {
+router.get('/:userId/name', authenticateToken, async (req, res) => {
     const { userId } = req.params;
     if (!validateIds([userId])) return res.status(400).json({ message: "Invalid credentials provided." });
     try {

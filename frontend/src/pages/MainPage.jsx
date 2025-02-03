@@ -43,7 +43,7 @@ function MainPage() {
         <div>
             <Link to = "/" onClick={handleLogout} className="back-link">Log out</Link><br></br>
             <h1>Dashboard</h1>
-            {firstName && <p>Welcome, {firstName}!</p>}
+            {firstName && <h2>Welcome, {firstName}!</h2>}
             <Link to = "/main/modules">Training Modules</Link><br></br>
             <Link to = "/main/gemini">Cybersecurity Chatbot</Link><br></br>
             <Link to = "/main/profile">Profile</Link><br></br>

@@ -37,7 +37,7 @@ function CybersecurityQueryPage() {
 
     return (
         <div>
-            <Link to="/main">← Back to Dashboard</Link>
+            <Link to="/main" className="back-link">← Back to Dashboard</Link>
             <h1>Ask Gemini</h1>
             <h2>Interact with our intuitive chatbot, designed to answer cybersecurity queries.</h2>
 

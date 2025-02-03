@@ -7,14 +7,38 @@ const router = express.Router();
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-const keywords = [
-    'encryption', 'phishing', 'password', 'malware', 'cybersecurity', 'social engineering'
-];
+const tokenizer = new natural.WordTokenizer();
 
-function isQueryRelevant(prompt) {
-    return keywords.some(keyword => prompt.toLowerCase().includes(keyword));
+const classifier = new natural.BayesClassifier();
+classifier.addDocument('What is phishing?', 'phishing');
+classifier.addDocument('How does encryption work?', 'encryption');
+classifier.addDocument('How can I protect my password?', 'password');
+classifier.addDocument('What is malware?', 'malware');
+classifier.addDocument('How to prevent social engineering attacks?', 'social engineering');
+classifier.addDocument('What is cybersecurity?', 'cybersecurity');
+classifier.addDocument('How to secure my computer?', 'securing computer');
+classifier.addDocument('How to protect my data?', 'data protection');
+classifier.addDocument('How to secure my network?', 'network security');
+classifier.addDocument('What conventions should I use for secure passwords?', 'password security');
+classifier.addDocument('How do SQL injections work?', 'sql injection');
+classifier.addDocument('What is a DDoS attack?', 'ddos attack');
+classifier.addDocument('Tell me about different types of encryption.', 'types of encryption')
+
+classifier.train();
+
+function tokenizeInput(prompt) {
+    return tokenizer.tokenize(prompt.toLowerCase());
 }
 
+function classifyQuery(prompt) {
+    const tokens = tokenizeInput(prompt);
+    return classifier.classify(tokens.join(' '));
+}
+
+function isQueryRelevant(prompt) {
+    const category = classifyQuery(prompt);
+    return category !== null && category !== undefined;
+}
 
 router.post('/chatbot', authenticateToken, async (req, res) => {
     const { prompt } = req.body;
@@ -29,7 +53,7 @@ router.post('/chatbot', authenticateToken, async (req, res) => {
             contents: [{ role: "user", parts: [{ text: prompt }] }],
             generationConfig: {
                 maxOutputTokens: 100,  
-                temperature: 0.5,
+                temperature: 0.3,
                 topP: 0.9              
             }
         });

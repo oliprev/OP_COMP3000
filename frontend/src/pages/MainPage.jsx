@@ -41,7 +41,7 @@ function MainPage() {
     
     return (
         <div>
-            <Link to = "/" onClick={handleLogout} className="back-link">Log out</Link><br></br>
+            <Link to = "/" onClick={handleLogout} className="back-link">← Log out</Link><br></br>
             <h1>Dashboard</h1>
             {firstName && <h2>Welcome, {firstName}!</h2>}
             <Link to = "/main/modules">Training Modules</Link><br></br>

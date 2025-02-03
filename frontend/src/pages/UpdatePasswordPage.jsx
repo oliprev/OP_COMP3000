@@ -35,7 +35,7 @@ function UpdatePasswordPage() {
 
   return (
     <div>
-        <Link to="/main/profile" className="back-link">Back to Profile</Link>
+        <Link to="/main/profile" className="back-link">← Back to Profile</Link>
         <h1>Update Password</h1>
         <form onSubmit={handleSubmit}>
             <div>

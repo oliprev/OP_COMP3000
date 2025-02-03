@@ -25,7 +25,15 @@ router.post('/chatbot', authenticateToken, async (req, res) => {
     }
     
     try {
-        const result = await model.generateContent(prompt);
+        const result = await model.generateContent({
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: {
+                maxOutputTokens: 100,  
+                temperature: 0.5,
+                topP: 0.9              
+            }
+        });
+        
         const reply = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text;
         res.json({ reply });
     } catch (error) {

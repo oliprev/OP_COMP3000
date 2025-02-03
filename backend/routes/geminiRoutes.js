@@ -16,7 +16,7 @@ function isQueryRelevant(prompt) {
 }
 
 
-router.post('/generate', authenticateToken, async (req, res) => {
+router.post('/chatbot', authenticateToken, async (req, res) => {
     const { prompt } = req.body;
     
     if (!isQueryRelevant(prompt)) {
@@ -26,7 +26,8 @@ router.post('/generate', authenticateToken, async (req, res) => {
     
     try {
         const result = await model.generateContent(prompt);
-        res.json({ response: result.response.text() });
+        const reply = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text;
+        res.json({ reply });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

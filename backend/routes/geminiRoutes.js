@@ -49,6 +49,7 @@ function isQueryRelevant(prompt, threshold = 0.7) {
 
 router.post('/chatbot', authenticateToken, async (req, res) => {
     const { prompt } = req.body;
+    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly.";
     
     if (!isQueryRelevant(prompt)) {
         res.status(400).json({ message: 'Prompt is not relevant.' });
@@ -57,7 +58,7 @@ router.post('/chatbot', authenticateToken, async (req, res) => {
     
     try {
         const result = await model.generateContent({
-            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            contents: [{ role: "user", parts: [{ text: staticPrompt + prompt }] }],
             generationConfig: {
                 maxOutputTokens: 200,  
                 temperature: 0.3,

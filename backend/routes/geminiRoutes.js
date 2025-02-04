@@ -47,12 +47,6 @@ function isQueryRelevant(prompt, threshold = 0.7) {
     return classification && classification.value >= threshold && relevantCategories.includes(classification.label);
 }
 
-async function generateEmail(type){
-    const prompt = type === 'phishing' 
-        ? 'Generate a very realistic phishing email that is very unique and not like any other phishing email. Keep it concise but ensure it is convincing.'
-        : 'Generate a legitimate (NOT phishing) email that is very unique and not like any other email. Keep it concise but ensure it is convincing.';
-}
-
 router.post('/chatbot', authenticateToken, async (req, res) => {
     const { prompt } = req.body;
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly.";
@@ -81,6 +75,35 @@ router.post('/chatbot', authenticateToken, async (req, res) => {
         res.json({ reply });
     } catch (error) {
         res.status(500).json({ message: 'Error generating content.' });
+    }
+});
+
+router.get('/generate-email', authenticateToken, async (req, res) => {
+    const type = Math.random() < 0.5 ? 'phishing' : 'legitimate';
+
+    try {
+        const prompt = type === 'phishing' 
+            ? 'Generate a very realistic phishing email that is unique and highly convincing. Keep it concise but professional.'
+            : 'Generate a legitimate (NOT phishing) email that is unique and professional. Keep it concise but convincing. It can be a wide variety of topics, such as a job application resposnse, a business proposal, or a friendly email from a friend.';
+
+        const result = await model.generateContent({
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: {
+                maxOutputTokens: 200
+            }
+        });
+
+        const email = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        if (!email) {
+            return res.status(500).json({ message: 'Error generating email.' });
+        }
+
+        res.json({ email, type });
+
+    } catch (error) {
+        console.error("Email Generation Error:", error);
+        res.status(500).json({ message: 'Error generating email.' });
     }
 });
 

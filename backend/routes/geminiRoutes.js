@@ -47,6 +47,12 @@ function isQueryRelevant(prompt, threshold = 0.7) {
     return classification && classification.value >= threshold && relevantCategories.includes(classification.label);
 }
 
+async function generateEmail(type){
+    const prompt = type === 'phishing' 
+        ? 'Generate a very realistic phishing email that is very unique and not like any other phishing email. Keep it concise but ensure it is convincing.'
+        : 'Generate a legitimate (NOT phishing) email that is very unique and not like any other email. Keep it concise but ensure it is convincing.';
+}
+
 router.post('/chatbot', authenticateToken, async (req, res) => {
     const { prompt } = req.body;
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly.";

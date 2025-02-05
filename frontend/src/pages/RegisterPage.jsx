@@ -11,7 +11,7 @@ function RegisterPage() {
         experienceLevel: ""
     });
     const navigate = useNavigate(); // Get navigate function from useNavigate hook
-    const [experienceLevel, setExperienceLevel] = useState("Beginner"); // Initialise state for experience level with "Beginner"
+    const [experienceLevel, setExperienceLevel] = useState(null); // Initialise state for experience level
 
     const handleChange = (e) => { // Handle form input changes
         setFormData({ ...formData, [e.target.name]: e.target.value }); // Update form data

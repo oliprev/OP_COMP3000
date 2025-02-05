@@ -8,10 +8,10 @@ const validateIds = require('../functions/validateIds');
 
 // CREATE route - for registration
 router.post('/register', async (req, res) => {
-    const { name, email, password, dateOfBirth } = req.body;
+    const { name, email, password, dateOfBirth, experienceLevel } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ name, email, password: hashedPassword, dateOfBirth });
+        const newUser = new User({ name, email, password: hashedPassword, dateOfBirth, experienceLevel });
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
     } catch (error) {

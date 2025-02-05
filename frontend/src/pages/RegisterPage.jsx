@@ -11,7 +11,6 @@ function RegisterPage() {
         experienceLevel: ""
     });
     const navigate = useNavigate(); // Get navigate function from useNavigate hook
-    const [experienceLevel, setExperienceLevel] = useState(null); // Initialise state for experience level
 
     const handleChange = (e) => { // Handle form input changes
         setFormData({ ...formData, [e.target.name]: e.target.value }); // Update form data
@@ -64,8 +63,9 @@ function RegisterPage() {
             />
             <br></br><label>Select what you believe your cybersecurity skill level is:</label>
             <select
-              value={experienceLevel} // Gets value from experienceLevel
-              onChange={(e) => setExperienceLevel(e.target.value)}>  
+              name="experienceLevel" 
+              value={formData.experienceLevel} // Gets value
+              onChange={handleChange}>  
               <option value="Beginner">Beginner</option>
               <option value="Intermediate">Intermediate</option>
               <option value="Advanced">Advanced</option>

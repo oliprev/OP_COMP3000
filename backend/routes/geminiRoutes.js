@@ -84,12 +84,13 @@ router.get('/generate-email', authenticateToken, async (req, res) => {
     try {
         const prompt = type === 'phishing' 
             ? 'Generate a very realistic phishing email that is unique and highly convincing. Keep it concise but professional.'
-            : 'Generate a legitimate (NOT phishing) email that is unique and professional. Keep it concise but convincing. It can be a wide variety of topics, such as a job application resposnse, a business proposal, or a friendly email from a friend.';
+            : 'Generate a legitimate (NOT phishing) email that is unique and professional. Keep it concise but convincing. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, dates, and other details to make it more realistic.';
 
         const result = await model.generateContent({
             contents: [{ role: "user", parts: [{ text: prompt }] }],
             generationConfig: {
-                maxOutputTokens: 200
+                maxOutputTokens: 200,
+                temperature: 0.8
             }
         });
 

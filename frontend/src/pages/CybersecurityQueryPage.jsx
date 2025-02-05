@@ -60,6 +60,7 @@ function CybersecurityQueryPage() {
                     type="text"
                     placeholder="Type your cybersecurity query..."
                     value={query}
+                    className="chat-input"
                     onChange={(e) => setQuery(e.target.value)}
                     disabled={loading}
                 />

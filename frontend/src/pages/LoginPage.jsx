@@ -31,7 +31,7 @@ function LoginPage() {
 
     return (
         <div>
-          <Link to="/" className="back-link">Back</Link>
+          <Link to="/" className="back-link">← Back</Link>
           <h1>Login</h1>
           <form onSubmit={handleSubmit}>
             <input

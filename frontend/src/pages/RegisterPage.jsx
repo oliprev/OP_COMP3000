@@ -29,7 +29,7 @@ function RegisterPage() {
 
     return (
         <div>
-          <Link to="/" className="back-link">Back</Link>
+          <Link to="/" className="back-link">← Back</Link>
           <h1>Register</h1>
           <form onSubmit={handleSubmit}>
             <input

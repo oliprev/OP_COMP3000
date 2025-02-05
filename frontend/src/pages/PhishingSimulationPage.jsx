@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 function PhishingSimulationPage () {
@@ -40,6 +41,7 @@ function PhishingSimulationPage () {
 
     return (
         <div>
+            <Link to="/main" className="back-link">← Back to Dashboard</Link>
             <h1>Phishing or Legitimate?</h1>
             <p>Read the email below and decide for yourself whether it is likely to be a phishing email, or a legitimate one.</p>
 

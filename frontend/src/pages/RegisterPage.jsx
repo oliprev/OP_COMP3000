@@ -39,28 +39,28 @@ function RegisterPage() {
               placeholder="Name"
               value={formData.name} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
-            />
+            /><br></br>
             <input
               type="email"
               name="email"
               placeholder="Email"
               value={formData.email} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
-            />
+            /><br></br>
             <input
               type="password"
               name="password"
               placeholder="Password"
               value={formData.password} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
-            />
+            /><br></br>
             <input
               type="date"
               name="dateOfBirth"
               placeholder="Date of Birth"
               value={formData.dateOfBirth} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
-            />
+            /><br></br>
             <br></br><label>Select what you believe your cybersecurity skill level is:</label>
             <select
               name="experienceLevel" 

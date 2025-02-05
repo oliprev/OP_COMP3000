@@ -46,6 +46,7 @@ function MainPage() {
             {firstName && <h2>Welcome, {firstName}!</h2>}
             <Link to = "/main/modules">Training Modules</Link><br></br>
             <Link to = "/main/gemini">Cybersecurity Chatbot</Link><br></br>
+            <Link to = "/main/phishing">Phishing Simulation</Link><br></br>
             <Link to = "/main/profile">Profile</Link><br></br>
         </div>
     );

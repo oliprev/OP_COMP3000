@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, maxlength: 254 },
     password : { type: String, required: true },
     dateOfBirth : { type: Date, required: true },
-    experienceLevel: { type: String, required: true, enum: ['beginner', 'intermediate', 'advanced'], default: 'beginner' }
+    experienceLevel: { type: String, required: true, enum: ['Beginner', 'Intermediate', 'Advanced'], default: 'Beginner' }
 });
 
 module.exports = mongoose.model('User', userSchema);

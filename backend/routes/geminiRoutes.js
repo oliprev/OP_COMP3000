@@ -80,12 +80,28 @@ router.post('/chatbot', authenticateToken, async (req, res) => {
 
 router.get('/generate-email', authenticateToken, async (req, res) => {
     const type = Math.random() < 0.5 ? 'phishing' : 'legitimate';
+    const experienceLevel = req.query.experienceLevel || 'beginner';
+
+    let prompt;
+    if (type === 'phishing') {
+        prompt = experienceLevel === 'Beginner' 
+            ? 'Generate a simple phishing email that is easy to understand. Keep it concise and straightforward. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.'
+            : experienceLevel === 'Intermediate'
+            ? 'Generate a realistic phishing email that is moderately convincing. Use clear language and some deceptive techniques. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.'
+            : experienceLevel === 'Advanced'
+            ? 'Generate a highly sophisticated phishing email that is unique and highly convincing. Use advanced language and techniques to make it very deceptive. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.'
+            : 'Generate a very realistic phishing email that is unique and highly convincing. Keep it concise but deceiving. Do not include any notes about the legality of phishing emails, as the user is meant to guess and the user knows phishing is wrong. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.';
+    } else {
+        prompt = experienceLevel === 'Beginner' 
+            ? 'Generate a simple legitimate email that is easy to understand. Keep it concise and straightforward. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.'
+            : experienceLevel === 'Intermediate'
+            ? 'Generate a moderately professional legitimate email that is convincing. Use clear language and some professional techniques. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.'
+            : experienceLevel === 'Advanced'
+            ? 'Generate a highly professional legitimate email that is unique and convincing. Use advanced language and techniques to make it very professional. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.'
+            : 'Generate a legitimate (NOT phishing) email that is unique and professional. Keep it concise but convincing. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.';
+    }
 
     try {
-        const prompt = type === 'phishing' 
-            ? 'Generate a very realistic phishing email that is unique and highly convincing. Keep it concise but deceiving. Do not include any notes about the legality of phishing emails, as the user is meant to guess and the user knows phishing is wrong. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.'
-            : 'Generate a legitimate (NOT phishing) email that is unique and professional. Keep it concise but convincing. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.';
-
         const result = await model.generateContent({
             contents: [{ role: "user", parts: [{ text: prompt }] }],
             generationConfig: {

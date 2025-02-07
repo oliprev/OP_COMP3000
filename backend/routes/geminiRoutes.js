@@ -51,7 +51,7 @@ function isQueryRelevant(prompt, threshold = 0.7) {
     return classification && classification.value >= threshold && relevantCategories.includes(classification.label); // Returns whether query is relevant
 }
 
-// Chatbot route
+// CREATE route - for chatbot
 router.post('/chatbot', authenticateToken, async (req, res) => {
     const { prompt } = req.body; // Gets prompt from request body
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly."; // Static prompt telling to not return any formatting options
@@ -84,22 +84,22 @@ router.post('/chatbot', authenticateToken, async (req, res) => {
     }
 });
 
-// Email generation route
+// READ route - for email generation
 router.get('/generate-email', authenticateToken, async (req, res) => {
     const type = Math.random() < 0.5 ? 'phishing' : 'legitimate'; // Randomly selects type of email, heads or tails
     const experienceLevel = req.query.experienceLevel || 'beginner'; // Gets experience level from query, defaults to beginner
 
     let prompt; // Initialises prompt
-    if (type === 'phishing') {
-        prompt = experienceLevel === 'Beginner' 
+    if (type === 'phishing') { // If type is phishing ..
+        prompt = experienceLevel === 'Beginner' // Sets prompt based on experience level
             ? 'Generate a simple phishing email that is easy to understand. Keep it concise and straightforward. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.'
             : experienceLevel === 'Intermediate'
             ? 'Generate a realistic phishing email that is moderately convincing. Use clear language and some deceptive techniques. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.'
             : experienceLevel === 'Advanced'
             ? 'Generate a highly sophisticated phishing email that is unique and highly convincing. Use advanced language and techniques to make it very deceptive. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.'
             : 'Generate a very realistic phishing email that is unique and highly convincing. Keep it concise but deceiving. Do not include any notes about the legality of phishing emails, as the user is meant to guess and the user knows phishing is wrong. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.';
-    } else {
-        prompt = experienceLevel === 'Beginner' 
+    } else { // If type is legitimate ..
+        prompt = experienceLevel === 'Beginner' // Sets prompt based on experience level
             ? 'Generate a simple legitimate email that is easy to understand. Keep it concise and straightforward. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.'
             : experienceLevel === 'Intermediate'
             ? 'Generate a moderately professional legitimate email that is convincing. Use clear language and some professional techniques. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.'
@@ -109,21 +109,21 @@ router.get('/generate-email', authenticateToken, async (req, res) => {
     }
 
     try {
-        const result = await model.generateContent({
-            contents: [{ role: "user", parts: [{ text: prompt }] }],
-            generationConfig: {
-                maxOutputTokens: 200,
-                temperature: 0.8
+        const result = await model.generateContent({ // Generates content
+            contents: [{ role: "user", parts: [{ text: prompt }] }], // Sets prompt
+            generationConfig: { // Generation configuration
+                maxOutputTokens: 200, // Max output tokens
+                temperature: 0.8 // Temperature - controls randomness
             }
         });
 
-        const email = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text;
+        const email = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text; // Gets email from result
 
         if (!email) {
-            return res.status(500).json({ message: 'Error generating email.' });
+            return res.status(500).json({ message: 'Error generating email.' }); // Returns error if email is not generated
         }
 
-        res.json({ email, type });
+        res.json({ email, type }); // Returns email and type
 
     } catch (error) {
         console.error("Email Generation Error:", error);

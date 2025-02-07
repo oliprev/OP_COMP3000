@@ -3,25 +3,25 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
-const userRoutes = require('./routes/userRoutes');
-const geminiRoutes = require('./routes/geminiRoutes');
+const userRoutes = require('./routes/userRoutes'); // Import user routes
+const geminiRoutes = require('./routes/geminiRoutes'); // Import gemini routes
 
-const app = express();
-const server = http.createServer(app);
-const PORT = 9000;  
-const cors = require('cors');
+const app = express(); // Initialises express app
+const server = http.createServer(app); // Creates express server
+const PORT = 9000; // Sets port number
+const cors = require('cors'); // Imports cors
 
-app.use(cors({ origin: 'http://localhost:3001' }));
-app.use(express.json());
-app.use('/api/users', userRoutes);
-app.use('/api/gemini', geminiRoutes);
+app.use(cors({ origin: 'http://localhost:3001' })); // Allows requests from frontend
+app.use(express.json()); // Allows JSON parsing
+app.use('/api/users', userRoutes); // Defines user route URL
+app.use('/api/gemini', geminiRoutes); // Defines gemini route URL
 
-mongoose.connect(process.env.URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.log(err));
+mongoose.connect(process.env.URI) // Connects to MongoDB
+    .then(() => console.log('Connected to MongoDB')) // Logs success message
+    .catch(err => console.log(err)); // Logs error message
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => { // Verfies server is running
     res.send('Hello World');
 });
 
-server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server is running on port ${PORT}`)); // Logs server running

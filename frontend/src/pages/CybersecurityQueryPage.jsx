@@ -3,36 +3,37 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function CybersecurityQueryPage() {
-    const [query, setQuery] = useState("");
-    const [messages, setMessages] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [query, setQuery] = useState(""); // Query state
+    const [messages, setMessages] = useState([]); // Message state
+    const [loading, setLoading] = useState(false); // Loading state
+    const [error, setError] = useState(null); // Error state
 
+    // Function to send query
     const sendQuery = async () => {
-        if (!query.trim()) return;
-        setLoading(true);
-        setError(null);
+        if (!query.trim()) return; // If query is empty, return
+        setLoading(true); // Set loading to true
+        setError(null); // Resets error
 
-        const newMessages = [...messages, { role: "user", content: query }];
-        setMessages(newMessages);
+        const newMessages = [...messages, { role: "user", content: query }]; // Adds user message to message array
+        setMessages(newMessages); // Sets messages
 
         try {
-            const token = localStorage.getItem("token");
-            const response = await axios.post("http://localhost:9000/api/gemini/chatbot", 
+            const token = localStorage.getItem("token"); // Gets token from local storage
+            const response = await axios.post("http://localhost:9000/api/gemini/chatbot", // Sends request to chatbot route
                 { 
-                    prompt: query 
+                    prompt: query // Sends query as prompt
                 },{ 
-                    headers: { 'Authorization': `Bearer ${token}` } 
+                    headers: { 'Authorization': `Bearer ${token}` } // Sends token in header
                 }
             );
 
-            setMessages([...newMessages, { role: "bot", content: response.data.reply }]);
+            setMessages([...newMessages, { role: "bot", content: response.data.reply }]); // Adds bot reply message to message array
         } catch (err) {
-            setError("Error: Unable to fetch response. Please try again.");
+            setError("Error: Unable to fetch response. Please try again."); // Sets error message - usually if query is not relevant
         }
 
-        setQuery("");
-        setLoading(false);
+        setQuery(""); // Resets query
+        setLoading(false); // Sets loading to false
     };
 
     return (

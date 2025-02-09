@@ -88,7 +88,7 @@ router.post('/chatbot', authenticateToken, async (req, res) => {
 router.get('/generate-email', authenticateToken, async (req, res) => {
     const type = Math.random() < 0.5 ? 'phishing' : 'legitimate'; // Randomly selects type of email, heads or tails
     const experienceLevel = req.query.experienceLevel || 'beginner'; // Gets experience level from query, defaults to beginner
-    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly."; // Static prompt telling to not return any formatting options
+    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Also do not include any reference to potential phishing sites - the user is meant to analyse the email's language. "; // Static prompt telling to not return any formatting options
 
     let prompt; // Initialises prompt
     if (type === 'phishing') { // If type is phishing ..

@@ -20,6 +20,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.4",
     "natural": "^8.0.1",
+    "nodemailer": "^6.10.0",
     "op_comp3000": "file:..",
     "openai": "^4.78.1"
   },

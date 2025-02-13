@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function HomePage() {
     return (
         <div>
-            <h1>SecuritySafe</h1>
+            <h1>Untitled security application</h1>
             <Link to="/register">Register</Link><br></br> 
             <Link to="/login">Login</Link>
             <footer>

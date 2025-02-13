@@ -22,6 +22,7 @@ function LoginPage() {
             if (response.status === 200) { // If response status is OK
                 localStorage.setItem("token", response.data.token); // Store token in local storage
                 localStorage.setItem("userId", response.data.userId); // Store user ID in local storage
+                localStorage.setItem("experienceLevel", response.data.experienceLevel); // Store experience level in local storage
                 navigate("/main"); // Navigate to main page
             }
         } catch (error) {

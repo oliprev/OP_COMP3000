@@ -132,4 +132,47 @@ router.get('/generate-email', authenticateToken, async (req, res) => {
     }
 });
 
-module.exports = router;
+// READ route - for content generation
+router.get('/generate-content', authenticateToken, async (req, res) => {
+    const { topic, experienceLevel } = req.query; // Gets topic and experience level from query
+    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly."; // Static prompt telling to not return any formatting options
+
+    let prompt; // Initialises prompt
+    switch (experienceLevel) {
+        case "Beginner": // If experience level is beginner
+            prompt = `Generate beginner-level content about ${topic}.`
+            break;
+        case "Intermediate": // If experience level is intermediate
+            prompt = `Generate intermediate-level content about ${topic}.`
+            break;
+        case "Advanced": // If experience level is advanced
+            prompt = `Generate advanced-level content about ${topic}.`
+            break;
+        default:
+            prompt = `Generate content about ${topic}.`
+            break;
+    }
+
+    try {
+        const result = await model.generateContent({ // Generates content
+            contents: [{ role: "user", parts: [{ text: staticPrompt + prompt }] }], // Sets prompt
+            generationConfig: { // Generation configuration
+                maxOutputTokens: 200, // Max output tokens
+                temperature: 0.8 // Temperature - controls randomness
+            }
+        });
+
+        const content = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text; // Gets content from result
+
+        if (!content) {
+            return res.status(500).json({ message: 'Error generating content.' }); // Returns error if content is not generated
+        }
+
+        res.json({ content }); // Returns content
+    } catch (error) {
+        console.error("Content Generation Error:", error);
+        res.status(500).json({ message: 'Error generating content.' });
+    }
+});
+
+module.exports = router; // Exports router

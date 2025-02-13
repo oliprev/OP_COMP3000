@@ -10,7 +10,7 @@ function ModulePage() {
         const experienceLevel = localStorage.getItem("experienceLevel");
         const fetchContent = async (topic) => {
             try {
-                const response = await axios.get("http://localhost:9000/api/gemini/generate-content");
+                const response = await axios.get("http://localhost:9000/api/gemini/generate-content?topic=${topic}&experienceLevel=${experienceLevel}");
                 setContent(prevContent => ({ ...prevContent, [topic]: response.data.content }));
             } catch (error) {
                 console.error("Error fetching content:", error);

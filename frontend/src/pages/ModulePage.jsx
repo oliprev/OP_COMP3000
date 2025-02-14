@@ -30,19 +30,17 @@ function ModulePage() {
             <h2>Interact with our carefully curated learning material.</h2>
             {topics.map(topic => (
                 <div key={topic}>
-                    <h3>{topic}</h3>
+                    <h3><Link to={`/main/modules/${topic}`}>{topic}</Link></h3>
                     {content[topic] ? (
                         <div>
                             <h4>{content[topic].title}</h4>
                             <p>{content[topic].description}</p>
                         </div>
-                    ) : (
-                        <p>Loading content for {topic}...</p>
-                    )}
+                    ) : null}
                 </div>
             ))}
         </div>
-    )
+    );
 }
 
 export default ModulePage;

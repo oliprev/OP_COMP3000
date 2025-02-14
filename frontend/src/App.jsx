@@ -11,6 +11,7 @@ import UpdatePasswordPage from './pages/UpdatePasswordPage'
 import DeleteProfilePage from './pages/DeleteProfilePage'
 import CybersecurityQueryPage from './pages/CybersecurityQueryPage'
 import ModulePage from './pages/ModulePage'
+import ModuleDetailPage from './pages/ModuleDetailPage'
 import PhishingSimulationPage from './pages/PhishingSimulationPage'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/main" element={<ProtectedRoute element ={MainPage} />} />
         <Route path="/main/modules/" element={<ProtectedRoute element ={ModulePage} />} />
+        <Route path="/main/modules/:topic" element={<ProtectedRoute element ={ModuleDetailPage} />} />
         <Route path="/main/gemini" element={<ProtectedRoute element ={CybersecurityQueryPage} />} />
         <Route path="/main/phishing" element={<ProtectedRoute element ={PhishingSimulationPage} />} />
         <Route path="/main/profile" element={<ProtectedRoute element ={ProfilePage} />} />

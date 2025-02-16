@@ -30,8 +30,8 @@ function TopicDetailPage() {
             <Link to="/main/modules" className="back-link">← Back to Modules</Link>
             {content ? (
                 <div>
-                    <h1>{content.title}</h1>
-                    <p>{content.description}</p>
+                    <h1>{topic}</h1>
+                    <p>{content}</p>
                 </div>
             ) : (
                 <p>Loading content for {topic}...</p>

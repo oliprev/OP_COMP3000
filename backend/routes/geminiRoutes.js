@@ -135,7 +135,7 @@ router.get('/generate-email', authenticateToken, async (req, res) => {
 // READ route - for content generation
 router.get('/generate-content', authenticateToken, async (req, res) => {
     const { topic, experienceLevel } = req.query; // Gets topic and experience level from query
-    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly."; // Static prompt telling to not return any formatting options
+    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming."; // Static prompt telling to not return any formatting options
 
     let prompt; // Initialises prompt
     switch (experienceLevel) {
@@ -157,7 +157,7 @@ router.get('/generate-content', authenticateToken, async (req, res) => {
         const result = await model.generateContent({ // Generates content
             contents: [{ role: "user", parts: [{ text: staticPrompt + prompt }] }], // Sets prompt
             generationConfig: { // Generation configuration
-                maxOutputTokens: 200, // Max output tokens
+                maxOutputTokens: 400, // Max output tokens
                 temperature: 0.8 // Temperature - controls randomness
             }
         });

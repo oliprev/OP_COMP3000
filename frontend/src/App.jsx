@@ -13,25 +13,30 @@ import CybersecurityQueryPage from './pages/CybersecurityQueryPage'
 import ModulePage from './pages/ModulePage'
 import ModuleDetailPage from './pages/ModuleDetailPage'
 import PhishingSimulationPage from './pages/PhishingSimulationPage'
+import { ThemeProvider } from '@mui/material/styles'
+import theme from './theme'
+
 
 function App() {
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/main" element={<ProtectedRoute element ={MainPage} />} />
-        <Route path="/main/modules/" element={<ProtectedRoute element ={ModulePage} />} />
-        <Route path="/main/modules/:topic" element={<ProtectedRoute element ={ModuleDetailPage} />} />
-        <Route path="/main/gemini" element={<ProtectedRoute element ={CybersecurityQueryPage} />} />
-        <Route path="/main/phishing" element={<ProtectedRoute element ={PhishingSimulationPage} />} />
-        <Route path="/main/profile" element={<ProtectedRoute element ={ProfilePage} />} />
-        <Route path="/main/profile/updatepassword" element={<ProtectedRoute element ={UpdatePasswordPage} />} />
-        <Route path="/main/profile/deleteprofile" element={<ProtectedRoute element ={DeleteProfilePage} />} />
-      </Routes>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/main" element={<ProtectedRoute element ={MainPage} />} />
+          <Route path="/main/modules/" element={<ProtectedRoute element ={ModulePage} />} />
+          <Route path="/main/modules/:topic" element={<ProtectedRoute element ={ModuleDetailPage} />} />
+          <Route path="/main/gemini" element={<ProtectedRoute element ={CybersecurityQueryPage} />} />
+          <Route path="/main/phishing" element={<ProtectedRoute element ={PhishingSimulationPage} />} />
+          <Route path="/main/profile" element={<ProtectedRoute element ={ProfilePage} />} />
+          <Route path="/main/profile/updatepassword" element={<ProtectedRoute element ={UpdatePasswordPage} />} />
+          <Route path="/main/profile/deleteprofile" element={<ProtectedRoute element ={DeleteProfilePage} />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 

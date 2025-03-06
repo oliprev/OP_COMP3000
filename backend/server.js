@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const http = require('http');
 const userRoutes = require('./routes/userRoutes'); // Import user routes
 const geminiRoutes = require('./routes/geminiRoutes'); // Import gemini routes
+const cybokRoutes = require('./routes/cybokRoutes'); // Import cybok routes
 
 const app = express(); // Initialises express app
 const server = http.createServer(app); // Creates express server
@@ -15,12 +16,13 @@ app.use(cors({ origin: 'http://localhost:3001' })); // Allows requests from fron
 app.use(express.json()); // Allows JSON parsing
 app.use('/api/users', userRoutes); // Defines user route URL
 app.use('/api/gemini', geminiRoutes); // Defines gemini route URL
+app.use('/api/cybok', cybokRoutes); // Defines cybok route URL
 
 mongoose.connect(process.env.URI) // Connects to MongoDB
     .then(() => console.log('Connected to MongoDB')) // Logs success message
     .catch(err => console.log(err)); // Logs error message
 
-app.get('/', (req, res) => { // Verfies server is running
+app.get('/', (req, res) => { // Verifies server is running
     res.send('Hello World');
 });
 

@@ -14,4 +14,13 @@ router.post('/knowledge-areas', async (req, res) => {
     }
 });
 
+router.get('/knowledge-areas', async (req, res) => {
+    try {
+        const knowledgeAreas = await KnowledgeArea.find();
+        res.status(200).json(knowledgeAreas);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+});
+
 module.exports = router;

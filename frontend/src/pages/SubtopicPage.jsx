@@ -1,40 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function SubtopicPage() {
     const { topic } = useParams();
+    const navigate = useNavigate();
     const [subtopics, setSubtopics] = useState([]);
     const [knowledgeArea, setKnowledgeArea] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const hasSections = (subtopic) => subtopic?.sections?.length > 0;
+
     useEffect(() => {
-        axios.get(`http://localhost:9000/api/cybok/knowledge-areas/${topic}/subtopics`)
-            .then(response => {
-                setSubtopics(response.data.subtopics);
+        const fetchSubtopics = async () => {
+            try {
+                const response = await axios.get(`http://localhost:9000/api/cybok/knowledge-areas/${topic}/subtopics`);
+                const fetchedSubtopics = response.data.subtopics.map(subtopic => ({
+                    ...subtopic,
+                    hasSections: hasSections(subtopic) // Use helper function
+                }));
+                setSubtopics(fetchedSubtopics);
                 setKnowledgeArea(response.data.knowledgeArea);
-                setLoading(false);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error fetching subtopics:', error);
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchSubtopics();
     }, [topic]);
+
+    const handleSubtopicClick = (subtopic) => {
+        if (subtopic.hasSections) {
+            navigate(`/main/topics/${topic}/subtopics/${subtopic._id}/sections`);
+        } else {
+            navigate(`/main/topics/${topic}/subtopics/${subtopic._id}/learn`);
+        }
+    };
 
     if (loading) return <p>Loading...</p>;
 
     return (
         <div>
             <Link to="/main/topics" className="back-link">← Back to Learning</Link>
-            {knowledgeArea && <h1>{knowledgeArea.name}</h1>}
-            <h1>{knowledgeArea}</h1>           
+            {knowledgeArea && <h1>{knowledgeArea}</h1>}
+
             <h2>Subtopics</h2>
             <ul>
                 {subtopics.length > 0 ? (
                     subtopics.map(subtopic => (
-                        <Link key={subtopic._id} to={`/main/topics/${topic}/subtopics/${subtopic._id}/sections`}>
-                            <h3>{subtopic.name}</h3>
-                        </Link>
+                        <button key={subtopic._id} onClick={() => handleSubtopicClick(subtopic)}>
+                            {subtopic.name}
+                        </button>
                     ))
                 ) : (
                     <p>No subtopics available.</p>
@@ -42,6 +60,6 @@ function SubtopicPage() {
             </ul>
         </div>
     );
-};
+}
 
 export default SubtopicPage;

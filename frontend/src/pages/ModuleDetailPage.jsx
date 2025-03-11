@@ -27,6 +27,7 @@ const ModuleSubtopicsPage = () => {
         <div>
             <Link to="/main/modules" className="back-link">← Back to Modules</Link>
             {knowledgeArea && <h1>{knowledgeArea.name}</h1>}
+            <h1>{knowledgeArea}</h1>           
             <h2>Subtopics</h2>
             <ul>
                 {subtopics.length > 0 ? (

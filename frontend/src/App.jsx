@@ -13,6 +13,7 @@ import CybersecurityQueryPage from './pages/CybersecurityQueryPage'
 import TopicPage from './pages/TopicPage'
 import SubtopicPage from './pages/SubtopicPage'
 import SectionPage from './pages/SectionPage'
+import LearningPage from './pages/LearningPage'
 import PhishingSimulationPage from './pages/PhishingSimulationPage'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
@@ -31,6 +32,8 @@ function App() {
           <Route path="/main/topics/" element={<ProtectedRoute element ={TopicPage} />} />
           <Route path="/main/topics/:topic/subtopics" element={<ProtectedRoute element ={SubtopicPage} />} />
           <Route path="/main/topics/:topic/subtopics/:subtopic/sections" element={<ProtectedRoute element ={SectionPage} />} />
+          <Route path="/main/topics/:topic/subtopics/:subtopic/learn" element={<ProtectedRoute element={LearningPage} />} />
+          <Route path="/main/topics/:topic/subtopics/:subtopic/sections/:section/learn" element={<ProtectedRoute element={LearningPage} />} />
           <Route path="/main/gemini" element={<ProtectedRoute element ={CybersecurityQueryPage} />} />
           <Route path="/main/phishing" element={<ProtectedRoute element ={PhishingSimulationPage} />} />
           <Route path="/main/profile" element={<ProtectedRoute element ={ProfilePage} />} />

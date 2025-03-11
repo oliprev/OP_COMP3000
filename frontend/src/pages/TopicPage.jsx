@@ -4,16 +4,20 @@ import axios from 'axios';
 
 const TopicPage = () => {
     const [knowledgeAreas, setKnowledgeAreas] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axios.get('http://localhost:9000/api/cybok/knowledge-areas') 
             .then((response) => {
                 setKnowledgeAreas(response.data);
+                setLoading(false);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
     }, []);
+
+    if (loading) return <p>Loading...</p>;
 
     return (
         <div>

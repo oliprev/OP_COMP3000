@@ -39,7 +39,8 @@ router.get('/knowledge-areas/:id/subtopics', async (req, res) => {
             knowledgeArea: knowledgeArea.name,
             subtopics: knowledgeArea.subtopics.map(subtopic => ({
                 _id: subtopic._id,
-                name: subtopic.name
+                name: subtopic.name,
+                sections: subtopic.sections
             }))
         });
     } catch (error) {

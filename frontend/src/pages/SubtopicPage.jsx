@@ -32,7 +32,7 @@ const SubtopicPage = () => {
             <ul>
                 {subtopics.length > 0 ? (
                     subtopics.map(subtopic => (
-                        <Link key={subtopic._id} to={`/main/topics/${topic}/subtopics/${subtopic._id}`}>
+                        <Link key={subtopic._id} to={`/main/topics/${topic}/subtopics/${subtopic._id}/sections`}>
                             <h3>{subtopic.name}</h3>
                         </Link>
                     ))

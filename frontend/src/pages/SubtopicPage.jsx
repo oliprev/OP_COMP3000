@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const ModuleSubtopicsPage = () => {
+const SubtopicPage = () => {
     const { topic } = useParams();
     const [subtopics, setSubtopics] = useState([]);
     const [knowledgeArea, setKnowledgeArea] = useState(null);
@@ -25,14 +25,14 @@ const ModuleSubtopicsPage = () => {
 
     return (
         <div>
-            <Link to="/main/modules" className="back-link">← Back to Modules</Link>
+            <Link to="/main/topics" className="back-link">← Back to Learning</Link>
             {knowledgeArea && <h1>{knowledgeArea.name}</h1>}
             <h1>{knowledgeArea}</h1>           
             <h2>Subtopics</h2>
             <ul>
                 {subtopics.length > 0 ? (
                     subtopics.map(subtopic => (
-                        <Link key={subtopic._id} to={`/main/modules/${topic}/subtopics/${subtopic._id}`}>
+                        <Link key={subtopic._id} to={`/main/topics/${topic}/subtopics/${subtopic._id}`}>
                             <h3>{subtopic.name}</h3>
                         </Link>
                     ))
@@ -44,4 +44,4 @@ const ModuleSubtopicsPage = () => {
     );
 };
 
-export default ModuleSubtopicsPage;
+export default SubtopicPage;

@@ -10,8 +10,8 @@ import ProfilePage from './pages/ProfilePage'
 import UpdatePasswordPage from './pages/UpdatePasswordPage'
 import DeleteProfilePage from './pages/DeleteProfilePage'
 import CybersecurityQueryPage from './pages/CybersecurityQueryPage'
-import ModulePage from './pages/ModulePage'
-import ModuleDetailPage from './pages/ModuleDetailPage'
+import TopicPage from './pages/TopicPage'
+import SubtopicPage from './pages/SubtopicPage'
 import PhishingSimulationPage from './pages/PhishingSimulationPage'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
@@ -27,8 +27,8 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/main" element={<ProtectedRoute element ={MainPage} />} />
-          <Route path="/main/modules/" element={<ProtectedRoute element ={ModulePage} />} />
-          <Route path="/main/modules/:topic/subtopics" element={<ProtectedRoute element ={ModuleDetailPage} />} />
+          <Route path="/main/topics/" element={<ProtectedRoute element ={TopicPage} />} />
+          <Route path="/main/topics/:topic/subtopics" element={<ProtectedRoute element ={SubtopicPage} />} />
           <Route path="/main/gemini" element={<ProtectedRoute element ={CybersecurityQueryPage} />} />
           <Route path="/main/phishing" element={<ProtectedRoute element ={PhishingSimulationPage} />} />
           <Route path="/main/profile" element={<ProtectedRoute element ={ProfilePage} />} />

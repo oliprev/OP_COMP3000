@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const ModulePage = () => {
+const TopicPage = () => {
     const [knowledgeAreas, setKnowledgeAreas] = useState([]);
 
     useEffect(() => {
@@ -18,13 +18,13 @@ const ModulePage = () => {
     return (
         <div>
             <Link to="/main" className="back-link">← Back to Dashboard</Link>
-            <h1>Training Modules</h1>
+            <h1>Learning</h1>
             <div>
                 {knowledgeAreas.length > 0 ? (
                     knowledgeAreas.map((knowledgeArea) => (
                         <Link 
                             key={knowledgeArea._id} 
-                            to={`/main/modules/${knowledgeArea._id}/subtopics`} 
+                            to={`/main/topics/${knowledgeArea._id}/subtopics`} 
                         >
                             <h2>{knowledgeArea.name}</h2>
                             <p>{knowledgeArea.description}</p>
@@ -38,4 +38,4 @@ const ModulePage = () => {
     );
 };
 
-export default ModulePage;
+export default TopicPage;

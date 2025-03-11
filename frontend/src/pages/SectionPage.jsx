@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const SectionPage = () => {
+function SectionPage() {
     const { topic, subtopic } = useParams();
     const [sections, setSections] = useState([]);
     const [loading, setLoading] = useState(true);

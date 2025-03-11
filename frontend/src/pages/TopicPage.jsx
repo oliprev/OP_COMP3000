@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const TopicPage = () => {
+function TopicPage() {
     const [knowledgeAreas, setKnowledgeAreas] = useState([]);
     const [loading, setLoading] = useState(true);
 

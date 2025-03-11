@@ -19,13 +19,16 @@ const ModulePage = () => {
         <div>
             <Link to="/main" className="back-link">← Back to Dashboard</Link>
             <h1>Training Modules</h1>
-            <div className="knowledge-area-list">
+            <div>
                 {knowledgeAreas.length > 0 ? (
                     knowledgeAreas.map((knowledgeArea) => (
-                        <div key={knowledgeArea._id} className="knowledge-area-card">
+                        <Link 
+                            key={knowledgeArea._id} 
+                            to={`/main/modules/${knowledgeArea._id}/subtopics`} 
+                        >
                             <h2>{knowledgeArea.name}</h2>
                             <p>{knowledgeArea.description}</p>
-                        </div>
+                        </Link>
                     ))
                 ) : (
                     <p>No knowledge areas available</p>

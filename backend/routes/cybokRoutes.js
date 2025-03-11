@@ -60,4 +60,15 @@ router.get('/knowledge-areas/:id/subtopics/:subtopicId', async (req, res) => {
     }
 });
 
+router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections', async (req, res) => {
+    try {
+        const { topicId, subtopicId } = req.params;
+        const knowledgeArea = await KnowledgeArea.findById(topicId);
+        const subtopic = knowledgeArea.subtopics.id(subtopicId);
+        res.json(subtopic.sections);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+});
+
 module.exports = router;

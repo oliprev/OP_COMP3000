@@ -28,7 +28,7 @@ function SectionPage() {
                 {sections.length > 0 ? (
                     sections.map((section) => (
                         <Link 
-                            key={section._id} to={`/main/topics/${topic}/subtopics/${subtopic}/sections/${section._id}`} 
+                            key={section._id} to={`/main/topics/${topic}/subtopics/${subtopic}/sections/${section._id}/learn`} 
                         >
                             <h2>{section.name}</h2>
                         </Link>

@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function LearningPage() {
     const { topic, subtopic, section } = useParams();

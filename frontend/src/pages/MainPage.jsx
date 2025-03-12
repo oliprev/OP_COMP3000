@@ -42,8 +42,9 @@ function MainPage() {
     return (
         <div>
             <Link to = "/" onClick={handleLogout} className="back-link">← Log out</Link><br></br>
-            <h1>Dashboard</h1>
-            {firstName && <h2>Welcome, {firstName}!</h2>}
+            <h1>SecuLearn</h1>
+            <h2>Dashboard</h2>
+            {firstName && <h3>Welcome, {firstName}!</h3>}
             <Link to = "/main/topics">Learning</Link><br></br>
             <Link to = "/main/gemini">Cybersecurity Chatbot</Link><br></br>
             <Link to = "/main/phishing">Phishing Simulation</Link><br></br>

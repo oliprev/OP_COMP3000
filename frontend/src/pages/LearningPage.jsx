@@ -1,7 +1,15 @@
 import { useParams, Link } from "react-router-dom";
 
 function LearningPage() {
-    const { topic, subtopic } = useParams(); 
+    const { topic, subtopic, section } = useParams();
+
+    useEffect(() => {
+        // Fetches content based on section if subtopic has them
+        if (section) {
+        // Otherwise, fetches content based on subtopic
+        } else {
+        };
+    }, [topic, subtopic, section]);
 
     return (
         <div>

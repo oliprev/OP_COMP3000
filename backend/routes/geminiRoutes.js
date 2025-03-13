@@ -134,23 +134,47 @@ router.get('/generate-email', authenticateToken, async (req, res) => {
 
 // READ route - for content generation
 router.get('/generate-content', authenticateToken, async (req, res) => {
-    const { topic, experienceLevel } = req.query; // Gets topic and experience level from query
+    const { knowledgeArea, subtopic, section, experienceLevel, step } = req.query; // Gets topic and experience level from query
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming."; // Static prompt telling to not return any formatting options
 
     let prompt; // Initialises prompt
-    switch (experienceLevel) {
-        case "Beginner": // If experience level is beginner
-            prompt = `Generate beginner-level content about ${topic}.`
-            break;
-        case "Intermediate": // If experience level is intermediate
-            prompt = `Generate intermediate-level content about ${topic}.`
-            break;
-        case "Advanced": // If experience level is advanced
-            prompt = `Generate advanced-level content about ${topic}.`
-            break;
-        default:
-            prompt = `Generate content about ${topic}.`
-            break;
+   
+    if (section) {
+        switch (step) {
+            case "introduction":
+                prompt = `Provide an introduction to the section "${section}" under the subtopic "${subtopic}" in the knowledge area "${knowledgeArea}". Keep it concise and suitable for a ${experienceLevel} learner.`;
+                break;
+            case "core-concept-1":
+                prompt = `Explain the first key concept of the section "${section}" under "${subtopic}" in the knowledge area "${knowledgeArea}".`;
+                break;
+            case "core-concept-2":
+                prompt = `Explore an advanced concept in the section "${section}" of "${subtopic}" under "${knowledgeArea}".`;
+                break;
+            case "summary":
+                prompt = `Summarise the key points from the section "${section}" under the subtopic "${subtopic}" in "${knowledgeArea}" for quick review.`;
+                break;
+            default:
+                prompt = `Generate structured learning content for the section "${section}" under the subtopic "${subtopic}" in "${knowledgeArea}" at a ${experienceLevel} level.`;
+                break;
+        }
+    } else {
+        switch (step) {
+            case "introduction":
+                prompt = `Provide an engaging introduction to the subtopic "${subtopic}" in the knowledge area "${knowledgeArea}". Keep it concise and informative for a ${experienceLevel} learner.`;
+                break;
+            case "core-concept-1":
+                prompt = `Explain the first major concept of the subtopic "${subtopic}" in a step-by-step manner.`;
+                break;
+            case "core-concept-2":
+                prompt = `Explore a deeper concept related to "${subtopic}" in "${knowledgeArea}".`;
+                break;
+            case "summary":
+                prompt = `Summarise the most important takeaways from the subtopic "${subtopic}" in a clear and concise way.`;
+                break;
+            default:
+                prompt = `Generate structured learning content about "${subtopic}" in "${knowledgeArea}" at a ${experienceLevel} level.`;
+                break;
+        }
     }
 
     try {

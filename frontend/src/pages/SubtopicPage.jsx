@@ -8,7 +8,6 @@ function SubtopicPage() {
     const [subtopics, setSubtopics] = useState([]);
     const [knowledgeArea, setKnowledgeArea] = useState(null);
     const [loading, setLoading] = useState(true);
-
     const hasSections = (subtopic) => subtopic?.sections?.length > 0;
 
     useEffect(() => {
@@ -17,7 +16,7 @@ function SubtopicPage() {
                 const response = await axios.get(`http://localhost:9000/api/cybok/knowledge-areas/${topic}/subtopics`);
                 const fetchedSubtopics = response.data.subtopics.map(subtopic => ({
                     ...subtopic,
-                    hasSections: hasSections(subtopic) // Use helper function
+                    hasSections: hasSections(subtopic)
                 }));
                 setSubtopics(fetchedSubtopics);
                 setKnowledgeArea(response.data.knowledgeArea);

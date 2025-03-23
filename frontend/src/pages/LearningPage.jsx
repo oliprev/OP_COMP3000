@@ -1,9 +1,37 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function LearningPage() {
-    const { knowledgeArea, topic, subtopic, section } = useParams();
     const [step, setStep] = useState(1);
+    const { topic, subtopic, section } = useParams();
+    const [names, setNames] = useState({
+        topic: "",
+        subtopic: "",
+        section: null
+    });;
+
+    useEffect(() => {
+        const fetchNames = async () => {
+            try {
+                const endpoint = section
+                    ? `http://localhost:9000/api/cybok/knowledge-areas/${topic}/subtopics/${subtopic}/sections/${section}`
+                    : `http://localhost:9000/api/cybok/knowledge-areas/${topic}/subtopics/${subtopic}`;
+    
+                const response = await axios.get(endpoint);
+                setNames({
+                    topic: response.data.topicName,
+                    subtopic: response.data.subtopicName,
+                    section: response.data.sectionName || null
+                });
+            } catch (error) {
+                console.error('Error fetching names:', error);
+            }
+        };
+    
+        fetchNames();
+    }, [topic, subtopic, section]);
+    
 
     return (
         <div>

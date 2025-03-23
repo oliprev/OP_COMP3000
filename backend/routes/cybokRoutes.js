@@ -52,10 +52,11 @@ router.get('/knowledge-areas/:id/subtopics/:subtopicId', async (req, res) => {
     try {
         const knowledgeArea = await KnowledgeArea.findOne({ "subtopics._id": req.params.subtopicId });
         const subtopic = knowledgeArea.subtopics.find(subtopic => subtopic._id.toString() === req.params.subtopicId);
-        res.json({
-            subtopic: subtopic.name,
-            sections: subtopic.sections
-        });
+        const result = {
+            topicName: knowledgeArea.name,
+            subtopicName: subtopic.name
+        };
+        res.json(result);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -90,7 +91,5 @@ router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections/:sectionId?
         res.status(500).json({ message: error.message });
     }
 });
-
-
 
 module.exports = router;

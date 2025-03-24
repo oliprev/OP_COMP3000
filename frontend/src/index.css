@@ -84,3 +84,14 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.link-inline {
+  color: inherit;
+  text-decoration: underline;
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  font: inherit;
+  display: inline;
+}

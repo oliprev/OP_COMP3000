@@ -13,18 +13,26 @@ function RegisterPage() {
     const navigate = useNavigate(); // Get navigate function from useNavigate hook
 
     const handleChange = (e) => { // Handle form input changes
-        setFormData({ ...formData, [e.target.name]: e.target.value }); // Update form data
+        const { name, value, type, checked } = e.target;
+        setFormData({ 
+            ...formData, 
+            [name]: type === "checkbox" ? checked : value 
+        });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
         console.log("Form Data:", formData); // Log form data
-        try {
-            const response = await axios.post("http://localhost:9000/api/users/register", formData); // Send POST request to register route
-            console.log("Response:", response); // Log response
-            navigate("/login"); // Navigate to login page
-        } catch (error) {
-            console.error("Error:", error); // Log error
+        if (tos && privacyPolicy) {
+            try {
+                const response = await axios.post("http://localhost:9000/api/users/register", formData); // Send POST request to register route
+                console.log("Response:", response); // Log response
+                navigate("/login"); // Navigate to login page
+            } catch (error) {
+                console.error("Error:", error); // Log error
+            }
+        } else {
+            alert('Please accept the terms of service and privacy policy.');
         }
     };
 
@@ -70,6 +78,21 @@ function RegisterPage() {
               <option value="Intermediate">Intermediate</option>
               <option value="Advanced">Advanced</option>
             </select><br></br>
+            <input 
+              type="checkbox"
+              name="tos"
+              id="tos"
+              checked={tos}
+              onChange={handleChange}
+            /><label htmlFor="tos">Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label><br></br>
+            <input
+              type="checkbox"
+              name="privacyPolicy"
+              id="privacyPolicy"
+              checked={privacyPolicy}
+              onChange={handleChange}
+            /><label htmlFor="privacyPolicy">Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label><br></br>
+            <br></br>
             <button type="submit">Register</button>
           </form>
           <Link to="/login">Already have an account? Login</Link>

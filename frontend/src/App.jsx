@@ -4,6 +4,8 @@ import './App.css'
 import ProtectedRoute from './pages/ProtectedRoute'
 import LandingPage from './pages/LandingPage'
 import RegisterPage from './pages/RegisterPage'
+import TOSPage from './pages/TOSPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
 import ProfilePage from './pages/ProfilePage'
@@ -27,6 +29,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/tos" element={<TOSPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/main" element={<ProtectedRoute element ={MainPage} />} />
           <Route path="/main/topics/" element={<ProtectedRoute element ={TopicPage} />} />

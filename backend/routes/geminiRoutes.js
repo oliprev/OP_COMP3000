@@ -134,7 +134,7 @@ router.get('/generate-email', authenticateToken, async (req, res) => {
 
 // READ route - for content generation
 router.get('/generate-content', authenticateToken, async (req, res) => {
-    const { knowledgeArea, subtopic, section, experienceLevel, step } = req.query; // Gets topic and experience level from query
+    const { topic, subtopic, section, experienceLevel, step } = req.query; // Gets topic and experience level from query
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming."; // Static prompt telling to not return any formatting options
 
     let prompt; // Initialises prompt
@@ -142,37 +142,43 @@ router.get('/generate-content', authenticateToken, async (req, res) => {
     if (section) {
         switch (step) {
             case "introduction":
-                prompt = `Provide an introduction to the section "${section}" under the subtopic "${subtopic}" in the knowledge area "${knowledgeArea}". Keep it concise and suitable for a ${experienceLevel} learner.`;
+                prompt = `Introduce the "${section}" section within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-1":
-                prompt = `Explain the first key concept of the section "${section}" under "${subtopic}" in the knowledge area "${knowledgeArea}".`;
+                prompt = `Explain the most importance concept within the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
                 break;
             case "core-concept-2":
-                prompt = `Explore an advanced concept in the section "${section}" of "${subtopic}" under "${knowledgeArea}".`;
+                prompt = `Explore a more complex concept in the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                break;
+            case "example":
+                prompt = `Provide an example to illustrate a concept from the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
                 break;
             case "summary":
-                prompt = `Summarise the key points from the section "${section}" under the subtopic "${subtopic}" in "${knowledgeArea}" for quick review.`;
+                prompt = `Summarise the key points from the "${section}" section under the "${subtopic}" subtopic within the "${topic}" knowledge area for quick review.`;
                 break;
             default:
-                prompt = `Generate structured learning content for the section "${section}" under the subtopic "${subtopic}" in "${knowledgeArea}" at a ${experienceLevel} level.`;
+                prompt = `Generate structured learning content for the section "${section}" under the subtopic "${subtopic}" in "${topic}" at a ${experienceLevel} level.`;
                 break;
         }
     } else {
         switch (step) {
             case "introduction":
-                prompt = `Provide an engaging introduction to the subtopic "${subtopic}" in the knowledge area "${knowledgeArea}". Keep it concise and informative for a ${experienceLevel} learner.`;
+                prompt = `Introduce the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-1":
-                prompt = `Explain the first major concept of the subtopic "${subtopic}" in a step-by-step manner.`;
+                prompt = `Explain the most importance concept within the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
                 break;
             case "core-concept-2":
-                prompt = `Explore a deeper concept related to "${subtopic}" in "${knowledgeArea}".`;
+                prompt = `Explore a more complex concept in the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                break;
+            case "example":
+                prompt = `Provide an example to illustrate a concept from the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
                 break;
             case "summary":
-                prompt = `Summarise the most important takeaways from the subtopic "${subtopic}" in a clear and concise way.`;
+                prompt = `Summarise the key points from the "${subtopic}" subtopic within the "${topic}" knowledge area for quick review.`;
                 break;
             default:
-                prompt = `Generate structured learning content about "${subtopic}" in "${knowledgeArea}" at a ${experienceLevel} level.`;
+                prompt = `Generate structured learning content for the subtopic "${subtopic}" in "${topic}" at a ${experienceLevel} level.`;
                 break;
         }
     }

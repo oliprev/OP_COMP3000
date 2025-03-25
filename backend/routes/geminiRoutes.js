@@ -142,19 +142,19 @@ router.get('/generate-content', authenticateToken, async (req, res) => {
     if (section) {
         switch (step) {
             case "introduction":
-                prompt = `Introduce the "${section}" section within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
+                prompt = `Introduce the "${section}" section within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise, under 100 words, and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-1":
-                prompt = `Explain the most importance concept within the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                prompt = `Explain the most importance concept within the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 200 words.`;
                 break;
             case "core-concept-2":
-                prompt = `Explore a more complex concept in the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                prompt = `Explore a more complex concept in the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 200 words.`;
                 break;
             case "example":
-                prompt = `Provide an example to illustrate a concept from the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                prompt = `Provide an cybersecurity related example to illustrate a concept from the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 250 words.`;
                 break;
             case "summary":
-                prompt = `Summarise the key points from the "${section}" section under the "${subtopic}" subtopic within the "${topic}" knowledge area for quick review.`;
+                prompt = `Summarise the key points from the "${section}" section under the "${subtopic}" subtopic within the "${topic}" knowledge area for quick review. Keep it under 150 words.`;
                 break;
             default:
                 prompt = `Generate structured learning content for the section "${section}" under the subtopic "${subtopic}" in "${topic}" at a ${experienceLevel} level.`;
@@ -163,19 +163,19 @@ router.get('/generate-content', authenticateToken, async (req, res) => {
     } else {
         switch (step) {
             case "introduction":
-                prompt = `Introduce the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
+                prompt = `Introduce the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise, under 100 words, and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-1":
-                prompt = `Explain the most importance concept within the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                prompt = `Explain the most importance concept within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 200 words.`;
                 break;
             case "core-concept-2":
-                prompt = `Explore a more complex concept in the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                prompt = `Explore a more complex concept in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 200 words.`;
                 break;
             case "example":
-                prompt = `Provide an example to illustrate a concept from the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                prompt = `Provide a cybersecurity related example to illustrate a concept from the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 250 words.`;
                 break;
             case "summary":
-                prompt = `Summarise the key points from the "${subtopic}" subtopic within the "${topic}" knowledge area for quick review.`;
+                prompt = `Summarise the key points from the "${subtopic}" subtopic within the "${topic}" knowledge area for quick review. Keep it under 150 words.`;
                 break;
             default:
                 prompt = `Generate structured learning content for the subtopic "${subtopic}" in "${topic}" at a ${experienceLevel} level.`;

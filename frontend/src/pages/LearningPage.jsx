@@ -81,6 +81,14 @@ function LearningPage() {
                     <p>Loading content...</p>
                 )}
             </div>
+            <div>
+                <button onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled={step === 1}>
+                    Back
+                </button>
+                <button onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} disabled={step === Object.keys(stepList).length}>
+                    Next
+                </button>
+            </div>
         </div>
     );
 }

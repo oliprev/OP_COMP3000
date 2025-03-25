@@ -4,6 +4,7 @@ import axios from "axios";
 
 function LearningPage() {
     const { topic, subtopic, section } = useParams();
+    const [content, setContent] = useState(null);
     const [step, setStep] = useState(1);
     const [names, setNames] = useState({
         topic: "",
@@ -54,8 +55,9 @@ function LearningPage() {
                     experienceLevel
                 }
             });
+            setContent(response.data);
         } catch (error) {
-            console.error("Error fetching content:", error);;
+            console.error("Error fetching content:", error);
         } 
     };
     
@@ -66,11 +68,19 @@ function LearningPage() {
         }
     }, [step, names]);
 
-
     return (
         <div>
             <Link to={`/main/topics/${topic}/subtopics`} className="back-link">← Back to Subtopics</Link>
             <h1>Learning Page</h1> 
+            <div>
+                {content ? (
+                    <div>
+                        <p>{content.content}</p>
+                    </div>
+                ) : (
+                    <p>Loading content...</p>
+                )}
+            </div>
         </div>
     );
 }

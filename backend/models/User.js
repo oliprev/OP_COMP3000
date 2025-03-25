@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema({
     dateOfBirth : { type: Date, required: true }, // Date of birth
     experienceLevel: { type: String, required: true, enum: ['Beginner', 'Intermediate', 'Advanced'] }, // Experience level with enum values
     role: { type: String, enum: ['Admin', 'User'], default: 'User' }, // Role in organisation
+    tosAccepted: { type: Boolean, required: true }, // Terms of service accepted
+    privacyPolicyAccepted: { type: Boolean, required: true }, // Privacy policy accepted
     organisation: { type: mongoose.Schema.Types.ObjectId, ref: 'Organisation', default: null } // Organisation (optional)
 }, { timestamps: true });
 

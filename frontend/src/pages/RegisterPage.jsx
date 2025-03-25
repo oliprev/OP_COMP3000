@@ -8,7 +8,9 @@ function RegisterPage() {
         email: "",
         password: "",
         dateOfBirth: "",
-        experienceLevel: ""
+        experienceLevel: "",
+        tosAccepted: false,
+        privacyPolicyAccepted: false
     });
     const navigate = useNavigate(); // Get navigate function from useNavigate hook
 
@@ -23,7 +25,7 @@ function RegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
         console.log("Form Data:", formData); // Log form data
-        if (tos && privacyPolicy) {
+        if (formData.tosAccepted && formData.privacyPolicyAccepted) {
             try {
                 const response = await axios.post("http://localhost:9000/api/users/register", formData); // Send POST request to register route
                 console.log("Response:", response); // Log response
@@ -80,16 +82,16 @@ function RegisterPage() {
             </select><br></br>
             <input 
               type="checkbox"
-              name="tos"
+              name="tosAccepted"
               id="tos"
-              checked={tos}
+              checked={formData.tosAccepted}
               onChange={handleChange}
             /><label htmlFor="tos">Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label><br></br>
             <input
               type="checkbox"
-              name="privacyPolicy"
+              name="privacyPolicyAccepted"
               id="privacyPolicy"
-              checked={privacyPolicy}
+              checked={formData.privacyPolicyAccepted}
               onChange={handleChange}
             /><label htmlFor="privacyPolicy">Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label><br></br>
             <br></br>

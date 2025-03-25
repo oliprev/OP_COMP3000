@@ -8,7 +8,7 @@ function RegisterPage() {
         email: "",
         password: "",
         dateOfBirth: "",
-        experienceLevel: "",
+        experienceLevel: "Beginner",
         tosAccepted: false,
         privacyPolicyAccepted: false
     });

@@ -12,7 +12,7 @@ function LearningPage() {
         section: null
     });
     const stepList = {
-        1: "Introduction",
+        1: "introduction",
         2: "core-concept-1",
         3: "core-concept-2",
         4: "example",

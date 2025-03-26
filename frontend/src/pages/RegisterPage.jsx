@@ -71,7 +71,7 @@ function RegisterPage() {
               value={formData.dateOfBirth} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
             /><br></br>
-            <br></br><label>Select what you believe your cybersecurity skill level is:</label>
+            <br></br><label>Select what you believe your cybersecurity skill level is: </label>
             <select
               name="experienceLevel" 
               value={formData.experienceLevel} // Gets value
@@ -86,14 +86,14 @@ function RegisterPage() {
               id="tos"
               checked={formData.tosAccepted}
               onChange={handleChange}
-            /><label htmlFor="tos">Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label><br></br>
+            /><label htmlFor="tos"> Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label><br></br>
             <input
               type="checkbox"
               name="privacyPolicyAccepted"
               id="privacyPolicy"
               checked={formData.privacyPolicyAccepted}
               onChange={handleChange}
-            /><label htmlFor="privacyPolicy">Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label><br></br>
+            /><label htmlFor="privacyPolicy"> Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label><br></br>
             <br></br>
             <button type="submit">Register</button>
           </form>

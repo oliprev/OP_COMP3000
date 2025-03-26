@@ -5,6 +5,7 @@ import axios from "axios";
 function LearningPage() {
     const { topic, subtopic, section } = useParams();
     const [content, setContent] = useState(null);
+    const [loading, setLoading ] = useState(true);
     const [step, setStep] = useState(1);
     const [names, setNames] = useState({
         topic: "",
@@ -44,7 +45,8 @@ function LearningPage() {
         if (!names.topic || !names.subtopic) return;
     
         const experienceLevel = localStorage.getItem('experienceLevel') || "beginner";
-    
+        setLoading(true)
+
         try {
             const response = await axios.get('http://localhost:9000/api/gemini/generate-content', {
                 params: {
@@ -56,6 +58,7 @@ function LearningPage() {
                 }
             });
             setContent(response.data);
+            setLoading(false);
         } catch (error) {
             console.error("Error fetching content:", error);
         } 
@@ -73,12 +76,14 @@ function LearningPage() {
             <Link to={`/main/topics/${topic}/subtopics`} className="back-link">← Back to Subtopics</Link>
             <h1>Learning Page</h1> 
             <div>
-                {content ? (
-                    <div>
-                        <p>{content.content}</p>
-                    </div>
-                ) : (
+                {loading ? (
                     <p>Loading content...</p>
+                ) : content ? (
+                <div>
+                    <p>{content.content}</p>
+                </div>
+                ) : (
+                    <p>No content available.</p>
                 )}
             </div>
             <div>

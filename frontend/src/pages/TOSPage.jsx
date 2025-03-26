@@ -17,7 +17,6 @@ function TOSPage() {
             </ul>
             <p>Any future updates to these Terms of Swervice will be communicated in advance.</p>
             <p>This is a purely academic project, and is not intended for commercial deployment right now. These terms are not legally binding.</p>
-            <br></br>
             <p><em>Version 1.0 - March 26, 2025 22:37PM</em></p>
 
         </div>

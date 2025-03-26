@@ -87,7 +87,7 @@ router.post('/chatbot', authenticateToken, async (req, res) => {
 // READ route - for email generation
 router.get('/generate-email', authenticateToken, async (req, res) => {
     const type = Math.random() < 0.5 ? 'phishing' : 'legitimate'; // Randomly selects type of email, heads or tails
-    const experienceLevel = req.query.experienceLevel || 'beginner'; // Gets experience level from query, defaults to beginner
+    const experienceLevel = req.query.experienceLevel || 'Beginner'; // Gets experience level from query, defaults to beginner
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Also do not include any reference to potential phishing sites - the user is meant to analyse the email's language. "; // Static prompt telling to not return any formatting options
 
     let prompt; // Initialises prompt
@@ -202,6 +202,30 @@ router.get('/generate-content', authenticateToken, async (req, res) => {
     } catch (error) {
         console.error("Content Generation Error:", error);
         res.status(500).json({ message: 'Error generating content.' });
+    }
+});
+
+router.get('/generate-quiz', authenticateToken, async (req, res) => {
+    const { topic, subtopic, section, experienceLevel, step } = req.query;
+    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming.";
+
+    let prompt;
+
+    try {
+        const result = await model.generateContent({
+            contents: [{ role: "user", parts: [{ text: staticPrompt + prompt }] }],
+            generationConfig: {
+                maxOutputTokens: 400,
+                temperature: 0.8
+            }
+        });
+
+        const content = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        res.json({ content });
+    } catch (error) {
+        console.error("Quiz Generation Error:", error);
+        res.status(500).json({ message: 'Error generating quiz.' });
     }
 });
 

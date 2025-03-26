@@ -1,11 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 function LearningPage() {
     const { topic, subtopic, section } = useParams();
     const [content, setContent] = useState(null);
     const [loading, setLoading ] = useState(true);
+    const [quiz, setQuiz] = useState(null);
     const [step, setStep] = useState(1);
     const [names, setNames] = useState({
         topic: "",
@@ -71,6 +71,10 @@ function LearningPage() {
         }
     }, [step, names]);
 
+    const fetchQuiz = async () => {
+        
+    };
+
     return (
         <div>
             <Link to={`/main/topics/${topic}/subtopics`} className="back-link">← Back to Subtopics</Link>
@@ -92,6 +96,9 @@ function LearningPage() {
                 </button>
                 <button onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} disabled={step === Object.keys(stepList).length}>
                     Next
+                </button>
+                <button onClick={fetchQuiz}>
+                    Take a Quiz?
                 </button>
             </div>
         </div>

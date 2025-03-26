@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const KnowledgeArea = require('../models/KnowledgeArea');
+const validateIds = require('../functions/validateIds');
 
 // CREATE route - developer side for adding new knowledge areas easily
 router.post('/knowledge-areas', async (req, res) => {
@@ -65,6 +66,7 @@ router.get('/knowledge-areas/:id/subtopics/:subtopicId', async (req, res) => {
 router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections', async (req, res) => {
     try {
         const { topicId, subtopicId } = req.params;
+        if (!validateIds([topicId, subtopicId])) return res.status(400).json({ message: "Invalid information provided." });
         const knowledgeArea = await KnowledgeArea.findById(topicId);
         const subtopic = knowledgeArea.subtopics.id(subtopicId);
         res.json(subtopic.sections);
@@ -76,6 +78,7 @@ router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections', async (re
 router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections/:sectionId?', async (req, res) => {
     try {
         const { topicId, subtopicId, sectionId } = req.params;
+        if (!validateIds([topicId, subtopicId, sectionId])) return res.status(400).json({ message: "Invalid information provided." });
         const knowledgeArea = await KnowledgeArea.findById(topicId);
         const subtopic = knowledgeArea.subtopics.id(subtopicId);
         const result = {

@@ -1,6 +1,7 @@
 const express = require('express');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const authenticateToken = require('../functions/authenticateToken');
+const validateIds = require('../functions/validateIds');
 const natural = require('natural');
 const router = express.Router();
 
@@ -135,6 +136,7 @@ router.get('/generate-email', authenticateToken, async (req, res) => {
 // READ route - for content generation
 router.get('/generate-content', authenticateToken, async (req, res) => {
     const { topic, subtopic, section, experienceLevel, step } = req.query; // Gets topic and experience level from query
+    if (!validateIds([topic, subtopic, section, experienceLevel, step])) return res.status(400).json({ message: "Invalid information provided." });
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming."; // Static prompt telling to not return any formatting options
 
     let prompt; // Initialises prompt
@@ -207,6 +209,7 @@ router.get('/generate-content', authenticateToken, async (req, res) => {
 
 router.get('/generate-quiz', authenticateToken, async (req, res) => {
     const { topic, subtopic, section, experienceLevel, step } = req.query;
+    if (!validateIds([topic, subtopic, section, experienceLevel, step])) return res.status(400).json({ message: "Invalid information provided." });
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming.";
 
     let prompt;

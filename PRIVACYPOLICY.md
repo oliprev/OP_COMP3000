@@ -1,2 +1,0 @@
-SecuLearn - Privacy Policy
-

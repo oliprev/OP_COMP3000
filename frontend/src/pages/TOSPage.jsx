@@ -14,10 +14,11 @@ function TOSPage() {
                 <li>You must not input any inappropriate queries into the artificial intelligence features.</li>
                 <li>You must take full responsibility of allowing SecuLearn to store your credentials.</li>
                 <li>SecuLearn is not responsible for any damages incurred through your use of the software.</li>
+                <li>SecuLearn is not responsible for any inappropriate responses from Google Gemini.</li>
             </ol>
             <p>Any future updates to these Terms of Service will be communicated in advance.</p>
             <p>This is a purely academic project, and is not intended for commercial deployment right now. These terms are not legally binding.</p>
-            <p><em>Version 1.0 - March 26, 2025 22:37PM</em></p>
+            <p><em>Version 1.1 - March 27, 2025 23:47PM</em></p>
         </div>
     );
 }

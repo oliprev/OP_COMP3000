@@ -274,11 +274,13 @@ router.get('/generate-quiz', async (req, res) => {
             const options = lines.slice(1, 5).map(opt => opt.trim());
             const correctLine = lines.find(line => /correct answer/i.test(line));
             const correctMatch = correctLine?.match(/([A-D])/i);
+            const correctLetter = correctMatch ? correctMatch[1].toUpperCase() : null;
+            const correctOption = options.find(opt => opt.startsWith(correctLetter));
         
             return {
                 question,
                 options,
-                correctAnswer: correctMatch ? correctMatch[1].toUpperCase() : null
+                correctAnswer: { label: correctLetter, text: correctOption || null }
             };
         }
 

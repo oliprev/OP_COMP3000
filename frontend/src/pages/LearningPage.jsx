@@ -72,7 +72,26 @@ function LearningPage() {
     }, [step, names]);
 
     const fetchQuiz = async () => {
-        
+        if (!names.topic || !names.subtopic) return;
+    
+        const experienceLevel = localStorage.getItem('experienceLevel') || "beginner";
+        const stepType = stepList[step];
+    
+        try {
+            const response = await axios.get('http://localhost:9000/api/gemini/generate-quiz', {
+                params: {
+                    topic: names.topic,
+                    subtopic: names.subtopic,
+                    section: names.section,
+                    experienceLevel,
+                    step: stepType
+                }
+            });
+    
+            setQuiz(response.data);
+        } catch (error) {
+            console.error("Error fetching quiz:", error);
+        }
     };
 
     return (
@@ -90,6 +109,18 @@ function LearningPage() {
                     <p>No content available.</p>
                 )}
             </div>
+            {quiz && (
+                <div>
+                    <h2>Quiz</h2>
+                    <p><strong>{quiz.question}</strong></p>
+                    <p>
+                        {quiz.options.map((option, index) => (
+                            <li key={index}>{option}</li>
+                        ))}
+                    </p>
+                     <p><em>Correct Answer: {quiz.correctAnswer.label} – {quiz.correctAnswer.text}</em></p>
+                </div>
+            )}
             <div>
                 <button onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled={step === 1}>
                     Back

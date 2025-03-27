@@ -117,23 +117,40 @@ function LearningPage() {
                     )}
                 </div>
             )}
-            {quiz && (
+            {quiz && showQuiz && (
                 <div>
                     <h2>Quiz</h2>
                     <p><strong>{quiz.question}</strong></p>
                     <ol>
                         {quiz.options.map((option, index) => (
-                            <li key={index}>{option}</li>
+                            <li key = {index}>
+                                <button onClick={() => {
+                                    setSelectedAnswer(option);
+                                    setIsCorrect(option.label === quiz.correctAnswer.text);
+                                }}
+                                disabled = {selectedAnswer !== null}
+                                >
+                                    {option}
+                                </button>
+                            </li>
                         ))}
                     </ol>
-                     <p><em>Correct Answer: {quiz.correctAnswer.label} – {quiz.correctAnswer.text}</em></p>
+                    {selectedAnswer && (
+                        <p>Your answer: {selectedAnswer}</p>
+                    )}
+                    {isCorrect !== null && (
+                        <p>{isCorrect ? "Correct!" : `Incorrect. The correct answer was: ${quiz.correctAnswer.text}`}</p>
+                    )}
+                    <button onClick={() => setShowQuiz(false)}>
+                        Finish Quiz
+                    </button>
                 </div>
             )}
             <div>
-                <button onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled={step === 1}>
+                <button onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled = {step === 1}>
                     Back
                 </button>
-                <button onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} disabled={step === Object.keys(stepList).length}>
+                <button onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} disabled = {step === Object.keys(stepList).length}>
                     Next
                 </button>
                 <button onClick={fetchQuiz}>

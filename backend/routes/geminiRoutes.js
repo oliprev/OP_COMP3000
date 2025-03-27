@@ -268,7 +268,23 @@ router.get('/generate-quiz', async (req, res) => {
 
         const content = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-        res.json({ content });
+        function parseQuizResponse(text) {
+            const lines = text.trim().split('\n').filter(Boolean);
+            const question = lines[0].trim();
+            const options = lines.slice(1, 5).map(opt => opt.trim());
+            const correctLine = lines.find(line => /correct answer/i.test(line));
+            const correctMatch = correctLine?.match(/([A-D])/i);
+        
+            return {
+                question,
+                options,
+                correctAnswer: correctMatch ? correctMatch[1].toUpperCase() : null
+            };
+        }
+
+        const parsedContent = parseQuizResponse(content);
+
+        res.json({ content, ...parsedContent });
     } catch (error) {
         console.error("Quiz Generation Error:", error);
         res.status(500).json({ message: 'Error generating quiz.' });

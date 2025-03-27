@@ -104,26 +104,28 @@ function LearningPage() {
         <div>
             <Link to={`/main/topics/${topic}/subtopics`} className="back-link">← Back to Subtopics</Link>
             <h1>Learning Page</h1> 
-            <div>
-                {loading ? (
-                    <p>Loading content...</p>
-                ) : content ? (
+            {!showQuiz && (
                 <div>
-                    <p>{content.content}</p>
+                    {loading ? (
+                        <p>Loading content...</p>
+                    ) : content ? (
+                    <div>
+                        <p>{content.content}</p>
+                    </div>
+                    ) : (
+                        <p>No content available.</p>
+                    )}
                 </div>
-                ) : (
-                    <p>No content available.</p>
-                )}
-            </div>
+            )}
             {quiz && (
                 <div>
                     <h2>Quiz</h2>
                     <p><strong>{quiz.question}</strong></p>
-                    <p>
+                    <ol>
                         {quiz.options.map((option, index) => (
                             <li key={index}>{option}</li>
                         ))}
-                    </p>
+                    </ol>
                      <p><em>Correct Answer: {quiz.correctAnswer.label} – {quiz.correctAnswer.text}</em></p>
                 </div>
             )}

@@ -134,9 +134,8 @@ router.get('/generate-email', authenticateToken, async (req, res) => {
 });
 
 // READ route - for content generation
-router.get('/generate-content', authenticateToken, async (req, res) => {
+router.get('/generate-content', async (req, res) => {
     const { topic, subtopic, section, experienceLevel, step } = req.query; // Gets topic and experience level from query
-    if (!validateIds([topic, subtopic, section, experienceLevel, step])) return res.status(400).json({ message: "Invalid information provided." });
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming."; // Static prompt telling to not return any formatting options
 
     let prompt; // Initialises prompt
@@ -147,7 +146,7 @@ router.get('/generate-content', authenticateToken, async (req, res) => {
                 prompt = `Introduce the "${section}" section within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise, under 100 words, and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-1":
-                prompt = `Explain the most importance concept within the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 200 words.`;
+                prompt = `Explain the most important concept within the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 200 words.`;
                 break;
             case "core-concept-2":
                 prompt = `Explore a more complex concept in the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 200 words.`;

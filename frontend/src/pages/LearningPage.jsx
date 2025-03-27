@@ -126,7 +126,7 @@ function LearningPage() {
                             <li key = {index}>
                                 <button onClick={() => {
                                     setSelectedAnswer(option);
-                                    setIsCorrect(option.label === quiz.correctAnswer.text);
+                                    setIsCorrect(option.trim().toLowerCase() === quiz.correctAnswer.text.trim().toLowerCase());
                                 }}
                                 disabled = {selectedAnswer !== null}
                                 >

@@ -139,7 +139,7 @@ function LearningPage() {
                         <p>Your answer: {selectedAnswer}</p>
                     )}
                     {isCorrect !== null && (
-                        <p>{isCorrect ? "Correct!" : `Incorrect. The correct answer was: ${quiz.correctAnswer.text}`}</p>
+                        <p>{isCorrect ? "Correct!" : `Incorrect. The correct answer was ${quiz.correctAnswer.label}.`}</p>
                     )}
                     <button onClick={() => setShowQuiz(false)}>
                         Finish Quiz

@@ -209,26 +209,26 @@ router.get('/generate-content', async (req, res) => {
 router.get('/generate-quiz', async (req, res) => {
     const { topic, subtopic, section, experienceLevel, step } = req.query;
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming.";
-    const answerPrompt = "Provide the correct answer at the end by stating: 'Correct answer: <option letter>'";
+    const answerPrompt = "Randomise the position of the correct answer among options A-D. Provide the correct answer at the end by stating: 'Correct answer: <option letter>'.";
 
     let prompt;
 
     if (section) {
         switch (step) {
             case "introduction":
-                prompt = `Create a multiple-choice (A-D quiz question based on the introduction to the "${section}" section within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
+                prompt = `Create a multiple-choice (A-D) quiz question based on the introduction to the "${section}" section within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-1":
-                prompt = `Create a multiple-choice (A-D) quiz question based on the most important concept within the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                prompt = `Create a multiple-choice (A-D) quiz question based on the most important concept within the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-2":
-                prompt = `Create a multiple-choice (A-D) quiz question based on a more complex concept in the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                prompt = `Create a multiple-choice (A-D) quiz question based on a more complex concept in the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             case "example":
-                prompt = `Create a multiple-choice (A-D) quiz question based on the cybersecurity related example to illustrate a concept from the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area`;
+                prompt = `Create a multiple-choice (A-D) quiz question based on the cybersecurity related example to illustrate a concept from the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             case "summary":
-                prompt = `Create a multiple-choice (A-D) quiz question based on the key points from the "${section}" section under the "${subtopic}" subtopic within the "${topic}" knowledge area for quick review.`;
+                prompt = `Create a multiple-choice (A-D) quiz question based on the key points from the "${section}" section under the "${subtopic}" subtopic within the "${topic}" knowledge area for quick review. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             default:
                 prompt = `Generate a multiple-choice (A-D) quiz question based on the section "${section}" under the subtopic "${subtopic}" in "${topic}" at a ${experienceLevel} level.`;
@@ -240,16 +240,16 @@ router.get('/generate-quiz', async (req, res) => {
                 prompt = `Create a multiple-choice (A-D) quiz question based on the introduction to the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-1":
-                prompt = `Create a multiple-choice (A-D) quiz question based on the most importance concept within the "${subtopic}" subtopic in the "${topic}" knowledge area.`;
+                prompt = `Create a multiple-choice (A-D) quiz question based on the most importance concept within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-2":
-                prompt = `Create a multiple-choice (A-D) quiz question based on a more complex concept in the "${subtopic}" subtopic in the "${topic}" knowledge area`;
+                prompt = `Create a multiple-choice (A-D) quiz question based on a more complex concept in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             case "example":
-                prompt = `Create a multiple-choice (A-D) quiz question based on the cybersecurity related example to illustrate a concept from the "${subtopic}" subtopic in the "${topic}" knowledge area`;
+                prompt = `Create a multiple-choice (A-D) quiz question based on the cybersecurity related example to illustrate a concept from the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             case "summary":
-                prompt = `Create a multiple-choice (A-D) quiz question based on the key points from the "${subtopic}" subtopic within the "${topic}" knowledge area for quick review.`;
+                prompt = `Create a multiple-choice (A-D) quiz question based on the key points from the "${subtopic}" subtopic within the "${topic}" knowledge area for quick review. Keep it concise and suitable for a ${experienceLevel} learner.`;
                 break;
             default:
                 prompt = `Generate a multiple-choice (A-D) quiz question based on the subtopic "${subtopic}" in "${topic}" at a ${experienceLevel} level.`;

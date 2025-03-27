@@ -6,6 +6,9 @@ function LearningPage() {
     const [content, setContent] = useState(null);
     const [loading, setLoading ] = useState(true);
     const [quiz, setQuiz] = useState(null);
+    const [showQuiz, setShowQuiz] = useState(false);
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [isCorrect, setIsCorrect] = useState(null);
     const [step, setStep] = useState(1);
     const [names, setNames] = useState({
         topic: "",
@@ -89,6 +92,9 @@ function LearningPage() {
             });
     
             setQuiz(response.data);
+            setShowQuiz(true);
+            setSelectedAnswer(null);
+            setIsCorrect(null);
         } catch (error) {
             console.error("Error fetching quiz:", error);
         }

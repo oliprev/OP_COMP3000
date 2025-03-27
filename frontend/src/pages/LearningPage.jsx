@@ -147,10 +147,10 @@ function LearningPage() {
                 </div>
             )}
             <div>
-                <button onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled = {step === 1}>
+                <button onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled = {step === 1 || showQuiz} >
                     Back
                 </button>
-                <button onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} disabled = {step === Object.keys(stepList).length}>
+                <button onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} disabled = {step === Object.keys(stepList).length || showQuiz}>
                     Next
                 </button>
                 <button onClick={fetchQuiz}>

@@ -3,11 +3,44 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/User');
+const { body, validationResult } = require('express-validator');
 const authenticateToken = require('../functions/authenticateToken');
 const validateIds = require('../functions/validateIds');
 
 // CREATE route - for registration
-router.post('/register', async (req, res) => {
+router.post('/register', 
+    [
+        body('name')
+            .notEmpty().withMessage('Name is required.')
+            .matches(/^[a-zA-Z\s\-]+$/).withMessage('Name must contain only letters, spaces, or hyphens.')
+            .trim()
+            .escape(),
+        body('email')
+            .isEmail().withMessage('Invalid email format.')
+            .normalizeEmail(),
+        body('password')
+            .isLength({ min: 8 }).withMessage('Password must be at least 8 characters long.'),
+        body('dateOfBirth')
+            .isISO8601().toDate().withMessage('Date of birth must be a valid date.')
+            .custom((value) => {
+                if (new Date(value) > new Date()) {
+                    throw new Error('Date of birth cannot be set in the future.');
+                }
+                return true;
+            }),
+        body('experienceLevel')
+            .isIn(['Beginner', 'Intermediate', 'dvanced']).withMessage('Experience level must be one of the following: beginner, intermediate, or advanced.'),
+        body('tosAccepted')
+            .isBoolean().withMessage('Terms of Service must be accepted.'),
+        body('privacyPolicyAccepted')
+            .isBoolean().withMessage('Privacy Policy must be accepted.')
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
     const { name, email, password, dateOfBirth, experienceLevel, tosAccepted, privacyPolicyAccepted } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -17,11 +50,6 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
-
-// CREATE route - for determining skill level
-router.post('/skilltest', authenticateToken, async (req, res) => {
-    const { userId } = req.params;
 });
 
 // CREATE route - for login

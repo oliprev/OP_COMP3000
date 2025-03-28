@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function ProfilePage() {
-    const [profileData, setProfileData] = useState(null);
+    const [profileData, setProfileData] = useState(null); // State to store fetched profile data
 
+    // Fetches the user's profile data from the API
     useEffect(() => {
         const fetchProfileData = async () => {
             const userId = localStorage.getItem("userId");
@@ -32,22 +33,23 @@ function ProfilePage() {
     
     return (
         <div>
-          <Link to="/main" className="back-link">← Back to Dashboard</Link>
+          <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
           <h1>Profile</h1>
           <p>Find your profile information below</p>
           <div>
+            {/* Renders the user's profile data */}
             {profileData ? (
               <div>
-                <p>Name: {profileData.name}</p>
-                <p>Email: {profileData.email}</p>
-                <p>Date of Birth: {new Date(profileData.dateOfBirth).toLocaleDateString()}</p>
-                <p>Experience Level: {profileData.experienceLevel}</p>
+                <p>Name: {profileData.name}</p> // Renders the user's name
+                <p>Email: {profileData.email}</p> // Renders the user's email
+                <p>Date of Birth: {new Date(profileData.dateOfBirth).toLocaleDateString()}</p> // Renders the user's date of birth
+                <p>Experience Level: {profileData.experienceLevel}</p> // Renders the user's experience level
                 <p>Risk Score: work in progress</p>
                 <Link to = "/main/profile/updatepassword">Update Password</Link><br></br>
                 <Link to = "/main/profile/deleteprofile">Delete Profile</Link>
               </div>
             ) : (
-              <p>Loading profile data...</p>
+              <p>Loading profile data...</p> // Renders if profile data is still loading
             )}
           </div>
         </div>

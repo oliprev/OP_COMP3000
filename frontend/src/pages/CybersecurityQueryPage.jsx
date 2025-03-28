@@ -38,35 +38,36 @@ function CybersecurityQueryPage() {
 
     return (
         <div>
-            <Link to="/main" className="back-link">← Back to Dashboard</Link>
+            <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
             <h1>Ask Gemini</h1>
             <h2>Interact with our intuitive chatbot, designed to answer cybersecurity queries.</h2>
 
             <div>
-                {messages.length === 0 ? (
+                {messages.length === 0 ? ( // If no messages, render message
                     <p>No messages yet. Ask a cybersecurity question!</p>
                 ) : (
-                    messages.map((msg, index) => (
-                        <p key={index} style={{ textAlign: msg.role === "user" ? "right" : "left" }}>
+                    messages.map((msg, index) => ( // Maps over messages array to render each message
+                        // Assigns the message index as the key and sets the text alignment based on the role
+                        <p key = {index} style={{ textAlign: msg.role === "user" ? "right" : "left" }}> 
                             {msg.content}
                         </p>
                     ))
                 )}
             </div>
 
-            {error && <p>{error}</p>}
+            {error && <p>{error}</p>} {/* Renders error message if error state is not null */}
 
             <div>
                 <input
-                    type="text"
-                    placeholder="Type your cybersecurity query..."
-                    value={query}
-                    className="chat-input"
-                    onChange={(e) => setQuery(e.target.value)}
-                    disabled={loading}
+                    type = "text"
+                    placeholder = "Type your cybersecurity query..."
+                    value = {query} // Sets query value
+                    className = "chat-input"
+                    onChange = {(e) => setQuery(e.target.value)} // Updates query state on change
+                    disabled = {loading} // Disables input field if loading
                 />
-                <button onClick={sendQuery} disabled={loading}>
-                    {loading ? "Thinking..." : "Ask"}
+                <button onClick = {sendQuery} disabled = {loading}> {/* Calls sendQuery function on click */}
+                    {loading ? "Thinking..." : "Ask"} {/* Renders "Thinking..." if loading, otherwise "Ask" */}
                 </button>
             </div>
         </div>

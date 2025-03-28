@@ -3,10 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function MainPage() {
-    const navigate = useNavigate();
-    const [name, setName] = useState("");
-    const [firstName, setFirstName] = useState("");
+    const navigate = useNavigate(); // Initialises the navigate function from the useNavigate hook
+    const [name, setName] = useState(""); // State to store the user's name
+    const [firstName, setFirstName] = useState(""); // State to store the user's first name
 
+    // Fetches the user's name from the API, based on their userId in localStorage, and assigns it to the state
     useEffect(() => {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem("userId");
@@ -16,14 +17,14 @@ function MainPage() {
                 try {
                     const response = await axios.get(`http://localhost:9000/api/users/${userId}/name`, {
                         headers: {
-                            'Authorization': `Bearer ${token}`,
+                            'Authorization': `Bearer ${token}`, // Passes the token in the request header
                         },
                     });
                     setName(response.data.name);
-                    const firstName = response.data.name.split(" ")[0];
+                    const firstName = response.data.name.split(" ")[0]; // Extracts the first name from the full name
                     setFirstName(firstName);
-                } catch (err) {
-                    console.error(err);
+                } catch (error) {
+                    console.error(error);
                 }
             } else {
                 console.error("User ID or token not found.");
@@ -33,6 +34,7 @@ function MainPage() {
         fetchUserName();
     }, []);
 
+    // Removes the token and userId from localStorage and navigates to the login page
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
@@ -41,14 +43,14 @@ function MainPage() {
     
     return (
         <div>
-            <Link to = "/" onClick={handleLogout} className="back-link">← Log out</Link><br></br>
+            <Link to = "/" onClick={handleLogout} className = "back-link">← Log out</Link><br></br>
             <h1>SecuLearn</h1>
             <h2>Dashboard</h2>
-            {firstName && <h3>Welcome, {firstName}!</h3>}
-            <Link to = "/main/topics">Learning</Link><br></br>
-            <Link to = "/main/gemini">Cybersecurity Chatbot</Link><br></br>
-            <Link to = "/main/phishing">Phishing Simulation</Link><br></br>
-            <Link to = "/main/profile">Profile</Link><br></br>
+            {firstName && <h3>Welcome, {firstName}!</h3>} {/* Renders the user's first name */}
+            <Link to = "/main/topics">Learning</Link><br></br> {/* Generates the link to the topics page */}
+            <Link to = "/main/gemini">Cybersecurity Chatbot</Link><br></br> {/* Generates the link to the chatbot page */}
+            <Link to = "/main/phishing">Phishing Simulation</Link><br></br> {/* Generates the link to the phishing simulation page */}
+            <Link to = "/main/profile">Profile</Link><br></br> {/* Generates the link to the profile page */}
         </div>
     );
 }

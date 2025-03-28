@@ -22,8 +22,9 @@ function RegisterPage() {
         });
     };
 
+    // Handles form submission
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault(); // Prevents default form submission
         console.log("Form Data:", formData); // Log form data
         if (formData.tosAccepted && formData.privacyPolicyAccepted) {
             try {
@@ -84,16 +85,16 @@ function RegisterPage() {
               type="checkbox"
               name="tosAccepted"
               id="tos"
-              checked={formData.tosAccepted}
-              onChange={handleChange}
-            /><label htmlFor="tos"> Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label><br></br>
+              checked={formData.tosAccepted} // Gets value
+              onChange={handleChange} // Call handleChange function on input change
+            /><label htmlFor="tos"> Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label><br></br> {/* Generates link to terms of service page */}
             <input
               type="checkbox"
               name="privacyPolicyAccepted"
               id="privacyPolicy"
-              checked={formData.privacyPolicyAccepted}
-              onChange={handleChange}
-            /><label htmlFor="privacyPolicy"> Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label><br></br>
+              checked={formData.privacyPolicyAccepted} // Gets value
+              onChange={handleChange} // Call handleChange function on input change
+            /><label htmlFor="privacyPolicy"> Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label><br></br> {/* Generates link to privacy policy page */}
             <br></br>
             <button type="submit">Register</button>
           </form>

@@ -28,8 +28,8 @@ function DeleteProfilePage() {
     return (
         <div>
             <h1>Delete Profile</h1>
-            <button onClick={handleDelete}>Delete Profile</button>
-            <Link to="/main/profile">Cancel</Link>
+            <button onClick = {handleDelete}>Delete Profile</button> {/* Calls handleDelete on click */}
+            <Link to = "/main/profile">Cancel</Link>
         </div>
     );
 }

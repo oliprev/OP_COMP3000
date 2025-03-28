@@ -112,6 +112,7 @@ function LearningPage() {
             <Link to={`/main/topics/${topic}/subtopics`} className="back-link">← Back to Subtopics</Link>
             <h1>{names.topic}</h1>
             <h2>{names.subtopic}</h2>
+            <h4>{names.section}</h4>
             <h3>{stepNames[step]}</h3> 
             {!showQuiz && (
                 <div>

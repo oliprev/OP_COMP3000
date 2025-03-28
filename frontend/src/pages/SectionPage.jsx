@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { Grid2, Paper } from "@mui/material"
+import { Grid2, Paper, Box } from "@mui/material"
 
 function SectionPage() {
     const { topic, subtopic } = useParams(); // Retrieves the topic and subtopic IDs from the URL
@@ -30,18 +30,26 @@ function SectionPage() {
             <Grid2 container spacing = {4}> {/* Renders sections in a grid layout with spacing */}
                 {sections.map((section) => ( // Maps over sections array to render each section
                     <Grid2 key = {section._id} size = {{ md: 4 }}> {/* Assigns the section ID as the key */}
-                        <Link to = {`/main/topics/${topic}/subtopics/${subtopic}/sections/${section._id}/learn`}> {/* Generates the link to the learning page for the section */}
+                        <Box
+                            component = {Link}
+                            to = {`/main/topics/${topic}/subtopics/${subtopic}/sections/${section._id}/learn`} // Generates the link to the section's learning page
+                            style = {{
+                                cursor: 'pointer',
+                                display: 'block'
+                            }}
+                        >
                             <Paper
-                                elevation = {3} // Adds a shadow effect to the paper
+                                elevation = {4} // Adds a shadow effect to the paper
                                 style = {{
                                     padding: '16px',
                                     textAlign: 'center',
                                     backgroundColor: '#f0f0f0',
+                                    borderRadius: '10px',
                                 }}
                             >
                             <h2 style = {{ color: 'black' }}>{section.name}</h2> {/* Renders the section name */}
                             </Paper>
-                        </Link>
+                        </Box>
                     </Grid2>
                 ))}
             </Grid2>

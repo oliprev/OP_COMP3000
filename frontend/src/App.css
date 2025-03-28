@@ -46,6 +46,8 @@
   top: 0;
   left: 0;
   margin: 10px;
+  background-color: #121313;
+  color: #ffffff;
 }
 
 .chat-input {

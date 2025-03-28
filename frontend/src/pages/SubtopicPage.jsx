@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Grid2, Paper } from "@mui/material"
+import { Grid2, Paper, Box } from "@mui/material"
 import { Button } from '@mui/material';
 
 function SubtopicPage() {
@@ -49,26 +49,34 @@ return (
     <Link to="/main/topics" className="back-link">← Back to Learning</Link>
     {knowledgeArea && <h1>{knowledgeArea}</h1>}
     <h2>Subtopics</h2>
-    {subtopics.length > 0 ? (
-      <Grid2 container spacing = {5}>
-        {subtopics.map((subtopic) => (
-          <Grid2 key = {subtopic._id} size = {{ md: 4 }}>
-            <Paper
-              elevation = {4}
-              onClick = {() => handleSubtopicClick(subtopic)}
+    {subtopics.length > 0 ? ( // Checks that subtopics array is not empty
+      <Grid2 container spacing = {4}> {/* Renders subtopics in a grid layout with spacing */}
+        {subtopics.map((subtopic) => ( // Maps over subtopics array to render each subtopic
+          <Grid2 key = {subtopic._id} size = {{ md: 4 }}> {/* Assigns the subtopic ID as the key */}
+            <Box
+              onClick={() => handleSubtopicClick(subtopic)} // Generates the click event to navigate to the subtopic's sections or learn page
               style = {{
-                padding: '16px',
-                backgroundColor: '#f0f0f0',
-                pointer: 'pointer'
+                cursor: 'pointer',
+                display: 'block'
               }}
             >
-            <h2 style = {{ color: 'black' }}>{subtopic.name}</h2>
-            </Paper>
+              <Paper
+                elevation = {4} // Adds a shadow effect to the paper
+                style = {{
+                  padding: '16px',
+                  textAlign: 'center',
+                  backgroundColor: '#f0f0f0',
+                  borderRadius: '10px',
+                }}
+              >
+              <h2 style = {{ color: 'black' }}>{subtopic.name}</h2> {/* Renders the subtopic name */}
+              </Paper>
+            </Box>
           </Grid2>
-        ))}
-      </Grid2>
+          ))}
+        </Grid2>
     ) : (
-      <p>No subtopics available.</p>
+        <p>No subtopics available.</p> // Renders if subtopics array is empty
     )}
   </div>
 );

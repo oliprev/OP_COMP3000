@@ -22,6 +22,13 @@ function LearningPage() {
         4: "example",
         5: "summary"
     };
+    const stepNames = {
+        "1": "Introduction",
+        "2": "First Core Concept",
+        "3": "Second Core Concept",
+        "4": "Example",
+        "5": "Summary"
+    };
 
     useEffect(() => {
         const fetchNames = async () => {
@@ -103,7 +110,9 @@ function LearningPage() {
     return (
         <div>
             <Link to={`/main/topics/${topic}/subtopics`} className="back-link">← Back to Subtopics</Link>
-            <h1>Learning Page</h1> 
+            <h1>{names.topic}</h1>
+            <h2>{names.subtopic}</h2>
+            <h3>{stepNames[step]}</h3> 
             {!showQuiz && (
                 <div>
                     {loading ? (

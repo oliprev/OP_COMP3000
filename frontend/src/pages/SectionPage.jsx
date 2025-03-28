@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { Grid2, Paper } from "@mui/material"
 
 function SectionPage() {
     const { topic, subtopic } = useParams(); // Retrieves the topic and subtopic IDs from the URL
@@ -22,24 +23,33 @@ function SectionPage() {
     if (loading) return <p>Loading...</p>;
 
     return (
-        <div>
-            <Link to = {`/main/topics/${topic}/subtopics`} className = "back-link">← Back to Subtopics</Link>
-            <h1>Sections</h1>
-            <div>
-                {sections.length > 0 ? ( // Checks that sections array is not empty
-                    sections.map((section) => ( // Maps over sections array to render each section
-                        <Link 
-                            key={section._id} to={`/main/topics/${topic}/subtopics/${subtopic}/sections/${section._id}/learn`} // Generates the link to the learning page for the section
-                        >
-                            <h2>{section.name}</h2> {/* Renders the section name */}
+    <div>
+        <Link to = {`/main/topics/${topic}/subtopics`} className = "back-link">← Back to Subtopics</Link>
+        <h1>Sections</h1>
+        {sections.length > 0 ? ( // Checks that sections array is not empty
+            <Grid2 container spacing = {4}> {/* Renders sections in a grid layout with spacing */}
+                {sections.map((section) => ( // Maps over sections array to render each section
+                    <Grid2 key = {section._id} size = {{ md: 4 }}> {/* Assigns the section ID as the key */}
+                        <Link to = {`/main/topics/${topic}/subtopics/${subtopic}/sections/${section._id}/learn`}> {/* Generates the link to the learning page for the section */}
+                            <Paper
+                                elevation = {3} // Adds a shadow effect to the paper
+                                style = {{
+                                    padding: '16px',
+                                    textAlign: 'center',
+                                    backgroundColor: '#f0f0f0',
+                                }}
+                            >
+                            <h2 style = {{ color: 'black' }}>{section.name}</h2> {/* Renders the section name */}
+                            </Paper>
                         </Link>
-                    ))
-                ) : (
-                    <p>No sections available</p> // Renders if sections array is empty
-                )}
-            </div>
-        </div>
-    );
+                    </Grid2>
+                ))}
+            </Grid2>
+        ) : (
+            <p>No sections available</p> // Renders if sections array is empty
+        )}
+    </div>
+);
 };
 
 export default SectionPage;

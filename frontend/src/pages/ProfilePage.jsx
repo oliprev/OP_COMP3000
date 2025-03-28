@@ -40,11 +40,10 @@ function ProfilePage() {
             {/* Renders the user's profile data */}
             {profileData ? (
               <div>
-                <p>Name: {profileData.name}</p> // Renders the user's name
-                <p>Email: {profileData.email}</p> // Renders the user's email
-                <p>Date of Birth: {new Date(profileData.dateOfBirth).toLocaleDateString()}</p> // Renders the user's date of birth
-                <p>Experience Level: {profileData.experienceLevel}</p> // Renders the user's experience level
-                <p>Risk Score: work in progress</p>
+                <p>Name: {profileData.name}</p> {/* Renders the user's name */}
+                <p>Email: {profileData.email}</p> {/* Renders the user's email */}
+                <p>Date of Birth: {new Date(profileData.dateOfBirth).toLocaleDateString()}</p> {/* Renders the user's date of birth */}
+                <p>Experience Level: {profileData.experienceLevel}</p> {/* Renders the user's experience level */}
                 <Link to = "/main/profile/updatepassword">Update Password</Link><br></br>
                 <Link to = "/main/profile/deleteprofile">Delete Profile</Link>
               </div>

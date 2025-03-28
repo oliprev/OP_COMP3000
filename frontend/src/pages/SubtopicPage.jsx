@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Grid2, Paper } from "@mui/material"
+import { Button } from '@mui/material';
 
 function SubtopicPage() {
     const { topic } = useParams(); // Retrieves the topic ID from the URL
@@ -42,25 +44,34 @@ function SubtopicPage() {
 
     if (loading) return <p>Loading...</p>;
 
-    return (
-        <div>
-            <Link to = "/main/topics" className = "back-link">← Back to Learning</Link>
-            {knowledgeArea && <h1>{knowledgeArea}</h1>} // Renders the knowledge area name
-
-            <h2>Subtopics</h2>
-            <ul>
-                {subtopics.length > 0 ? ( // Checks that subtopics array is not empty
-                    subtopics.map(subtopic => ( // Maps over subtopics array to render each subtopic
-                        <button key = {subtopic._id} onClick={() => handleSubtopicClick(subtopic)}> {/* Assigns the subtopic ID as the key and calls handleSubtopicClick on click */}
-                            {subtopic.name}
-                        </button>
-                    ))
-                ) : (
-                    <p>No subtopics available.</p> // Renders if subtopics array is empty
-                )}
-            </ul>
-        </div>
-    );
+return (
+  <div>
+    <Link to="/main/topics" className="back-link">← Back to Learning</Link>
+    {knowledgeArea && <h1>{knowledgeArea}</h1>}
+    <h2>Subtopics</h2>
+    {subtopics.length > 0 ? (
+      <Grid2 container spacing = {5}>
+        {subtopics.map((subtopic) => (
+          <Grid2 key = {subtopic._id} size = {{ md: 4 }}>
+            <Paper
+              elevation = {4}
+              onClick = {() => handleSubtopicClick(subtopic)}
+              style = {{
+                padding: '16px',
+                backgroundColor: '#f0f0f0',
+                pointer: 'pointer'
+              }}
+            >
+            <h2 style = {{ color: 'black' }}>{subtopic.name}</h2>
+            </Paper>
+          </Grid2>
+        ))}
+      </Grid2>
+    ) : (
+      <p>No subtopics available.</p>
+    )}
+  </div>
+);
 }
 
 export default SubtopicPage;

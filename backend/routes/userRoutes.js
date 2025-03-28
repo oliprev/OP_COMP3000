@@ -3,9 +3,10 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/User');
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 const authenticateToken = require('../functions/authenticateToken');
 const validateIds = require('../functions/validateIds');
+const expressValidation = require('../functions/expressValidation');
 
 // CREATE route - for registration
 router.post('/register', 
@@ -29,18 +30,14 @@ router.post('/register',
                 return true;
             }),
         body('experienceLevel')
-            .isIn(['Beginner', 'Intermediate', 'dvanced']).withMessage('Experience level must be one of the following: beginner, intermediate, or advanced.'),
+            .isIn(['Beginner', 'Intermediate', 'Advanced']).withMessage('Experience level must be one of the following: beginner, intermediate, or advanced.'),
         body('tosAccepted')
-            .isBoolean().withMessage('Terms of Service must be accepted.'),
+            .equals('true').withMessage('Terms of Service must be accepted.'),
         body('privacyPolicyAccepted')
-            .isBoolean().withMessage('Privacy Policy must be accepted.')
+            .equals('true').withMessage('Privacy Policy must be accepted.'),
+        expressValidation,
     ],
     async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-
     const { name, email, password, dateOfBirth, experienceLevel, tosAccepted, privacyPolicyAccepted } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);

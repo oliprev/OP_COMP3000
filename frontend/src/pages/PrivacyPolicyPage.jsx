@@ -1,9 +1,10 @@
+import { Container } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
 function PrivacyPolicyPage() {
     return (
-        <div>
+        <Container>
             <Link to="/register" className="back-link">← Back</Link>
             <h1>SecuLearn - Privacy Policy</h1>
             <p>This Privacy Policy describes numerous important factors surrounding your (the user's) information, and how SecuLearn handles it. It adheres to the GDPR / Data Protection Act 2018.</p>
@@ -24,7 +25,7 @@ function PrivacyPolicyPage() {
             <p>Any future updates to this Privacy Policy will be communicated in advance.</p>
             <p>If you have any questions, do not hesitate to contact me at oliver.prevett@students.plymouth.ac.uk.</p>
             <p><em>Version 1.0 - March 26, 2025 23:36PM</em></p>
-        </div>
+        </Container>
     );
 }
 

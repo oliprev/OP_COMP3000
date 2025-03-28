@@ -1,9 +1,10 @@
+import { Container } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
 function TOSPage() {
     return (
-        <div>
+        <Container>
             <Link to="/register" className="back-link">← Back</Link>
             <h1>SecuLearn - Terms of Service</h1>
             <p>These Terms of Service govern the use of SecuLearn, an application developed for educational purposes by Oliver Prevett at the University of Plymouth.</p>
@@ -19,7 +20,7 @@ function TOSPage() {
             <p>Any future updates to these Terms of Service will be communicated in advance.</p>
             <p>This is a purely academic project, and is not intended for commercial deployment right now. These terms are not legally binding.</p>
             <p><em>Version 1.1 - March 27, 2025 23:47PM</em></p>
-        </div>
+        </Container>
     );
 }
 

@@ -85,6 +85,7 @@ router.put('/updatepassword', authenticateToken, async (req, res) => {
     }
 });
 
+// DELETE route - for deleting a user
 router.delete('/delete', authenticateToken, async (req, res) => {
     const { userId } = req.user;
 

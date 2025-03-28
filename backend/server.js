@@ -1,4 +1,3 @@
-// Main backend code
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -21,9 +20,5 @@ app.use('/api/cybok', cybokRoutes); // Defines cybok route URL
 mongoose.connect(process.env.URI) // Connects to MongoDB
     .then(() => console.log('Connected to MongoDB')) // Logs success message
     .catch(err => console.log(err)); // Logs error message
-
-app.get('/', (req, res) => { // Verifies server is running
-    res.send('Hello World');
-});
 
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`)); // Logs server running

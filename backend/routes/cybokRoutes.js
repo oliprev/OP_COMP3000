@@ -15,6 +15,7 @@ router.post('/knowledge-areas', async (req, res) => {
     }
 });
 
+// READ route - for getting all knowledge areas
 router.get('/knowledge-areas', async (req, res) => {
     try {
         const knowledgeAreas = await KnowledgeArea.find();
@@ -24,6 +25,7 @@ router.get('/knowledge-areas', async (req, res) => {
     }
 });
 
+// READ route - for getting a specific knowledge area
 router.get('/knowledge-areas/:id', async (req, res) => {
     try {
         const knowledgeArea = await KnowledgeArea.findById(req.params.id);
@@ -33,6 +35,7 @@ router.get('/knowledge-areas/:id', async (req, res) => {
     }
 });
 
+// READ route - for getting subtopics of a specific knowledge area
 router.get('/knowledge-areas/:id/subtopics', async (req, res) => {
     try {
         const knowledgeArea = await KnowledgeArea.findById(req.params.id);
@@ -49,6 +52,7 @@ router.get('/knowledge-areas/:id/subtopics', async (req, res) => {
     }
 });
 
+// READ route - for getting a specific subtopic of a specific knowledge area
 router.get('/knowledge-areas/:id/subtopics/:subtopicId', async (req, res) => {
     try {
         const knowledgeArea = await KnowledgeArea.findOne({ "subtopics._id": req.params.subtopicId });
@@ -63,6 +67,7 @@ router.get('/knowledge-areas/:id/subtopics/:subtopicId', async (req, res) => {
     }
 });
 
+// READ route - for getting sections of a specific subtopic of a specific knowledge area
 router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections', async (req, res) => {
     try {
         const { topicId, subtopicId } = req.params;
@@ -75,6 +80,7 @@ router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections', async (re
     }
 });
 
+// READ route - for getting a specific section of a specific subtopic of a specific knowledge area
 router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections/:sectionId?', async (req, res) => {
     try {
         const { topicId, subtopicId, sectionId } = req.params;

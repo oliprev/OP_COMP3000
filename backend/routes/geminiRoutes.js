@@ -206,6 +206,7 @@ router.get('/generate-content', async (req, res) => {
     }
 });
 
+// READ route - for quiz generation
 router.get('/generate-quiz', async (req, res) => {
     const { topic, subtopic, section, experienceLevel, step } = req.query;
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming.";

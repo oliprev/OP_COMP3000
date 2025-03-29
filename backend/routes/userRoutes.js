@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/User');
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 const authenticateToken = require('../functions/authenticateToken');
 const validateIds = require('../functions/validateIds');
 const expressValidation = require('../functions/expressValidation');
@@ -76,7 +76,7 @@ router.post('/login',
 // READ route - for getting name for dashboard display
 router.get('/:userId/name', authenticateToken, 
     [
-        body('userId')
+        param('userId')
             .notEmpty().withMessage('User ID is required.')
             .isMongoId().withMessage('Invalid User ID format.'),
         expressValidation,
@@ -96,7 +96,7 @@ router.get('/:userId/name', authenticateToken,
 // READ route - for getting all user information
 router.get('/:userId', authenticateToken, 
     [
-        body('userId')
+        param('userId')
             .notEmpty().withMessage('User ID is required.')
             .isMongoId().withMessage('Invalid User ID format.'),
         expressValidation,

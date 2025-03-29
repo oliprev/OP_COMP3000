@@ -38,90 +38,124 @@ router.post('/register',
         expressValidation,
     ],
     async (req, res) => {
-    const { name, email, password, dateOfBirth, experienceLevel, tosAccepted, privacyPolicyAccepted } = req.body;
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ name, email, password: hashedPassword, dateOfBirth, experienceLevel, tosAccepted, privacyPolicyAccepted });
-        const savedUser = await newUser.save();
-        res.status(201).json(savedUser);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+        const { name, email, password, dateOfBirth, experienceLevel, tosAccepted, privacyPolicyAccepted } = req.body;
+            try {
+                const hashedPassword = await bcrypt.hash(password, 10);
+                const newUser = new User({ name, email, password: hashedPassword, dateOfBirth, experienceLevel, tosAccepted, privacyPolicyAccepted });
+                const savedUser = await newUser.save();
+                res.status(201).json(savedUser);
+            } catch (error) {
+                res.status(500).json({ message: error.message });
+            }
+    });
 
 // CREATE route - for login
-router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const user = await User.findOne({ email });
-        if (!user) return res.status(404).json({ message: "Invalid credentials provided." });
-        const passwordMatch = await bcrypt.compare(password, user.password);
-        if (!passwordMatch) return res.status(400).json({ message: "Invalid credentials provided." });
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token, userId: user._id, experienceLevel: user.experienceLevel });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+router.post('/login', 
+    [
+        body('email')
+            .isEmail().withMessage('Invalid email format.')
+            .normalizeEmail(),
+        body('password')
+            .notEmpty().withMessage('Password is required.'),
+        expressValidation,
+    ],
+    async (req, res) => {
+        const { email, password } = req.body;
+        try {
+            const user = await User.findOne({ email });
+            if (!user) return res.status(404).json({ message: "Invalid credentials provided." });
+            const passwordMatch = await bcrypt.compare(password, user.password);
+            if (!passwordMatch) return res.status(400).json({ message: "Invalid credentials provided." });
+            const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            res.json({ token, userId: user._id, experienceLevel: user.experienceLevel });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    });
 
 // READ route - for getting name for dashboard display
-router.get('/:userId/name', authenticateToken, async (req, res) => {
-    const { userId } = req.params;
-    if (!validateIds([userId])) return res.status(400).json({ message: "Invalid credentials provided." });
-    try {
-        const user = await User.findOne({ _id: userId });
-        if (!user) return res.status(404).json({ message: "User not found." });
-        res.json({ name: user.name });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+router.get('/:userId/name', authenticateToken, 
+    [
+        body('userId')
+            .notEmpty().withMessage('User ID is required.')
+            .isMongoId().withMessage('Invalid User ID format.'),
+        expressValidation,
+    ],
+    async (req, res) => {
+        const { userId } = req.params;
+        if (!validateIds([userId])) return res.status(400).json({ message: "Invalid credentials provided." });
+        try {
+            const user = await User.findOne({ _id: userId });
+            if (!user) return res.status(404).json({ message: "User not found." });
+            res.json({ name: user.name });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    });
 
 // READ route - for getting all user information
-router.get('/:userId', authenticateToken, async (req, res) => {   
-    const { userId } = req.params;
-    if (!validateIds([userId])) return res.status(400).json({ message: "Invalid credentials provided." });
-    try {
-        const user = await User.findOne({ _id: userId });
-        if (!user) return res.status(404).json({ message: "Invalid credentials provided." });
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({ message: error.message });       
-    }
-});
+router.get('/:userId', authenticateToken, 
+    [
+        body('userId')
+            .notEmpty().withMessage('User ID is required.')
+            .isMongoId().withMessage('Invalid User ID format.'),
+        expressValidation,
+    ],
+    async (req, res) => {
+        const { userId } = req.params;
+        if (!validateIds([userId])) return res.status(400).json({ message: "Invalid credentials provided." });
+        try {
+            const user = await User.findOne({ _id: userId });
+            if (!user) return res.status(404).json({ message: "Invalid credentials provided." });
+            res.json(user);
+        } catch (error) {
+            res.status(500).json({ message: error.message });       
+        }
+    });
 
 // UPDATE route - for updating password
-router.put('/updatepassword', authenticateToken, async (req, res) => {
-    const { userId } = req.user;
-    const { currentPassword, newPassword } = req.body;
-
-    try {
-        const user = await User.findOne({ _id: userId });
-        if (!validateIds([userId])) return res.status(400).json({ message: "Invalid userId." });
-        const passwordMatch = await bcrypt.compare(currentPassword, user.password);
-        if (!passwordMatch) return res.status(400).json({ message: "Invalid credentials provided." });
-        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-        user.password = hashedNewPassword;
-        await user.save();
-
-        res.json({ message: "Password updated successfully." });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+router.put('/updatepassword', authenticateToken,
+    [
+        body('currentPassword')
+            .notEmpty().withMessage('Current password is required.'),
+        body('newPassword')
+            .isLength({ min: 8 }).withMessage('New password must be at least 8 characters long.'),
+        expressValidation,
+    ],
+    async (req, res) => {
+        const { userId } = req.user;
+        const { currentPassword, newPassword } = req.body;
+        try {
+            const user = await User.findOne({ _id: userId });
+            if (!validateIds([userId])) return res.status(400).json({ message: "Invalid userId." });
+            const passwordMatch = await bcrypt.compare(currentPassword, user.password);
+            if (!passwordMatch) return res.status(400).json({ message: "Invalid credentials provided." });
+            const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+            user.password = hashedNewPassword;
+            await user.save();
+            res.json({ message: "Password updated successfully." });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    });
 
 // DELETE route - for deleting a user
-router.delete('/delete', authenticateToken, async (req, res) => {
-    const { userId } = req.user;
-
-    try {
-        const user = await User.findOneAndDelete({ _id: userId });
-        if (!user) return res.status(404).json({ message: "User not found." });
-
-        res.json({ message: "User deleted successfully." });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+router.delete('/delete', authenticateToken, 
+    [
+        body('userId')
+            .notEmpty().withMessage('User ID is required.')
+            .isMongoId().withMessage('Invalid User ID format.'),
+        expressValidation,
+    ],
+    async (req, res) => {
+        const { userId } = req.user;
+        try {
+            const user = await User.findOneAndDelete({ _id: userId });
+            if (!user) return res.status(404).json({ message: "User not found." });
+            res.json({ message: "User deleted successfully." });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    });
 
 module.exports = router;

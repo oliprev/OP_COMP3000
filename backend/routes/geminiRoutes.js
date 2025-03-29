@@ -1,7 +1,7 @@
 const express = require('express');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const authenticateToken = require('../functions/authenticateToken');
-const validateIds = require('../functions/validateIds');
+const expressValidation = require('../functions/expressValidation');
 const natural = require('natural');
 const router = express.Router();
 
@@ -53,7 +53,16 @@ function isQueryRelevant(prompt, threshold = 0.7) {
 }
 
 // CREATE route - for chatbot
-router.post('/chatbot', authenticateToken, async (req, res) => {
+router.post('/chatbot', authenticateToken, 
+    [
+        body('prompt')
+            .notEmpty().withMessage('Prompt is required.')
+            .isLength({ max: 200 }).withMessage('Prompt must be less than 200 characters.')
+            .trim()
+            .escape(),
+        expressValidation,
+    ],
+    async (req, res) => {
     const { prompt } = req.body; // Gets prompt from request body
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly."; // Static prompt telling to not return any formatting options
     
@@ -86,7 +95,18 @@ router.post('/chatbot', authenticateToken, async (req, res) => {
 });
 
 // READ route - for email generation
-router.get('/generate-email', authenticateToken, async (req, res) => {
+router.get('/generate-email', authenticateToken, 
+    [
+        body('experienceLevel')
+            .isIn(['Beginner', 'Intermediate', 'Advanced']).withMessage('Experience level must be one of the following: beginner, intermediate, or advanced.')
+            .optional()
+            .trim()
+            .escape(),
+        body('type')
+            .isIn(['phishing', 'legitimate']).withMessage('Type must be either phishing or legitimate.'),
+        expressValidation,
+    ],
+    async (req, res) => {
     const type = Math.random() < 0.5 ? 'phishing' : 'legitimate'; // Randomly selects type of email, heads or tails
     const experienceLevel = req.query.experienceLevel || 'Beginner'; // Gets experience level from query, defaults to beginner
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Also do not include any reference to potential phishing sites - the user is meant to analyse the email's language. "; // Static prompt telling to not return any formatting options
@@ -134,7 +154,30 @@ router.get('/generate-email', authenticateToken, async (req, res) => {
 });
 
 // READ route - for content generation
-router.get('/generate-content', async (req, res) => {
+router.get('/generate-content', 
+    [
+        body('topic')
+            .notEmpty().withMessage('Topic is required.')
+            .trim()
+            .escape(),
+        body('subtopic')
+            .notEmpty().withMessage('Subtopic is required.')
+            .trim()
+            .escape(),
+        body('section')
+            .optional()
+            .trim()
+            .escape(),
+        body('experienceLevel')
+            .isIn(['Beginner', 'Intermediate', 'Advanced']).withMessage('Experience level must be one of the following: beginner, intermediate, or advanced.')
+            .optional()
+            .trim()
+            .escape(),
+        body('step')
+            .isIn(['introduction', 'core-concept-1', 'core-concept-2', 'example', 'summary']).withMessage('Step must be one of the following: introduction, core-concept-1, core-concept-2, example, or summary.'),
+        expressValidation,
+    ],
+    async (req, res) => {
     const { topic, subtopic, section, experienceLevel, step } = req.query; // Gets topic and experience level from query
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming."; // Static prompt telling to not return any formatting options
 
@@ -207,7 +250,30 @@ router.get('/generate-content', async (req, res) => {
 });
 
 // READ route - for quiz generation
-router.get('/generate-quiz', async (req, res) => {
+router.get('/generate-quiz', 
+    [ 
+        body('topic')
+            .notEmpty().withMessage('Topic is required.')
+            .trim()
+            .escape(),
+        body('subtopic')
+            .notEmpty().withMessage('Subtopic is required.')
+            .trim()
+            .escape(),
+        body('section')
+            .optional()
+            .trim()
+            .escape(),
+        body('experienceLevel')
+            .isIn(['Beginner', 'Intermediate', 'Advanced']).withMessage('Experience level must be one of the following: beginner, intermediate, or advanced.')
+            .optional()
+            .trim()
+            .escape(),
+        body('step')
+            .isIn(['introduction', 'core-concept-1', 'core-concept-2', 'example', 'summary']).withMessage('Step must be one of the following: introduction, core-concept-1, core-concept-2, example, or summary.'),
+        expressValidation,
+    ],
+    async (req, res) => {
     const { topic, subtopic, section, experienceLevel, step } = req.query;
     const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming.";
     const answerPrompt = "Provide the correct answer at the end by stating: 'Correct answer: <option letter>'.";

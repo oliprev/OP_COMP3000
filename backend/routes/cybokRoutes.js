@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const KnowledgeArea = require('../models/KnowledgeArea');
 const validateIds = require('../functions/validateIds');
+const { body } = require('express-validator');
 const expressValidation = require('../functions/expressValidation');
 
 // CREATE route - developer side for adding new knowledge areas easily

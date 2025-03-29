@@ -4,6 +4,7 @@ const authenticateToken = require('../functions/authenticateToken');
 const expressValidation = require('../functions/expressValidation');
 const natural = require('natural');
 const router = express.Router();
+const { body } = require('express-validator');
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY); // Google API key
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' }); // Model name

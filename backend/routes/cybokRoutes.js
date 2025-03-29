@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const KnowledgeArea = require('../models/KnowledgeArea');
 const validateIds = require('../functions/validateIds');
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 const expressValidation = require('../functions/expressValidation');
 
 // CREATE route - developer side for adding new knowledge areas easily
@@ -63,16 +63,16 @@ router.get('/knowledge-areas', async (req, res) => {
 });
 
 // READ route - for getting a specific knowledge area
-router.get('/knowledge-areas/:id', 
+router.get('/knowledge-areas/:topicId', 
     [
-        body('id')
+        param('id')
             .notEmpty().withMessage('Knowledge Area ID is required.')
             .isMongoId().withMessage('Invalid Knowledge Area ID format.'),
         expressValidation,
     ],
     async (req, res) => {
         try {
-            const knowledgeArea = await KnowledgeArea.findById(req.params.id);
+            const knowledgeArea = await KnowledgeArea.findById(req.params.topicId);
             res.status(200).json(knowledgeArea);
         } catch (error) {
             res.status(404).json({ message: error.message });
@@ -80,16 +80,16 @@ router.get('/knowledge-areas/:id',
     });
 
 // READ route - for getting subtopics of a specific knowledge area
-router.get('/knowledge-areas/:id/subtopics', 
+router.get('/knowledge-areas/:topicId/subtopics', 
     [
-        body('id')
+        param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')
             .isMongoId().withMessage('Invalid Knowledge Area ID format.'),
         expressValidation,
     ],
     async (req, res) => {
         try {
-         const knowledgeArea = await KnowledgeArea.findById(req.params.id);
+         const knowledgeArea = await KnowledgeArea.findById(req.params.topicId);
             res.json({
                 knowledgeArea: knowledgeArea.name,
                 subtopics: knowledgeArea.subtopics.map(subtopic => ({
@@ -104,9 +104,9 @@ router.get('/knowledge-areas/:id/subtopics',
     });
 
 // READ route - for getting a specific subtopic of a specific knowledge area
-router.get('/knowledge-areas/:id/subtopics/:subtopicId', 
+router.get('/knowledge-areas/:topicId/subtopics/:subtopicId', 
     [
-        body('id')
+        param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')
             .isMongoId().withMessage('Invalid Knowledge Area ID format.'),
         body('subtopicId')
@@ -131,10 +131,10 @@ router.get('/knowledge-areas/:id/subtopics/:subtopicId',
 // READ route - for getting sections of a specific subtopic of a specific knowledge area
 router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections', 
     [
-        body('topicId')
+        param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')
             .isMongoId().withMessage('Invalid Knowledge Area ID format.'),
-        body('subtopicId')
+        param('subtopicId')
             .notEmpty().withMessage('Subtopic ID is required.')
             .isMongoId().withMessage('Invalid Subtopic ID format.'),
         expressValidation,
@@ -154,13 +154,13 @@ router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections',
 // READ route - for getting a specific section of a specific subtopic of a specific knowledge area
 router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections/:sectionId?', 
     [
-        body('topicId')
+        param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')
             .isMongoId().withMessage('Invalid Knowledge Area ID format.'),
-        body('subtopicId')
+        param('subtopicId')
             .notEmpty().withMessage('Subtopic ID is required.')
             .isMongoId().withMessage('Invalid Subtopic ID format.'),
-        body('sectionId')
+        param('sectionId')
             .optional()
             .isMongoId().withMessage('Invalid Section ID format.'),
         expressValidation,

@@ -1,21 +1,7 @@
-const swaggerJSDoc = require('swagger-jsdoc');
+const fs = require('fs');
+const yaml = require('yaml');
 
-const options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'COMP3000 API Documentation',
-            version: '1.0.0',
-            description: 'API documentation for my COMP3000 project.',
-        },
-        servers: [
-            {
-                url: 'http://localhost:9000',
-            },
-        ],
-    },
-    apis: ['./routes/*.js'],
-};
+const file = fs.readFileSync('./swagger.yaml', 'utf8');
+const swaggerDocument = yaml.parse(file);
 
-const swaggerSpec = swaggerJSDoc(options);
-module.exports = swaggerSpec;
+module.exports = swaggerDocument;

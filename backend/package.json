@@ -18,6 +18,7 @@
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "express-validator": "^7.2.1",
+    "fs": "^0.0.1-security",
     "helmet": "^8.1.0",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
@@ -27,7 +28,8 @@
     "op_comp3000": "file:..",
     "openai": "^4.78.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "yaml": "^2.7.1"
   },
   "devDependencies": {
     "supertest": "^7.0.0"

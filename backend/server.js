@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
 const rateLimit = require('express-rate-limit');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 const userRoutes = require('./routes/userRoutes'); // Import user routes
 const geminiRoutes = require('./routes/geminiRoutes'); // Import gemini routes
 const cybokRoutes = require('./routes/cybokRoutes'); // Import cybok routes
@@ -21,6 +23,9 @@ app.use(express.json()); // Allows JSON parsing
 const geminiLimiter = rateLimit({ windowMs: 60 * 1000, max: 20, message: 'You are being rate limited. Please try again later.' }); 
 const cybokLimiter = rateLimit({ windowMs: 60 * 1000, max: 25, message: 'You are being rate limited. Please try again later.' });
 const userLimiter = rateLimit({ windowMs: 60 * 1000, max: 25, message: 'You are being rate limited. Please try again later.' });
+
+app.use('/api/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 app.use('/api/users', userLimiter, userRoutes); // Defines user route URL
 app.use('/api/gemini', geminiLimiter, geminiRoutes); // Defines gemini route URL

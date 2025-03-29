@@ -13,7 +13,7 @@ router.post('/knowledge-areas',
             .trim()
             .escape(),
         body('description')
-            .isOptional()
+            .optional()
             .trim()
             .escape(),
         body('subtopics')
@@ -29,14 +29,14 @@ router.post('/knowledge-areas',
             .trim()
             .escape(),
         body('subtopics.*.sections')
-            .isOptional()
+            .optional()
             .isArray().withMessage('Sections must be an array.'),
         body('subtopics.*.sections.*.name')
             .notEmpty().withMessage('Section name is required.')
             .trim()
             .escape(),
         body('subtopics.*.sections.*.description')
-            .isOptional()
+            .optional()
             .trim()
             .escape(),
         expressValidation,

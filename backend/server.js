@@ -26,6 +26,11 @@ const userLimiter = rateLimit({ windowMs: 60 * 1000, max: 25, message: 'You are 
 
 app.use('/api/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
 
 app.use('/api/users', userLimiter, userRoutes); // Defines user route URL
 app.use('/api/gemini', geminiLimiter, geminiRoutes); // Defines gemini route URL

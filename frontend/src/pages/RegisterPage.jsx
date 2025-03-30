@@ -47,7 +47,7 @@ function RegisterPage() {
             <input
               type="text"
               name="name"
-              placeholder="Name"
+              placeholder="Full Name"
               value={formData.name} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
             /><br></br>
@@ -77,9 +77,9 @@ function RegisterPage() {
               name="experienceLevel" 
               value={formData.experienceLevel} // Gets value
               onChange={handleChange}>  
-              <option value="Beginner">Beginner</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Advanced">Advanced</option>
+              <option value="Beginner">Beginner (no/limited experience)</option>
+              <option value="Intermediate">Intermediate (good level of experience)</option>
+              <option value="Advanced">Advanced (profound experience)</option>
             </select><br></br>
             <input 
               type="checkbox"

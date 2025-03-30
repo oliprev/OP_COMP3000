@@ -58,6 +58,7 @@ function TopicPage() {
           ) : (
             <p>No knowledge areas available</p> // Renders if knowledge areas array is empty
           )}
+          <Typography variant = 'h6' style = {{ marginTop: '20px' }}>All topics, subtopics, and sections have been kindly provided by CyBOK.</Typography>
         </Container>
       );
 };

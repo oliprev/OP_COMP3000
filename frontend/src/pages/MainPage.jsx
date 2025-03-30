@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Container, Grid2, Card, CardActionArea, Typography } from "@mui/material";
 
 function MainPage() {
     const navigate = useNavigate(); // Initialises the navigate function from the useNavigate hook
@@ -42,16 +43,28 @@ function MainPage() {
     }
     
     return (
-        <div>
+        <Container>
             <Link to = "/" onClick={handleLogout} className = "back-link">← Log out</Link><br></br>
-            <h1>SecuLearn</h1>
-            <h2>Dashboard</h2>
-            {firstName && <h3>Welcome, {firstName}!</h3>} {/* Renders the user's first name */}
-            <Link to = "/main/topics">Learning</Link><br></br> {/* Generates the link to the topics page */}
-            <Link to = "/main/gemini">Cybersecurity Chatbot</Link><br></br> {/* Generates the link to the chatbot page */}
-            <Link to = "/main/phishing">Phishing Simulation</Link><br></br> {/* Generates the link to the phishing simulation page */}
-            <Link to = "/main/profile">Profile</Link><br></br> {/* Generates the link to the profile page */}
-        </div>
+            <Typography variant = "h1" fontWeight = {550} marginBottom = {6}>SecuLearn</Typography>
+            <Typography variant = "h3" margin = {5}>Dashboard</Typography>
+            {firstName && <Typography variant = "h4" margin = {5}>Welcome, {firstName}!</Typography>} {/* Renders the user's first name */}
+            <Grid2 container spacing = {4}>
+                {[
+                    { label: "Learning", path: "/main/topics" },
+                    { label: "Cybersecurity Chatbot", path: "/main/gemini" },
+                    { label: "Phishing Simulation", path: "/main/phishing" },
+                    { label: "Profile", path: "/main/profile" },
+                ].map((item) => (
+                    <Grid2 item md= {3} key = {item.label}>
+                        <Card>
+                            <CardActionArea component = {Link} to = {item.path} sx = {{ padding: 4 }}>
+                                <Typography variant = "h6" fontWeight = {600}>{item.label}</Typography>
+                            </CardActionArea>
+                        </Card>
+                    </Grid2>
+                ))}
+            </Grid2>
+        </Container>
     );
 }
 

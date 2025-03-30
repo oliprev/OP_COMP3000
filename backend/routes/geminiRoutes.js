@@ -4,7 +4,7 @@ const authenticateToken = require('../functions/authenticateToken');
 const expressValidation = require('../functions/expressValidation');
 const natural = require('natural');
 const router = express.Router();
-const { body } = require('express-validator');
+const { body, query } = require('express-validator');
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY); // Google API key
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' }); // Model name
@@ -98,7 +98,7 @@ router.post('/chatbot', authenticateToken,
 // READ route - for email generation
 router.get('/generate-email', authenticateToken, 
     [
-        body('experienceLevel')
+        query('experienceLevel')
             .isIn(['Beginner', 'Intermediate', 'Advanced']).withMessage('Experience level must be one of the following: beginner, intermediate, or advanced.')
             .optional()
             .trim()
@@ -157,24 +157,24 @@ router.get('/generate-email', authenticateToken,
 // READ route - for content generation
 router.get('/generate-content', 
     [
-        body('topic')
+        query('topic')
             .notEmpty().withMessage('Topic is required.')
             .trim()
             .escape(),
-        body('subtopic')
+        query('subtopic')
             .notEmpty().withMessage('Subtopic is required.')
             .trim()
             .escape(),
-        body('section')
+        query('section')
             .optional()
             .trim()
             .escape(),
-        body('experienceLevel')
+        query('experienceLevel')
             .isIn(['Beginner', 'Intermediate', 'Advanced']).withMessage('Experience level must be one of the following: beginner, intermediate, or advanced.')
             .optional()
             .trim()
             .escape(),
-        body('step')
+        query('step')
             .isIn(['introduction', 'core-concept-1', 'core-concept-2', 'example', 'summary']).withMessage('Step must be one of the following: introduction, core-concept-1, core-concept-2, example, or summary.'),
         expressValidation,
     ],
@@ -253,24 +253,24 @@ router.get('/generate-content',
 // READ route - for quiz generation
 router.get('/generate-quiz', 
     [ 
-        body('topic')
+        query('topic')
             .notEmpty().withMessage('Topic is required.')
             .trim()
             .escape(),
-        body('subtopic')
+        query('subtopic')
             .notEmpty().withMessage('Subtopic is required.')
             .trim()
             .escape(),
-        body('section')
+        query('section')
             .optional()
             .trim()
             .escape(),
-        body('experienceLevel')
+        query('experienceLevel')
             .isIn(['Beginner', 'Intermediate', 'Advanced']).withMessage('Experience level must be one of the following: beginner, intermediate, or advanced.')
             .optional()
             .trim()
             .escape(),
-        body('step')
+        query('step')
             .isIn(['introduction', 'core-concept-1', 'core-concept-2', 'example', 'summary']).withMessage('Step must be one of the following: introduction, core-concept-1, core-concept-2, example, or summary.'),
         expressValidation,
     ],

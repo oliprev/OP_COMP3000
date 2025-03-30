@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Paper, Typography } from "@mui/material";
 
 function LearningPage() {
     const { topic, subtopic, section } = useParams(); // Retrieves the topic, subtopic, and section IDs from the URL
@@ -122,7 +123,7 @@ function LearningPage() {
         <div>
             <Link to = {`/main/topics/${topic}/subtopics`} className = "back-link">← Back to Subtopics</Link>
             {/* Renders the topic, subtopic, and section names */}
-            <h1>{names.topic}</h1>
+            <Typography variant = 'h2' fontWeight={400}>{names.topic}</Typography>
             <h2>{names.subtopic}</h2>
             <h4>{names.section}</h4>
             <h3>{stepNames[step]}</h3> 
@@ -133,7 +134,7 @@ function LearningPage() {
                         <p>Loading content...</p>
                     ) : content ? (
                     <div>
-                        <p>{content.content}</p>
+                        <Paper elevation={4} style = {{ borderRadius: '10px', padding: '10px', marginBottom: '10px'}}>{content.content}</Paper> {/* Renders the learning content inside a Paper component */}
                     </div>
                     ) : (
                         <p>No content available.</p>

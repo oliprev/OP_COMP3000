@@ -109,7 +109,7 @@ router.get('/knowledge-areas/:topicId/subtopics/:subtopicId',
         param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')
             .isMongoId().withMessage('Invalid Knowledge Area ID format.'),
-        body('subtopicId')
+        param('subtopicId')
             .notEmpty().withMessage('Subtopic ID is required.')
             .isMongoId().withMessage('Invalid Subtopic ID format.'),
         expressValidation,

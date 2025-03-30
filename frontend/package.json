@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "axios": "^1.7.9",
-    "op_comp3000": "file:..",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1"

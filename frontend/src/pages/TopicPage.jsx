@@ -9,7 +9,7 @@ function TopicPage() {
 
     // Fetches knowledge areas from the API, assigns them to the state, and updates the loading status
     useEffect(() => {
-        axios.get('http://localhost:9000/api/cybok/knowledge-areas') 
+        axios.get('/api/cybok/knowledge-areas') 
             .then((response) => {
                 setKnowledgeAreas(response.data);
                 setLoading(false);

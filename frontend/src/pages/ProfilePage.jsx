@@ -16,7 +16,7 @@ function ProfilePage() {
             }
 
             try {
-                const response = await fetch(`http://localhost:9000/api/users/${userId}`, {
+                const response = await fetch(`/api/users/${userId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

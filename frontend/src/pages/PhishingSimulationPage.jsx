@@ -15,7 +15,7 @@ function PhishingSimulationPage () {
         const token = localStorage.getItem("token");
 
         try {
-            const response = await axios.get("http://localhost:9000/api/gemini/generate-email", { 
+            const response = await axios.get("/api/gemini/generate-email", { 
                 headers: { 
                     Authorization: `Bearer ${token}` 
                 } 

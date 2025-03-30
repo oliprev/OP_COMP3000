@@ -16,7 +16,7 @@ function MainPage() {
         const fetchUserName = async () => {
             if (userId && token) {
                 try {
-                    const response = await axios.get(`http://localhost:9000/api/users/${userId}/name`, {
+                    const response = await axios.get(`/api/users/${userId}/name`, {
                         headers: {
                             'Authorization': `Bearer ${token}`, // Passes the token in the request header
                         },

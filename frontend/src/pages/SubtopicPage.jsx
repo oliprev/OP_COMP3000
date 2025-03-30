@@ -16,7 +16,7 @@ function SubtopicPage() {
     useEffect(() => {
         const fetchSubtopics = async () => {
             try {
-                const response = await axios.get(`http://localhost:9000/api/cybok/knowledge-areas/${topic}/subtopics`);
+                const response = await axios.get(`/api/cybok/knowledge-areas/${topic}/subtopics`);
                 const fetchedSubtopics = response.data.subtopics.map(subtopic => ({
                     ...subtopic,
                     hasSections: hasSections(subtopic)

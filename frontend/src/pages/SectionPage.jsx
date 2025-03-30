@@ -10,7 +10,7 @@ function SectionPage() {
 
     // Fetches sections for the selected topic and subtopic from the API, assigns them to the state, and updates the loading status
     useEffect(() => {
-        axios.get(`http://localhost:9000/api/cybok/knowledge-areas/${topic}/subtopics/${subtopic}/sections`)
+        axios.get(`/api/cybok/knowledge-areas/${topic}/subtopics/${subtopic}/sections`)
             .then((response) => {
                 setSections(response.data);
                 setLoading(false);

@@ -28,7 +28,7 @@ function RegisterPage() {
         console.log("Form Data:", formData); // Log form data
         if (formData.tosAccepted && formData.privacyPolicyAccepted) {
             try {
-                const response = await axios.post("http://localhost:9000/api/users/register", formData); // Send POST request to register route
+                const response = await axios.post(`/api/users/register`, formData); // Send POST request to register route
                 console.log("Response:", response); // Log response
                 navigate("/login"); // Navigate to login page
             } catch (error) {

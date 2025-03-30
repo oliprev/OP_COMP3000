@@ -9,7 +9,7 @@ function DeleteProfilePage() {
     const handleDelete = async () => {
         try {
             const token = localStorage.getItem("token"); // Get token from local storage
-            const response = await axios.delete("http://localhost:9000/api/users/delete", { // Send request to delete route
+            const response = await axios.delete("/api/users/delete", { // Send request to delete route
                 headers: {
                     Authorization: `Bearer ${token}` // Send token in header
                 }

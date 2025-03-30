@@ -19,7 +19,7 @@ function CybersecurityQueryPage() {
 
         try {
             const token = localStorage.getItem("token"); // Gets token from local storage
-            const response = await axios.post("http://localhost:9000/api/gemini/chatbot", // Sends request to chatbot route
+            const response = await axios.post("/api/gemini/chatbot", // Sends request to chatbot route
                 { 
                     prompt: query // Sends query as prompt
                 },{ 

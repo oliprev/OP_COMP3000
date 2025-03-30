@@ -18,7 +18,7 @@ function LoginPage() {
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
         try {
-            const response = await axios.post("http://localhost:9000/api/users/login", formData); // Send POST request to login route
+            const response = await axios.post("/api/users/login", formData); // Send POST request to login route
             if (response.status === 200) { // If response status is OK
                 localStorage.setItem("token", response.data.token); // Store token in local storage
                 localStorage.setItem("userId", response.data.userId); // Store user ID in local storage

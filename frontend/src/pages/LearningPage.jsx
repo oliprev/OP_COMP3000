@@ -43,8 +43,8 @@ function LearningPage() {
         const fetchNames = async () => {
             try {
                 const endpoint = section
-                    ? `http://localhost:9000/api/cybok/knowledge-areas/${topic}/subtopics/${subtopic}/sections/${section}`
-                    : `http://localhost:9000/api/cybok/knowledge-areas/${topic}/subtopics/${subtopic}`;
+                    ? `/api/cybok/knowledge-areas/${topic}/subtopics/${subtopic}/sections/${section}`
+                    : `/api/cybok/knowledge-areas/${topic}/subtopics/${subtopic}`;
     
                 const response = await axios.get(endpoint);
                 setNames({
@@ -68,7 +68,7 @@ function LearningPage() {
         setLoading(true)
 
         try {
-            const response = await axios.get('http://localhost:9000/api/gemini/generate-content', {
+            const response = await axios.get('/api/gemini/generate-content', {
                 params: {
                     topic: names.topic,
                     subtopic: names.subtopic,
@@ -100,7 +100,7 @@ function LearningPage() {
         const stepType = stepList[step];
     
         try {
-            const response = await axios.get('http://localhost:9000/api/gemini/generate-quiz', {
+            const response = await axios.get('/api/gemini/generate-quiz', {
                 params: {
                     topic: names.topic,
                     subtopic: names.subtopic,

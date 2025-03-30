@@ -13,7 +13,7 @@ const app = express(); // Initialises express app
 const helmet = require('helmet'); // Imports helmet for security
 app.use(helmet()); // Uses helmet - sets various HTTP headers for security
 const server = http.createServer(app); // Creates express server
-const PORT = 9000; // Sets port number
+const PORT = process.env.port || 9000; // Sets port number
 const cors = require('cors'); // Imports cors
 
 app.use(cors({ origin: 'http://localhost:3001' })); // Allows requests from frontend

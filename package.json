@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "concurrently \"npm run start --prefix frontend\" \"npm run start --prefix backend\"",
+    "start": "npm run start --prefix backend",
     "build": "npm run build --prefix frontend",
     "install_all": "concurrently \"npm install\" \"npm install --prefix frontend\" \"npm install --prefix backend\"",
     "test": "jest"

@@ -28,7 +28,7 @@ function TopicPage() {
           {knowledgeAreas.length > 0 ? (
             <Grid2 container spacing = {4}>
               {knowledgeAreas.map((knowledgeArea) => (
-                <Grid2 key = {knowledgeArea._id} size = {{ md: 4 }} sx = {{ backgroundColor: 'transparent' }}>
+                <Grid2 key = {knowledgeArea._id} size = {{ md: 4 }}>
                   <Box
                     component = {Link}
                     to = {`/main/topics/${knowledgeArea._id}/subtopics`} // Generates the link to the subtopics page

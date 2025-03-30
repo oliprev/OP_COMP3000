@@ -28,16 +28,15 @@ const cybokLimiter = rateLimit({ windowMs: 60 * 1000, max: 25, message: 'You are
 const userLimiter = rateLimit({ windowMs: 60 * 1000, max: 25, message: 'You are being rate limited. Please try again later.' });
 
 app.use('/api/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-const path = require('path');
-app.use(express.static(path.join(__dirname, '../frontend/build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-});
-
 app.use('/api/users', userLimiter, userRoutes); // Defines user route URL
 app.use('/api/gemini', geminiLimiter, geminiRoutes); // Defines gemini route URL
 app.use('/api/cybok', cybokLimiter, cybokRoutes); // Defines cybok route URL
+
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
 
 mongoose.connect(process.env.URI) // Connects to MongoDB
     .then(() => console.log('Connected to MongoDB')) // Logs success message

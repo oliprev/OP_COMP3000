@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Grid2, Paper, Box } from "@mui/material"
+import { Grid2, Paper, Box, Typography } from "@mui/material"
 import { Button } from '@mui/material';
 
 function SubtopicPage() {
@@ -47,8 +47,8 @@ function SubtopicPage() {
 return (
   <div>
     <Link to="/main/topics" className="back-link">← Back to Learning</Link>
-    {knowledgeArea && <h1>{knowledgeArea}</h1>}
-    <h2>Subtopics</h2>
+    {knowledgeArea && <Typography variant = 'h2' fontWeight = {600}>{knowledgeArea}</Typography>}
+    <Typography variant = 'h4'>Subtopics</Typography>
     {subtopics.length > 0 ? ( // Checks that subtopics array is not empty
       <Grid2 container spacing = {4}> {/* Renders subtopics in a grid layout with spacing */}
         {subtopics.map((subtopic) => ( // Maps over subtopics array to render each subtopic
@@ -69,7 +69,7 @@ return (
                   borderRadius: '10px',
                 }}
               >
-              <h2 style = {{ color: 'black' }}>{subtopic.name}</h2> {/* Renders the subtopic name */}
+              <Typography variant = 'h6' fontWeight = {550}>{subtopic.name}</Typography> {/* Renders the subtopic name */}
               </Paper>
             </Box>
           </Grid2>

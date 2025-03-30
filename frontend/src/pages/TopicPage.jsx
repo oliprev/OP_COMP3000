@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Grid2, Paper, Box } from "@mui/material"
+import { Container, Grid2, Paper, Box, Typography } from "@mui/material"
 
 function TopicPage() {
     const [knowledgeAreas, setKnowledgeAreas] = useState([]); // State to store fetched knowledge areas
@@ -24,7 +24,7 @@ function TopicPage() {
     return (
         <Container>
           <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
-          <h1>Topics</h1>
+          <Typography variant = 'h2' fontWeight={600}>Topics</Typography>
           {knowledgeAreas.length > 0 ? (
             <Grid2 container spacing = {4}>
               {knowledgeAreas.map((knowledgeArea) => (
@@ -46,10 +46,10 @@ function TopicPage() {
                         borderRadius: '10px',
                       }}
                     >
-                      <h2 style = {{ color: 'black', marginBottom: '8px' }}>
+                      <Typography variant = 'h4' fontWeight = {600} style = {{ marginBottom: '8px' }}>
                         {knowledgeArea.name} {/* Renders the knowledge area name */}
-                      </h2>
-                      <p style = {{ color: 'black' }}>{knowledgeArea.description}</p> {/* Renders the knowledge area description */}
+                      </Typography>
+                      <Typography variant = 'h6'>{knowledgeArea.description}</Typography> {/* Renders the knowledge area description */}
                     </Paper>
                   </Box>
                 </Grid2>

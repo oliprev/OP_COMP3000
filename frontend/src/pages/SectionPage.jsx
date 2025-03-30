@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { Grid2, Paper, Box } from "@mui/material"
+import { Grid2, Paper, Box, Typography } from "@mui/material"
 
 function SectionPage() {
     const { topic, subtopic } = useParams(); // Retrieves the topic and subtopic IDs from the URL
@@ -25,11 +25,11 @@ function SectionPage() {
     return (
     <div>
         <Link to = {`/main/topics/${topic}/subtopics`} className = "back-link">← Back to Subtopics</Link>
-        <h1>Sections</h1>
+        <Typography variant = 'h2' fontWeight = {600}>Sections</Typography>
         {sections.length > 0 ? ( // Checks that sections array is not empty
             <Grid2 container spacing = {4}> {/* Renders sections in a grid layout with spacing */}
                 {sections.map((section) => ( // Maps over sections array to render each section
-                    <Grid2 key = {section._id} size = {{ md: 4 }}> {/* Assigns the section ID as the key */}
+                    <Grid2 key = {section._id} size = {{ md: 4 }} justifyContent={'center'}> {/* Assigns the section ID as the key */}
                         <Box
                             component = {Link}
                             to = {`/main/topics/${topic}/subtopics/${subtopic}/sections/${section._id}/learn`} // Generates the link to the section's learning page
@@ -47,7 +47,7 @@ function SectionPage() {
                                     borderRadius: '10px',
                                 }}
                             >
-                            <h2 style = {{ color: 'black' }}>{section.name}</h2> {/* Renders the section name */}
+                            <Typography variant = 'h6' fontWeight = {550}>{section.name}</Typography> {/* Renders the section name */}
                             </Paper>
                         </Box>
                     </Grid2>

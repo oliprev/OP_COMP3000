@@ -26,9 +26,9 @@ function TopicPage() {
           <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
           <Typography variant = 'h2' fontWeight={600}>Topics</Typography>
           {knowledgeAreas.length > 0 ? (
-            <Grid2 container spacing = {4}>
+            <Grid2 container spacing = {4} justifyContent = {'center'}>
               {knowledgeAreas.map((knowledgeArea) => (
-                <Grid2 key = {knowledgeArea._id} size = {{ md: 4 }}>
+                <Grid2 key = {knowledgeArea._id} size = {{ md: 5 }} style = {{ marginBottom: '16px' }}>
                   <Box
                     component = {Link}
                     to = {`/main/topics/${knowledgeArea._id}/subtopics`} // Generates the link to the subtopics page
@@ -40,7 +40,7 @@ function TopicPage() {
                     <Paper
                       elevation = {4} // Adds a shadow effect to the paper
                       style = {{
-                        padding: '16px',
+                        padding: '18px',
                         textAlign: 'center',
                         backgroundColor: '#f0f0f0',
                         borderRadius: '10px',

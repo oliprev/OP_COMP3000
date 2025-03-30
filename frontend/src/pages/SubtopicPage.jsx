@@ -50,7 +50,7 @@ return (
     {knowledgeArea && <Typography variant = 'h2' fontWeight = {600}>{knowledgeArea}</Typography>}
     <Typography variant = 'h4'>Subtopics</Typography>
     {subtopics.length > 0 ? ( // Checks that subtopics array is not empty
-      <Grid2 container spacing = {4}> {/* Renders subtopics in a grid layout with spacing */}
+      <Grid2 container spacing = {4} justifyContent = {'center'} marginTop = {'10px'}> {/* Renders subtopics in a grid layout with spacing */}
         {subtopics.map((subtopic) => ( // Maps over subtopics array to render each subtopic
           <Grid2 key = {subtopic._id} size = {{ md: 4 }}> {/* Assigns the subtopic ID as the key */}
             <Box

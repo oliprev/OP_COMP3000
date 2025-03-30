@@ -7,6 +7,13 @@ info:
 servers:
   - url: http://localhost:9000/api
 
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
 paths:
   /users/register:
     post:
@@ -48,7 +55,7 @@ paths:
                 experienceLevel:
                   type: string
                   enum: [Beginner, Intermediate, Advanced]
-                  description: Must be one of the follwowing: Beginner, Intermediate, Advanced
+                  description: Must be one of the following; Beginner, Intermediate, Advanced
                 tosAccepted:
                   type: boolean
                   description: Terms of Service must be accepted
@@ -58,5 +65,48 @@ paths:
       responses:
         '201':
           description: User created successfully
+        '400':
+          description: Validation error
+  /users/login:
+    post:
+      summary: Login a user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Must be a valid email format
+                password:
+                  type: string
+                  minLength: 8
+                  description: Must be at least 8 characters long
+      responses:
+        '200':
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT token for authentication
+                  userId:
+                    type: string
+                    description: ID of the logged-in user
+                  experienceLevel:
+                    type: string
+                    enum: [Beginner, Intermediate, Advanced]
+                    description: User's experience level
         '400':
           description: Validation error

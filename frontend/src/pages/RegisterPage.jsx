@@ -82,7 +82,6 @@ function RegisterPage() {
               required
               type="date"
               name="dateOfBirth"
-              label="Date of Birth"
               value={formData.dateOfBirth} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
               fullWidth

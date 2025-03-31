@@ -43,7 +43,8 @@ router.post('/register',
                 const hashedPassword = await bcrypt.hash(password, 10);
                 const newUser = new User({ name, email, password: hashedPassword, dateOfBirth, experienceLevel, tosAccepted, privacyPolicyAccepted });
                 const savedUser = await newUser.save();
-                res.status(201).json(savedUser);
+                const { _id, name, email, experienceLevel } = savedUser;
+                res.status(201).json({ _id, name, email, experienceLevel });
             } catch (error) {
                 res.status(500).json({ message: error.message });
             }

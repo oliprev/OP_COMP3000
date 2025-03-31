@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 
 function RegisterPage() {
     const [formData, setFormData] = useState({ // Initialise state for form data with empty strings
@@ -48,35 +48,47 @@ function RegisterPage() {
           <Link to="/" className="back-link">← Back</Link>
           <Typography variant = 'h2' fontWeight = {600} marginBottom = '30px'>Register</Typography>
           <form onSubmit={handleSubmit}>
-            <input
+            <TextField
+              required
               type="text"
               name="name"
-              placeholder="Full Name"
+              label="Full Name"
               value={formData.name} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
-            /><br></br>
-            <input
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              required
               type="email"
               name="email"
-              placeholder="Email"
+              label="Email"
               value={formData.email} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
-            /><br></br>
-            <input
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              required
               type="password"
               name="password"
-              placeholder="Password"
+              label="Password"
               value={formData.password} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
-            /><br></br>
-            <input
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              required
               type="date"
               name="dateOfBirth"
-              placeholder="Date of Birth"
+              label="Date of Birth"
               value={formData.dateOfBirth} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
-            /><br></br>
-            <br></br><label>Select what you believe your cybersecurity skill level is: </label>
+              fullWidth
+              margin="normal"
+            />
+            <label>Select what you believe your cybersecurity skill level is: </label>
             <select
               name="experienceLevel" 
               value={formData.experienceLevel} // Gets value
@@ -84,22 +96,22 @@ function RegisterPage() {
               <option value="Beginner">Beginner (no / limited experience)</option>
               <option value="Intermediate">Intermediate (good level of experience)</option>
               <option value="Advanced">Advanced (profound experience)</option>
-            </select><br></br>
+            </select>
             <input 
               type="checkbox"
               name="tosAccepted"
               id="tos"
               checked={formData.tosAccepted} // Gets value
               onChange={handleChange} // Call handleChange function on input change
-            /><label htmlFor="tos"> Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label><br></br> {/* Generates link to terms of service page */}
+            /><label htmlFor="tos" fullWidth margin="normal"> Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label> {/* Generates link to terms of service page */}
             <input
               type="checkbox"
               name="privacyPolicyAccepted"
               id="privacyPolicy"
               checked={formData.privacyPolicyAccepted} // Gets value
               onChange={handleChange} // Call handleChange function on input change
-            /><label htmlFor="privacyPolicy"> Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label><br></br> {/* Generates link to privacy policy page */}
-            <br></br>
+            /><label htmlFor="privacyPolicy" fullWidth
+            margin="normal"> Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label> {/* Generates link to privacy policy page */}
             <button type="submit">Register</button>
           </form>
           <Link to="/login">Already have an account? Login</Link>

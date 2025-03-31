@@ -7,7 +7,7 @@ function TOSPage() {
         <Container>
             <Link to="/register" className="back-link">← Back</Link>
             <h1>SecuLearn - Terms of Service</h1>
-            <p>These Terms of Service govern the use of SecuLearn, an application developed for educational purposes by Oliver Prevett at the University of Plymouth.</p>
+            <p>These Terms of Service govern the use of SecuLearn, an application developed for educational purposes by Oliver Prevett.</p>
             <p>To use the platform, you (the user) must agree to the following terms:</p>
             <ol>    
                 <li>SecuLearn is a platform intended soley for educational use. It is not to be used for any other purposes.</li>

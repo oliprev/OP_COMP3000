@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 
 function RegisterPage() {
     const [formData, setFormData] = useState({ // Initialise state for form data with empty strings
@@ -95,23 +95,23 @@ function RegisterPage() {
               <option value="Beginner">Beginner (no / limited experience)</option>
               <option value="Intermediate">Intermediate (good level of experience)</option>
               <option value="Advanced">Advanced (profound experience)</option>
-            </select>
+            </select><br></br>
             <input 
               type="checkbox"
               name="tosAccepted"
               id="tos"
               checked={formData.tosAccepted} // Gets value
               onChange={handleChange} // Call handleChange function on input change
-            /><label htmlFor="tos" fullWidth margin="normal"> Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label> {/* Generates link to terms of service page */}
+            /><label htmlFor="tos" fullWidth margin="normal"> Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label><br></br> {/* Generates link to terms of service page */}
             <input
               type="checkbox"
               name="privacyPolicyAccepted"
               id="privacyPolicy"
               checked={formData.privacyPolicyAccepted} // Gets value
               onChange={handleChange} // Call handleChange function on input change
-            /><label htmlFor="privacyPolicy" fullWidth
-            margin="normal"> Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label> {/* Generates link to privacy policy page */}
-            <button type="submit">Register</button>
+            /><label htmlFor="privacyPolicy" fullWidth 
+            margin="normal"> Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label><br></br>{/* Generates link to privacy policy page */}
+            <Button type="submit" sx = {{ backgroundColor: 'black', borderRadius: '10px', color: 'white', variant: 'h4' }}>Register</Button>
           </form>
           <Link to="/login">Already have an account? Login</Link>
           {errors.length > 0 && (

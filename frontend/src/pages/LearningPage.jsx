@@ -97,7 +97,6 @@ function LearningPage() {
         if (!names.topic || !names.subtopic) return;
     
         const experienceLevel = localStorage.getItem('experienceLevel') || "beginner";
-        const stepType = stepList[step];
     
         try {
             const response = await axios.get('/api/gemini/generate-quiz', {
@@ -106,7 +105,6 @@ function LearningPage() {
                     subtopic: names.subtopic,
                     section: names.section,
                     experienceLevel,
-                    step: stepType
                 }
             });
     

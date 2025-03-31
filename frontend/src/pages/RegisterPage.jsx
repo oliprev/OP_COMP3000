@@ -84,6 +84,10 @@ function RegisterPage() {
               name="dateOfBirth"
               value={formData.dateOfBirth} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
+              label="Date of Birth"
+              slotProps={{
+                inputLabel: { shrink: true },
+              }}
               fullWidth
               margin="normal"
             />

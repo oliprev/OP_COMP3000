@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { Typography } from "@mui/material";
 
 function RegisterPage() {
     const [formData, setFormData] = useState({ // Initialise state for form data with empty strings
@@ -13,6 +14,7 @@ function RegisterPage() {
         privacyPolicyAccepted: false
     });
     const navigate = useNavigate(); // Get navigate function from useNavigate hook
+    const [errors, setErrors] = useState([]); // Initialise state for errors
 
     const handleChange = (e) => { // Handle form input changes
         const { name, value, type, checked } = e.target;
@@ -25,14 +27,16 @@ function RegisterPage() {
     // Handles form submission
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevents default form submission
-        console.log("Form Data:", formData); // Log form data
+        setErrors([]); // Resets errors state
         if (formData.tosAccepted && formData.privacyPolicyAccepted) {
             try {
                 const response = await axios.post(`/api/users/register`, formData); // Send POST request to register route
-                console.log("Response:", response); // Log response
                 navigate("/login"); // Navigate to login page
             } catch (error) {
-                console.error("Error:", error); // Log error
+                if (error.response && error.response.data.errors) {
+                    const errors = error.response.data.errors.map(err => err.msg); // Map through errors caught by validation and gets the error messages
+                    setErrors(errors); // Sets error messages to state
+                }
             }
         } else {
             alert('Please accept the terms of service and privacy policy.');
@@ -42,7 +46,7 @@ function RegisterPage() {
     return (
         <div>
           <Link to="/" className="back-link">← Back</Link>
-          <h1>Register</h1>
+          <Typography variant = 'h2' fontWeight = {600} marginBottom = '30px'>Register</Typography>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -77,7 +81,7 @@ function RegisterPage() {
               name="experienceLevel" 
               value={formData.experienceLevel} // Gets value
               onChange={handleChange}>  
-              <option value="Beginner">Beginner (no/limited experience)</option>
+              <option value="Beginner">Beginner (no / limited experience)</option>
               <option value="Intermediate">Intermediate (good level of experience)</option>
               <option value="Advanced">Advanced (profound experience)</option>
             </select><br></br>
@@ -99,7 +103,17 @@ function RegisterPage() {
             <button type="submit">Register</button>
           </form>
           <Link to="/login">Already have an account? Login</Link>
+          {errors.length > 0 && (
+          <div>
+            <ul>
+              {errors.map((msg, index) => (
+              <Typography key = {index} style = {{color:'red'}}>{msg}</Typography>
+              ))}
+            </ul>
+          </div>
+          )}
         </div>
+        
     );
 }
 

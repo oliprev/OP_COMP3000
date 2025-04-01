@@ -55,6 +55,10 @@ function RegisterPage() {
               label="Full Name"
               value={formData.name} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
+              slotProps={{
+                input: {
+                  style: { color: 'black'}
+              }}}
               fullWidth
               margin="normal"
             />
@@ -65,6 +69,10 @@ function RegisterPage() {
               label="Email"
               value={formData.email} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
+              slotProps={{
+                input: {
+                  style: { color: 'black'}
+              }}}
               fullWidth
               margin="normal"
             />
@@ -75,6 +83,10 @@ function RegisterPage() {
               label="Password"
               value={formData.password} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
+              slotProps={{
+                input: {
+                  style: { color: 'black'}
+              }}}
               fullWidth
               margin="normal"
             />
@@ -87,7 +99,9 @@ function RegisterPage() {
               label="Date of Birth"
               slotProps={{
                 inputLabel: { shrink: true },
-              }}
+                input: {
+                  style: { color: 'black'}
+              }}}
               fullWidth
               margin="normal"
             />

@@ -48,6 +48,10 @@ function LoginPage() {
               label="Email"
               value={formData.email} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
+              slotProps={{
+                input: {
+                  style: { color: 'black'}
+              }}}
               fullWidth
               margin="normal"
             />
@@ -58,6 +62,10 @@ function LoginPage() {
               label="Password"
               value={formData.password} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
+              slotProps={{
+                input: {
+                  style: { color: 'black'}
+              }}}
               fullWidth
               margin="normal"
             />

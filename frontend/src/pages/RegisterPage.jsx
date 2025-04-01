@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Container, TextField, Typography } from "@mui/material";
 
 function RegisterPage() {
     const [formData, setFormData] = useState({ // Initialise state for form data with empty strings
@@ -44,7 +44,7 @@ function RegisterPage() {
     };
 
     return (
-        <div>
+        <Container>
           <Link to="/" className="back-link">← Back</Link>
           <Typography variant = 'h2' fontWeight = {600} marginBottom = '30px'>Register</Typography>
           <form onSubmit={handleSubmit}>
@@ -127,7 +127,7 @@ function RegisterPage() {
             </ul>
           </div>
           )}
-        </div>
+        </Container>
         
     );
 }

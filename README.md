@@ -9,6 +9,7 @@
 ## **Supervisor**
 
 - **Name**: Professor Nathan Clarke
+- **Specialisation**: Cyber Security and Digital Forensics
 - **Email**: N.Clarke@plymouth.ac.uk
 
 ## **Project vision**

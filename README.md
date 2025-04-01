@@ -172,8 +172,8 @@ There are Terms of Service and a Privacy Policy that must be agreed with / ackno
 
 These documents can be found when registering for a Seculearn account, or alternatively see below:
 
-- **Terms of Service**
-- **Privacy Policy**
+- **Terms of Service**: [Read Terms of Service](TERMS.md)
+- **Privacy Policy**: [Read Privacy Policy](PRIVACY.md)
 
 ## **Limitations**
 

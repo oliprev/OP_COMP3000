@@ -28,7 +28,7 @@ This project seeks to deliver a challenging, yet engaging educational platform t
 Key features of my application will consist of:
  
 - **Dynamic Content Creation** - leverages Google Gemini through API calls
-- **Lessons** - using the CyBOK (Cybersecurity Body of Knowledge) curriculum, lessons are generated based on the section name, subtopic name, and topic name - with the option for quizzes whenever the user decides they want to test their knowledge
+- **Lessons** - using the CyBOK (Cybersecurity Body of Knowledge) curriculum and adhering to Bloom's Taxonomy Model, lessons are generated based on the section name, subtopic name, and topic name - with the option for quizzes whenever the user decides they want to test their knowledge
 - **Phishing Email Simulations** - users can have emails generated with artificial intelligence, of which they will need to decide whether they are phishing emails or legitimate emails - increases recognition through being able to spot key signs
 - **Chatbot Interface** - users can interact with a chatbot that uses Gemini to provide a chatbot exclusively limited to cybersecurity - I used NLP to train a classifier that deduces relevance
 - **Full-Stack MERN Architecture** - a fully integrated solution using MongoDB, Express.JS, React, and Node.js to ensure seamless communication across/between the stack
@@ -123,6 +123,14 @@ I chose to use the MERN stack because I wanted the option to use JavaScript for 
 ## **Project Management**
 
 I used Trello to plan my sprints and get a visual depiction of my backlog. You can visit it at the following link: https://trello.com/b/XX2Dc1pz
+
+## **Software Engineering Principles**
+
+Throughout my implementation, I have kept in mind an array of key principles that aim to make the development process easier. The principles I have adhered to in particular are listed below.
+
+- **SoC (Separation of Concerns)** - the idea behind it is that programs are broken down into seperate modules that do not neccesarily overlap - my use of this is demonstrated by using segregating each page into a different 'component' - a key feature of React
+- **DRY (Don't Repeat Yourself)** - aims to reduce the repetition of information - implemented through use of middleware in the backend, as well as defining CSS styles by class rather than by individual component
+- **YAGNI (You Aren't Gonna Need It)** - ensures developers are thinking in the present, rather than the future - has been beneficial to me through promoting efficiency
 
 ## **Repository Structure**
 

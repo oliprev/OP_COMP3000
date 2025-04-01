@@ -1,5 +1,11 @@
 # **Seculearn - An AI-Driven Cybersecurity Learning Platform**
 
+## **Creator**
+
+- **Name**: Oliver Prevett
+- **Course**: Computer Science (BSc)
+- **Email**: oliver.prevett@students.plymouth.ac.uk
+
 ## **Supervisor**
 
 - **Name**: Professor Nathan Clarke
@@ -51,7 +57,7 @@ git clone --recursive https://github.com/oliprev/OP_COMP3000.git
 8) Install / launch VS Code
 9) Hover over 'File', and then press 'Open Folder...'
 10) From there, select the OP_COMP3000 repository and open
-11) You will require environmental variables - contact me at **oliver.prevett@students.plymouth.ac.uk** and I will send them promptly
+11) You will require environmental variables - contact me at **oliver.prevett@students.plymouth.ac.uk** and I will send them promptly with comprehensive instructions
 12) If successful, go to the Terminal - if not launched already, hover over 'Terminal', and click 'New Terminal'
 13) Input the following below in the root of the project
 ```
@@ -79,7 +85,7 @@ npm test
 
 I chose to use the MERN stack because I wanted the option to use JavaScript for the entire implementation - within the backend as well as the frontend. As well as this, the extensive range of libraries and frameworks through NPM were also beneficial to providing extra functionality. I explored the possibility of using Angular rather than React, but vastly preferred the flexibility that React offers through picking and choosing different libraries to install and work with. As well as this, I am much more proficient with React as a developer. It also seems to be much more sought after in industry.
 
-## **Libraries & Frameworks**
+### **Libraries & Frameworks**
 
 - **Axios** - for making HTTP requests to APIs
 - **Environmental variables** - eliminates hardcoding of sensitive values
@@ -102,11 +108,58 @@ I chose to use the MERN stack because I wanted the option to use JavaScript for 
 - **react-router-dom**
 - **concurrently**
 
-## **Developer Tools**
+### **Developer Tools**
 
 - **Git / GitHub**
 - **Visual Studio Code**
 - **Vite**
 - **Postman**
 - **npm**
+
+## **Repository Structure**
+
+I used the following line of code to generate the structure of my repository.
+```
+tree -I 'node_modules|.git' -L 2 > directorystructure.txt
+```
+Below, you can find the general file structure.
+```
+.
+├── backend
+│   ├── functions
+│   ├── models
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── routes
+│   ├── server.js
+│   ├── swagger.js
+│   ├── swagger.yaml
+│   └── tests
+├── docs
+│   ├── Project Initiation Finished.pdf
+│   └── README.md
+├── frontend
+│   ├── dist
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   ├── README.md
+│   ├── src
+│   └── vite.config.js
+├── LICENSE
+├── package-lock.json
+├── package.json
+└── README.md
+```
+
+## **License**
+
+As specified to do so in the brief, this project adheres to the Creative Commons license - which is specified in the 'LICENSE' file within the root of my repository.
+
+## **Limitations**
+
+## **Future Improvements**
+
 

@@ -39,6 +39,7 @@ function MainPage() {
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
+        localStorage.removeItem("experienceLevel");
         navigate("/");
     }
     

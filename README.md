@@ -1,4 +1,4 @@
-# **Seculearn - An AI-Driven Cybersecurity Learning Platform**
+# **SecuLearn - An AI-Driven Cybersecurity Learning Platform**
 
 ## **Creator**
 
@@ -13,13 +13,13 @@
 
 ## **Project vision**
 
-The aim of this project is to develop a multi-platform solution targeted at everyday users of technology who wish to improve their cybersecurity knowledge - specifically students. Seculearn also aims to prove that artificial intelligence can foster unique learning experiences when implemented correctly.
+The aim of this project is to develop a multi-platform solution targeted at everyday users of technology who wish to improve their cybersecurity knowledge - specifically students. SecuLearn also aims to prove that artificial intelligence can foster unique learning experiences when implemented correctly.
 
-Seculearn is designed to address the exponential increase in risk that comes from being online, which can lead to significant social, economic, and even political repercussions for individuals and organisations alike. Users will also be able to develop a profound understanding of complex concepts that have historically been difficult to convey efficiently.
+SecuLearn is designed to address the exponential increase in risk that comes from being online, which can lead to significant social, economic, and even political repercussions for individuals and organisations alike. Users will also be able to develop a profound understanding of complex concepts that have historically been difficult to convey efficiently.
 
 The proposed solution will be a full-stack (MERN) web-based application. It will integrate with Google Gemini to provide practical, AI-driven content tailored to the users’ needs. There may also be scope for monetisation in the future through advertisements and subscriptions, as well as an offline version.
 
-It will follow an Agile approach, with sprints lasting two weeks each - culminating with a Scrum meeting with my supervisor at the end of each one. As well as this, I will use the Software Development Life Cycle (SDLC) framework to guide the implementation of Seculearn.
+It will follow an Agile approach, with sprints lasting two weeks each - culminating with a Scrum meeting with my supervisor at the end of each one. As well as this, I will use the Software Development Life Cycle (SDLC) framework to guide the implementation of SecuLearn.
  
 This project seeks to deliver a challenging, yet engaging educational platform that not only sharpens cybersecurity skills but also offers companies and individuals a way to monitor and improve their overall online security toolkit.
 
@@ -37,11 +37,11 @@ Key features of my application will consist of:
 - **Secure Data Management** - stores and retrieves user data using a NoSQL (MongoDB) database with appropriate security measures - such as hashing and salting of user passwords before storage
 - **Profile Management** - users can view their profile information, update their password and delete their profile with instant effect if they desire
 - **Adhering to Agile & SDLC** - being built following Agile principles, as well as the SDLC
-- **Version Control** - regular, meaningful commits to my GitHub repository with clear documentation - GitHub actions was also used to showcase a working CI/CD pipeline, in which Seculearn is tested, built, and deployed
+- **Version Control** - regular, meaningful commits to my GitHub repository with clear documentation - GitHub actions was also used to showcase a working CI/CD pipeline, in which SecuLearn is tested, built, and deployed
 
 ## **Running the Project**
 
-There are two options when it comes to running the project - you can either access the deployed version at **https://seculearn.org.uk** which shows evidence of my fully working pipeline (you can contact me to whitelist your IP address, as it is only available to me).
+There are two options when it comes to running the project - you can either access the deployed version at **https://SecuLearn.org.uk** which shows evidence of my fully working pipeline (you can contact me to whitelist your IP address, as it is only available to me).
 
 Alternatively, you can follow the steps below:
 
@@ -99,7 +99,7 @@ I chose to use the MERN stack because I wanted the option to use JavaScript for 
 - **dotenv** - loads environment variables from .env files into process.env
 - **mongoose** - ODM library for interacting with MongoDB using schemas and models
 - **http** - Node.js module used to create HTTP server functionality
-- **helmet** - adds security headers to HTTP responses to protect Seculearn from known vulnerabilities
+- **helmet** - adds security headers to HTTP responses to protect SecuLearn from known vulnerabilities
 - **express-rate-limit** - limits repeated requests to API endpoints to prevent abuse
 - **path** - used for handling and transforming file paths
 - **bcrypt** - used to hash and salt passwords before database storage
@@ -170,7 +170,7 @@ As specified to do so in the brief, this project adheres to the Creative Commons
 
 There are Terms of Service and a Privacy Policy that must be agreed with / acknowledged in order to use the platform. They ensure transparency and demonstrate compliance with ethical and professional standards.
 
-These documents can be found when registering for a Seculearn account, or alternatively see below:
+These documents can be found when registering for a SecuLearn account, or alternatively see below:
 
 - **Terms of Service**: [Read Terms of Service](TERMS.md)
 - **Privacy Policy**: [Read Privacy Policy](PRIVACY.md)
@@ -179,14 +179,14 @@ These documents can be found when registering for a Seculearn account, or altern
 
 Given the ambitious nature of my project, some limitations were to be expected given the relatively short timeframe of the project. These are listed below.
 
-- Seculearn requires an internet connection at all times, so it can interact with the database
+- SecuLearn requires an internet connection at all times, so it can interact with the database
 - Only supports English in terms of languages
 - API response times can be slow sometimes
 - Google Gemini responses for the phishing email simulation sometimes give the answer within the text
 
 ## **Future Improvements**
 
-Seculearn has evolved a lot since Sprint 0, and future development will consist of the following:
+SecuLearn has evolved a lot since Sprint 0, and future development will consist of the following:
 
 - Monetisation, through advertisements / subscription plans
 - Expand the functionality of phishing email simulations, to make them seamless from real emails

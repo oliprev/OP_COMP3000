@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { Button, Container, TextField, Typography } from "@mui/material";
 
 function LoginPage() {
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
-    const [error, setError] = useState(""); // State to manage error message
+    const [errors, setErrors] = useState([]); // State to manage error message
 
     const navigate = useNavigate(); // Get navigate function from useNavigate hook
 
@@ -17,6 +18,7 @@ function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
+        setErrors([]); // Reset errors state
         try {
             const response = await axios.post("/api/users/login", formData); // Send POST request to login route
             if (response.status === 200) { // If response status is OK
@@ -26,34 +28,50 @@ function LoginPage() {
                 navigate("/main"); // Navigate to main page
             }
         } catch (error) {
-            setError(error.response?.data?.message || "An error occurred."); // Set error message
+            if (error.response && error.response.data.errors) {
+              const errors = error.response.data.errors.map(err => err.msg); // Map through errors caught by validation and gets the error messages
+              setErrors(errors); // Sets error messages to state
+            }
+            
         }
     };
 
     return (
-        <div>
+        <Container>
           <Link to="/" className="back-link">← Back</Link>
-          <h1>Login</h1>
+          <Typography variant = 'h2' fontWeight = {600} marginBottom = '30px'>Login</Typography>
           <form onSubmit={handleSubmit}>
-            <input
+            <TextField
+              required
               type="email"
               name="email"
-              placeholder="Email"
+              label="Email"
               value={formData.email} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
+              fullWidth
+              margin="normal"
             />
-            <input
+            <TextField
+              required
               type="password"
               name="password"
-              placeholder="Password"
+              label="Password"
               value={formData.password} // Gets value from formData
               onChange={handleChange} // Call handleChange function on input change
+              fullWidth
+              margin="normal"
             />
             <br></br><Link to ="/register">No login? Make an account</Link><br></br>
-            <button type="submit">Login</button>
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            <Button type="submit" sx = {{ backgroundColor: 'black', borderRadius: '10px', color: 'white', variant: 'h4' }}>Login</Button>
           </form>
-        </div>
+          {errors.length > 0 && (
+            <div>
+                {errors.map((msg, index) => (
+                    <Typography key = {index} style = {{color: 'red'}}>{msg}</Typography>
+                ))}
+            </div>
+          )}
+        </Container>
     );
 }
 

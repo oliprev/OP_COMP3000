@@ -1,8 +1,48 @@
-# **Teaching and Reinforcing Vital Cybersecurity Skills using Google Gemini**
+# **Seculearn - An AI-Driven Cybersecurity Learning Platform**
 
-## **Supervisor**: Professor Nathan Clarke
+## **Supervisor**
 
-## **Technologies being used**: MongoDB, Express, React, Node.JS, Ajax
+- **Name**: Professor Nathan Clarke
+- **Email**: N.Clarke@plymouth.ac.uk
+
+## **Technologies**
+
+- **MongoDB** - database for storing user and CyBOK information
+- **Express.js** - backend framework for building RESTful API
+- **React** - frontend framework for building seamless user interfaces
+- **Node.js** - runtime environment for executing JavaScript on the server
+- **Jest** - used for integration testing
+
+## **Libraries & Frameworks**
+
+- **Axios** - for making HTTP requests to APIs
+- **Environmental variables** - eliminates hardcoding of sensitive values
+- **express-validator** - middleware for validating and sanitising user input
+- **swagger-ui-express** - documents API routes and how they work
+- **cors**
+- **dotenv**
+- **mongoose**
+- **http**
+- **helmet**
+- **express-rate-limit**
+- **path**
+- **bcrypt**
+- **jsonwebtoken**
+- **yaml**
+- **@google/generative-ai**
+- **natural**
+- **@mui/material**
+- **react-dom**
+- **react-router-dom**
+- **concurrently**
+
+## **Developer Tools**
+
+- **Git / GitHub**
+- **Visual Studio Code**
+- **Vite**
+- **Postman**
+- **npm**
 
 ## *Project vision*
 The aim of this project is to develop a solution targeted at both companies and their workforces, as well as everyday technology users who wish to enhance their cybersecurity skills. The web application is designed to address the growing issue of online vulnerabilities, which can lead to significant social, economic, and even political repercussions for organisations.

@@ -29,6 +29,46 @@ Key features of my application will consist of:
 - **Profile Management** - users can view their profile information, update their password and delete their profile with instant effect if they desire
 - **Version Control** - regular, meaningful commits to my GitHub repository with clear documentation - which showcases a professional CI/CD pipeline with working GitHub actions
 
+## **Running the Project**
+
+There are two options when it comes to running the project - you can either access the deployed version at **https://seculearn.org.uk** which shows evidence of my fully working pipeline (you can contact me to whitelist your IP address, as it is only available to me).
+
+Alternatively, you can follow the steps below:
+
+1) Navigate to the GitHub repository to ensure you have access (**https://github.com/oliprev/OP_COMP3000**)
+2) Ensure you have the latest version of Git installed (**https://git-scm.com/downloads**)
+3) Launch Command Prompt (if using Windows) or Terminal (if using MacOS)
+4) Ensure Git has successfully installed, by inputting
+```
+git --version
+```
+5) Go to the directory (using cd) you would like to clone the repository to
+6) Input the code below
+```
+git clone --recursive https://github.com/oliprev/OP_COMP3000.git
+```
+7) Once this is successful, you will have cloned my repository successfully
+8) Install / launch VS Code
+9) Hover over 'File', and then press 'Open Folder...'
+10) From there, select the OP_COMP3000 repository and open
+11) You will require environmental variables - contact me at **oliver.prevett@students.plymouth.ac.uk** and I will send them promptly
+12) If successful, go to the Terminal - if not launched already, hover over 'Terminal', and click 'New Terminal'
+13) Input the following below in the root of the project
+```
+npm install && npm install --prefix backend && npm install --prefix frontend
+```
+14) From there, input
+```
+npm run build && npm start
+```
+15) Now, navigate to localhost:9000
+16) You should now be able to access my project!
+17) If you wish to stop hosting, click on the terminal and hit CTRL + C (Command + C on MacOS)
+18) If you wish to run through the tests, run the following in the project root
+```
+npm test
+```
+
 ## **Technologies**
 
 - **MongoDB** - database for storing user and CyBOK information

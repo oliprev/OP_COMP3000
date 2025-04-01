@@ -1,1 +1,0 @@
-This directory will be populated by relevant documentation as I move through the stages of my project.

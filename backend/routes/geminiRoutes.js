@@ -89,7 +89,7 @@ router.post('/chatbot', authenticateToken,
             return;
         }
         
-        res.json({ reply });
+        res.status(200).json({ reply });
     } catch (error) {
         res.status(500).json({ message: 'Error generating content.' });
     }
@@ -146,7 +146,7 @@ router.get('/generate-email', authenticateToken,
             return res.status(500).json({ message: 'Error generating email.' }); // Returns error if email is not generated
         }
 
-        res.json({ email, type }); // Returns email and type
+        res.status(200).json({ email, type }); // Returns email and type
 
     } catch (error) {
         console.error("Email Generation Error:", error);
@@ -243,7 +243,7 @@ router.get('/generate-content',
             return res.status(500).json({ message: 'Error generating content.' }); // Returns error if content is not generated
         }
 
-        res.json({ content }); // Returns content
+        res.status(200).json({ content }); // Returns content
     } catch (error) {
         console.error("Content Generation Error:", error);
         res.status(500).json({ message: 'Error generating content.' });
@@ -338,7 +338,10 @@ router.get('/generate-quiz',
         const originalLetter = originalLetterMatch ? originalLetterMatch[1].toUpperCase() : null;
         const shuffledContent = shuffleQuizWithCorrectLetter(parsedContent, originalLetter);
 
-        res.json({ content, ...shuffledContent });
+        if (!originalLetter || !parsedContent.correctAnswer.text) {
+            return res.status(500).json({ message: 'Error while parsing quiz content.'});
+        }
+        res.status(200).json({ content, ...shuffledContent });
     } catch (error) {
         console.error("Quiz Generation Error:", error);
         res.status(500).json({ message: 'Error generating quiz.' });

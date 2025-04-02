@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Paper, Typography } from "@mui/material";
+import { Paper, Typography, LinearProgress } from "@mui/material";
 
 function LearningPage() {
     const { topic, subtopic, section } = useParams(); // Retrieves the topic, subtopic, and section IDs from the URL
@@ -170,6 +170,12 @@ function LearningPage() {
                 </div>
             )}
             <div>
+                <Typography variant="body2">Progress</Typography>
+                    <LinearProgress 
+                    variant="determinate" 
+                    value={(step / Object.keys(stepList).length) * 100} 
+                    sx={{ height: 10, borderRadius: 5, mb: 1 }} 
+                />   
                 {/* Decrements the step state, and disables if step state cannot decrement */}
                 <button onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled = {step === 1 || showQuiz} > 
                     Back

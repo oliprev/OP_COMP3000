@@ -134,7 +134,7 @@ function LearningPage() {
                         <p>Loading content...</p>
                     ) : content ? (
                     <div>
-                        <Paper elevation={4} style = {{ borderRadius: '10px', padding: '10px', marginBottom: '10px'}}>{content.content}</Paper> {/* Renders the learning content inside a Paper component */}
+                        <Paper elevation={4} style = {{ borderRadius: '10px', padding: '10px', marginBottom: '10px', maxWidth: '800px', width: '100%', margin: '0 auto'}}>{content.content}</Paper> {/* Renders the learning content inside a Paper component */}
                     </div>
                     ) : (
                         <p>No content available.</p>
@@ -172,7 +172,7 @@ function LearningPage() {
                 </div>
             )}
             <div>
-                <Typography variant="body2">Progress</Typography>
+                <Typography variant="body2" sx = {{ mt: 2 }}>Progress</Typography>
                     <LinearProgress 
                     variant="determinate" 
                     value={(step / Object.keys(stepList).length) * 100} 

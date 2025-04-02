@@ -7,6 +7,27 @@ function SectionPage() {
     const { topic, subtopic } = useParams(); // Retrieves the topic and subtopic IDs from the URL
     const [sections, setSections] = useState([]); // State to store fetched sections
     const [loading, setLoading] = useState(true); // State to track loading status
+    const [names, setNames] = useState({ // State to store the knowledge area / topic and subtopic names
+        topic: "",
+        subtopic: ""
+    });
+
+    // Fetches the topic and subtopic names from the API
+    useEffect(() => {
+        const fetchNames = async () => {
+            try {
+                const response = await axios.get(`/api/cybok/knowledge-areas/${topic}/subtopics/${subtopic}`);
+                setNames({
+                    topic: response.data.topicName,
+                    subtopic: response.data.subtopicName
+                });
+            } catch (error) {
+                console.error('Error fetching topic and subtopic names:', error);
+            }
+        };
+    
+        fetchNames();
+    }, [topic, subtopic]);
 
     // Fetches sections for the selected topic and subtopic from the API, assigns them to the state, and updates the loading status
     useEffect(() => {
@@ -25,7 +46,9 @@ function SectionPage() {
     return (
     <div>
         <Link to = {`/main/topics/${topic}/subtopics`} className = "back-link">← Back to Subtopics</Link>
-        <Typography variant = 'h2' fontWeight = {600}>Sections</Typography>
+        <Typography variant = "h2" fontWeight = {600}>{names.topic}</Typography>
+        <Typography variant = "h4">{names.subtopic}</Typography>
+        <Typography variant = "h5">Sections</Typography>
         {sections.length > 0 ? ( // Checks that sections array is not empty
             <Grid2 container spacing = {4}> {/* Renders sections in a grid layout with spacing */}
                 {sections.map((section) => ( // Maps over sections array to render each section

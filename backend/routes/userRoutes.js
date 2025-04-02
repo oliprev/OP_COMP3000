@@ -64,11 +64,11 @@ router.post('/login',
         const { email, password } = req.body;
         try {
             const user = await User.findOne({ email });
-            if (!user) return res.status(404).json({ message: "Invalid credentials provided." });
+            if (!user) return res.status(400).json({ message: "Invalid credentials provided." });
             const passwordMatch = await bcrypt.compare(password, user.password);
             if (!passwordMatch) return res.status(400).json({ message: "Invalid credentials provided." });
             const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-            res.json({ token, userId: user._id, experienceLevel: user.experienceLevel });
+            res.status(200).json({ token, userId: user._id, experienceLevel: user.experienceLevel });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -84,11 +84,11 @@ router.get('/:userId/name', authenticateToken,
     ],
     async (req, res) => {
         const { userId } = req.params;
-        if (!validateIds([userId])) return res.status(400).json({ message: "Invalid credentials provided." });
+        if (!validateIds([userId])) return res.status(400).json({ message: "Invalid userId." });
         try {
             const user = await User.findOne({ _id: userId });
             if (!user) return res.status(404).json({ message: "User not found." });
-            res.json({ name: user.name });
+            res.status(200).json({ name: user.name });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -104,11 +104,11 @@ router.get('/:userId', authenticateToken,
     ],
     async (req, res) => {
         const { userId } = req.params;
-        if (!validateIds([userId])) return res.status(400).json({ message: "Invalid credentials provided." });
+        if (!validateIds([userId])) return res.status(400).json({ message: "Invalid User ID." });
         try {
             const user = await User.findOne({ _id: userId });
-            if (!user) return res.status(404).json({ message: "Invalid credentials provided." });
-            res.json(user);
+            if (!user) return res.status(404).json({ message: "User not found." });
+            res.status(200).json(user);
         } catch (error) {
             res.status(500).json({ message: error.message });       
         }
@@ -128,13 +128,13 @@ router.put('/updatepassword', authenticateToken,
         const { currentPassword, newPassword } = req.body;
         try {
             const user = await User.findOne({ _id: userId });
-            if (!validateIds([userId])) return res.status(400).json({ message: "Invalid userId." });
+            if (!validateIds([userId])) return res.status(400).json({ message: "Invalid User ID." });
             const passwordMatch = await bcrypt.compare(currentPassword, user.password);
-            if (!passwordMatch) return res.status(400).json({ message: "Invalid credentials provided." });
+            if (!passwordMatch) return res.status(400).json({ message: "Incorrect current password." });
             const hashedNewPassword = await bcrypt.hash(newPassword, 10);
             user.password = hashedNewPassword;
             await user.save();
-            res.json({ message: "Password updated successfully." });
+            res.status(200).json({ message: "Password updated successfully." });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -153,7 +153,7 @@ router.delete('/delete', authenticateToken,
         try {
             const user = await User.findOneAndDelete({ _id: userId });
             if (!user) return res.status(404).json({ message: "User not found." });
-            res.json({ message: "User deleted successfully." });
+            res.status(200).json({ message: "User deleted successfully." });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

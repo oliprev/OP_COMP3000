@@ -95,3 +95,25 @@ describe('GET /users/:userId/name', () => {
     expect(res.statusCode).toBe(400);
   });
 });
+
+describe('GET /users/:userId', () => {
+  it('should return all user information', async () => {
+    const mockUser = {
+      _id: '67ec8844b5a1f7729b6e6292',
+      name: 'Test User',
+      email: 'test@test.com',
+      experienceLevel: 'Beginner',
+      dateOfBirth: '2004-04-23',
+      tosAccepted: true,
+      privacyPolicyAccepted: true,
+      role: 'User',
+    };
+    User.findOne.mockResolvedValue(mockUser);
+    const res = await request(app).get('/users/67ec8844b5a1f7729b6e6292');
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(mockUser);
+  });
+
+  it 
+});

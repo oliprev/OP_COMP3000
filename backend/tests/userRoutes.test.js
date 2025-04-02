@@ -1,41 +1,45 @@
 const request = require('supertest');
 const express = require('express');
-const mongoose = require('mongoose');
-const User = require('../models/User');
+const bcrypt = require('bcrypt');
 const userRoutes = require('../routes/userRoutes');
+const User = require('../models/User');
+
+jest.mock('../models/User');
+jest.mock('bcrypt');
+
 const app = express();
 app.use(express.json());
 app.use('/users', userRoutes);
 
-jest.mock('../models/User');
+describe('POST /users/register', () => {
+  it('should register a user with valid data', async () => {
+    bcrypt.hash.mockResolvedValue('hashedPassword123');
 
-describe('User Routes', () => {
-  beforeAll(async () => {
-    const url = `mongodb://127.0.0.1/op_comp3000_test`;
-    await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
-  });
-
-  describe('POST /users/register', () => {
-    it('should register a new user', async () => {
-      const newUser = {
-        name: 'Test Test',
+    User.mockImplementation(() => ({
+      save: jest.fn().mockResolvedValue({
+        _id: 'mockUserId123',
+        name: 'Test User',
         email: 'test@test.com',
-        password: 'password',
-        role: 'individual',
-        dateOfBirth: '2000-01-01'
-      };
+        experienceLevel: 'Beginner',
+      }),
+    }));
 
-      User.mockImplementation(() => ({
-        save: jest.fn().mockResolvedValue(newUser)
-      }));
+    const res = await request(app).post('/users/register').send({
+      name: 'Test User',
+      email: 'test@test.com',
+      password: 'password123',
+      dateOfBirth: '1990-01-01',
+      experienceLevel: 'Beginner',
+      tosAccepted: 'true',
+      privacyPolicyAccepted: 'true',
+    });
 
-      const res = await request(app).post('/users/register').send(newUser);
-      expect(res.statusCode).toEqual(201);
-      expect(res.body).toHaveProperty('name', 'Test Test');
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toEqual({
+      _id: 'mockUserId123',
+      name: 'Test User',
+      email: 'test@test.com',
+      experienceLevel: 'Beginner',
     });
   });
 });

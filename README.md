@@ -74,7 +74,7 @@ npm run build && npm start
 ```
 15) Now, navigate to localhost:9000
 16) You should now be able to access my project!
-17) If you wish to stop hosting, click on the terminal and hit CTRL + C (Command + C on MacOS)
+17) If you wish to stop hosting, click on the terminal and hit CTRL + C
 18) If you wish to run through the tests, run the following in the project root
 ```
 npm test
@@ -142,33 +142,29 @@ tree -I 'node_modules|.git' -L 2 > directorystructure.txt
 Below, you can find the general file structure.
 ```
 .
+.
 ├── backend
 │   ├── functions
 │   ├── models
-│   ├── package-lock.json
 │   ├── package.json
 │   ├── routes
 │   ├── server.js
 │   ├── swagger.js
 │   ├── swagger.yaml
 │   └── tests
-├── docs
-│   ├── Project Initiation Finished.pdf
-│   └── README.md
 ├── frontend
-│   ├── dist
 │   ├── eslint.config.js
 │   ├── index.html
-│   ├── package-lock.json
 │   ├── package.json
 │   ├── public
-│   ├── README.md
 │   ├── src
+│   ├── tests
 │   └── vite.config.js
 ├── LICENSE
-├── package-lock.json
 ├── package.json
-└── README.md
+├── PRIVACY.md
+├── README.md
+└── TERMS.md
 ```
 
 ## **License**

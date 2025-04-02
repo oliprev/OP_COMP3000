@@ -3,7 +3,7 @@
 ## **Creator**
 
 - **Name**: Oliver Prevett
-- **Course**: Computer Science (BSc)
+- **Course**: BSc Computer Science (Hons)
 - **Email**: oliver.prevett@students.plymouth.ac.uk
 
 ## **Supervisor**

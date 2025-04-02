@@ -142,12 +142,6 @@ router.put('/updatepassword', authenticateToken,
 
 // DELETE route - for deleting a user
 router.delete('/delete', authenticateToken, 
-    [
-        body('userId')
-            .notEmpty().withMessage('User ID is required.')
-            .isMongoId().withMessage('Invalid User ID format.'),
-        expressValidation,
-    ],
     async (req, res) => {
         const { userId } = req.user;
         try {

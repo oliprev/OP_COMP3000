@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Button, TextField } from "@mui/material";
 
 function CybersecurityQueryPage() {
     const [query, setQuery] = useState(""); // Query state
@@ -58,7 +59,7 @@ function CybersecurityQueryPage() {
             {error && <p>{error}</p>} {/* Renders error message if error state is not null */}
 
             <div>
-                <input
+                <TextField
                     type = "text"
                     placeholder = "Type your cybersecurity query..."
                     value = {query} // Sets query value
@@ -66,9 +67,9 @@ function CybersecurityQueryPage() {
                     onChange = {(e) => setQuery(e.target.value)} // Updates query state on change
                     disabled = {loading} // Disables input field if loading
                 />
-                <button onClick = {sendQuery} disabled = {loading}> {/* Calls sendQuery function on click */}
+                <Button onClick = {sendQuery} disabled = {loading}> {/* Calls sendQuery function on click */}
                     {loading ? "Thinking..." : "Ask"} {/* Renders "Thinking..." if loading, otherwise "Ask" */}
-                </button>
+                </Button>
             </div>
         </div>
     );

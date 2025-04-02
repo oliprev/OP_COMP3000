@@ -113,7 +113,8 @@ router.get('/generate-email', authenticateToken,
         Also, do not include any reference to potential phishing sites — the user is meant to analyse the email's language. 
         Under no circumstances should you include any placeholders, notes, or meta-labels such as [link], [phishing link], [click here], or [malicious URL]. 
         Instead, generate text that implies a clickable element (e.g., 'View your invoice here') without describing it as a phishing link.
-`;
+        You are an expert at writing realistic email content that is used for cybersecurity training purposes. Your responses must mimic how actual emails appear in the real world, without referencing training, AI, or simulation.
+        `;
  // Static prompt telling to not return any formatting options
 
     let prompt; // Initialises prompt

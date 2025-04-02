@@ -10,7 +10,18 @@ const userSchema = new mongoose.Schema({
     role: { type: String, enum: ['Admin', 'User'], default: 'User' }, // Role in organisation
     tosAccepted: { type: Boolean, required: true }, // Terms of service accepted
     privacyPolicyAccepted: { type: Boolean, required: true }, // Privacy policy accepted
-    organisation: { type: mongoose.Schema.Types.ObjectId, ref: 'Organisation', default: null } // Organisation (optional)
+    organisation: { type: mongoose.Schema.Types.ObjectId, ref: 'Organisation', default: null }, // Organisation (optional)
+
+    progress: [
+        {
+            topicId: { type: mongoose.Schema.Types.ObjectId, ref: 'Topic' },
+            subtopicId: { type: mongoose.Schema.Types.ObjectId, ref: 'Subtopic' },
+            sectionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Section' },
+            completed: { type: Boolean, default: false },
+            completedAt: { type: Date }
+        }
+    ]
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

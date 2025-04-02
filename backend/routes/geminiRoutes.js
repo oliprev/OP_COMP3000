@@ -103,8 +103,6 @@ router.get('/generate-email', authenticateToken,
             .optional()
             .trim()
             .escape(),
-        body('type')
-            .isIn(['phishing', 'legitimate']).withMessage('Type must be either phishing or legitimate.'),
         expressValidation,
     ],
     async (req, res) => {

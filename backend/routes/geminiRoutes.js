@@ -50,7 +50,13 @@ function isQueryRelevant(prompt, threshold = 0.7) {
         'cybersecurity', 'securing computer', 'data protection', 'network security',
         'password security', 'sql injection', 'ddos attack', 'types of encryption'
     ];
-    return classification && classification.value >= threshold && relevantCategories.includes(classification.label); // Returns whether query is relevant
+    if (!classification) return false;
+
+    const { label, value } = classification;
+    if (value >= threshold && relevantCategories.includes(label)) return true;
+    if (value >= 0.4 && relevantCategories.includes(label)) return 'maybe';
+    return false;
+
 }
 
 // CREATE route - for chatbot
@@ -65,19 +71,24 @@ router.post('/chatbot', authenticateToken,
     ],
     async (req, res) => {
     const { prompt } = req.body; // Gets prompt from request body
-    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly."; // Static prompt telling to not return any formatting options
-    
+    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Keep responses short, unless the user asks for more information."; // Static prompt telling to not return any formatting options
+    const scopePrompt = "You are a cybersecurity assistant. Only answer if the user's prompt is related to cybersecurity. If it is not, politely explain that this platform is only for cybersecurity-related help.";
+
+    const classificationStatus = isQueryRelevant(prompt); // Classifies query
+
     // If query is not relevant, return 400 status
-    if (!isQueryRelevant(prompt)) {
-        res.status(400).json({ message: 'Prompt is not relevant.' });
-        return;
+    if (!classificationStatus) {
+        res.status(400).json({ message: 'Prompt is not relevant to cybersecurity.' });
     }
+
+    const fullPrompt = (classificationStatus === 'maybe') 
+    ? `${staticPrompt} ${scopePrompt} ${prompt}` 
+    : `${staticPrompt} ${prompt}`
     
     try {
         const result = await model.generateContent({ // Generates content
-            contents: [{ role: "user", parts: [{ text: staticPrompt + prompt }] }], // Concatenates static prompt and user prompt
+            contents: [{ role: "user", parts: [{ text: fullPrompt }] }], // Concatenates static prompt and user prompt
             generationConfig: { // Generation configuration 
-                maxOutputTokens: 200, // Max output tokens - limits the length of the response
                 temperature: 0.3, // Temperature - controls randomness
                 topP: 0.9 // Top-p - controls diversity
             }
@@ -191,7 +202,7 @@ router.get('/generate-content',
     if (section) {
         switch (step) {
             case "introduction":
-                prompt = `Introduce the "${section}" section within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise, under 100 words, and suitable for a ${experienceLevel} learner.`;
+                prompt = `Introduce the "${section}" section within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise, under 150 words, and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-1":
                 prompt = `Explain the most important concept within the "${section}" section in the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 200 words.`;
@@ -212,7 +223,7 @@ router.get('/generate-content',
     } else {
         switch (step) {
             case "introduction":
-                prompt = `Introduce the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise, under 100 words, and suitable for a ${experienceLevel} learner.`;
+                prompt = `Introduce the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it concise, under 150 words, and suitable for a ${experienceLevel} learner.`;
                 break;
             case "core-concept-1":
                 prompt = `Explain the most importance concept within the "${subtopic}" subtopic in the "${topic}" knowledge area. Keep it under 200 words.`;

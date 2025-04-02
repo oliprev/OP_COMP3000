@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Button } from "@mui/material";
 
 function PhishingSimulationPage () {
     const [email, setEmail] = useState(""); // State to store the email content
@@ -46,18 +47,18 @@ function PhishingSimulationPage () {
         <div>
             <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
             <h1>Phishing or Legitimate?</h1>
-            <p>Read the email below and decide for yourself whether it is likely to be a phishing email, or a legitimate one.</p>
+            <h4>Read the email below and decide for yourself whether it is likely to be a phishing email, or a legitimate one.</h4>
 
             <div>
                 <p>{email}</p> {/* Renders the email content */}
             </div>
 
-            <button onClick={() => handleChoice("phishing")}>Phishing</button> {/* Calls handleChoice with "phishing" as the argument */}
-            <button onClick={() => handleChoice("legitimate")}>Legitimate</button> {/* Calls handleChoice with "legitimate" as the argument */}
+            <Button onClick={() => handleChoice("phishing")}>Phishing</Button> {/* Calls handleChoice with "phishing" as the argument */}
+            <Button onClick={() => handleChoice("legitimate")}>Legitimate</Button> {/* Calls handleChoice with "legitimate" as the argument */}
 
             {feedback && <p>{feedback}</p>} {/* Renders the feedback message if it exists */}
 
-            <button onClick={fetchEmail}>Next Email</button> {/* Calls fetchEmail on button click */}
+            <Button onClick={fetchEmail}>New Email</Button> {/* Calls fetchEmail on button click */}
         </div>
     );
 }

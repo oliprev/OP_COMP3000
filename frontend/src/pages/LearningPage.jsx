@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Paper, Typography, LinearProgress } from "@mui/material";
+import { Paper, Typography, LinearProgress, Button } from "@mui/material";
 
 function LearningPage() {
     const { topic, subtopic, section } = useParams(); // Retrieves the topic, subtopic, and section IDs from the URL
@@ -121,10 +121,12 @@ function LearningPage() {
         <div>
             <Link to = {`/main/topics/${topic}/subtopics`} className = "back-link">← Back to Subtopics</Link>
             {/* Renders the topic, subtopic, and section names */}
-            <Typography variant = 'h2' fontWeight={400}>{names.topic}</Typography>
-            <h2>{names.subtopic}</h2>
-            <h4>{names.section}</h4>
-            <h3>{stepNames[step]}</h3> 
+            <div style = {{ marginBottom: '30px' }}> 
+                <Typography variant = 'h2' fontWeight={400}>{names.topic}</Typography>
+                <h2>{names.subtopic}</h2>
+                <h4>{names.section}</h4>
+            </div>
+                <h3>{stepNames[step]}</h3> 
             {/* Renders the learning content or quiz based on the showQuiz state */}
             {!showQuiz && (
                 <div>
@@ -147,14 +149,14 @@ function LearningPage() {
                     <ol>
                         {quiz.options.map((option, index) => ( // Maps over quiz options to render each option as a button
                             <li key = {index}> {/* Assigns the option index as the key */}
-                                <button onClick={() => {
+                                <Button onClick={() => {
                                     setSelectedAnswer(option); // Sets the selected answer to the option text
                                     setIsCorrect(option.trim().toLowerCase() === quiz.correctAnswer.text.trim().toLowerCase()); // Checks if the selected answer is correct
                                 }}
                                 disabled = {selectedAnswer !== null} // Disables the button if an answer has been selected
                                 >
                                     {option}
-                                </button>
+                                </Button>
                             </li>
                         ))}
                     </ol>
@@ -164,9 +166,9 @@ function LearningPage() {
                     {isCorrect !== null && (
                         <p>{isCorrect ? "Correct!" : `Incorrect. The correct answer was ${quiz.correctAnswer.label}.`}</p> // Renders feedback based on the correctness state
                     )}
-                    <button onClick={() => setShowQuiz(false)}>
+                    <Button onClick={() => setShowQuiz(false)}>
                         Finish Quiz
-                    </button>
+                    </Button>
                 </div>
             )}
             <div>
@@ -177,16 +179,16 @@ function LearningPage() {
                     sx={{ height: 10, borderRadius: 5, mb: 1 }} 
                 />   
                 {/* Decrements the step state, and disables if step state cannot decrement */}
-                <button onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled = {step === 1 || showQuiz} > 
+                <Button onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled = {step === 1 || showQuiz} > 
                     Back
-                </button>
+                </Button>
                 {/* Increments the step state, and disables if step state cannot increment */}
-                <button onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} disabled = {step === Object.keys(stepList).length || showQuiz}>
+                <Button onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} disabled = {step === Object.keys(stepList).length || showQuiz}>
                     Next
-                </button>
-                <button onClick={fetchQuiz}>
+                </Button>
+                <Button onClick={fetchQuiz}>
                     Take a Quiz?
-                </button>
+                </Button>
             </div>
         </div>
     );

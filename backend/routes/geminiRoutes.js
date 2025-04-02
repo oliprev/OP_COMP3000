@@ -108,32 +108,37 @@ router.get('/generate-email', authenticateToken,
     async (req, res) => {
     const type = Math.random() < 0.5 ? 'phishing' : 'legitimate'; // Randomly selects type of email, heads or tails
     const experienceLevel = req.query.experienceLevel || 'Beginner'; // Gets experience level from query, defaults to beginner
-    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Also do not include any reference to potential phishing sites - the user is meant to analyse the email's language. "; // Static prompt telling to not return any formatting options
+    const staticPrompt = `
+        Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance — it formats badly. 
+        Also, do not include any reference to potential phishing sites — the user is meant to analyse the email's language. 
+        Under no circumstances should you include any placeholders, notes, or meta-labels such as [link], [phishing link], [click here], or [malicious URL]. 
+        Instead, generate text that implies a clickable element (e.g., 'View your invoice here') without describing it as a phishing link.
+`;
+ // Static prompt telling to not return any formatting options
 
     let prompt; // Initialises prompt
     if (type === 'phishing') { // If type is phishing ..
         prompt = experienceLevel === 'Beginner' // Sets prompt based on experience level
-            ? 'Generate a simple phishing email that is easy to understand. Keep it concise and straightforward. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.'
+            ? 'Generate a simple phishing email that is easy to understand. Keep it concise and straightforward. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY. Ensure it is less than 300 words.'
             : experienceLevel === 'Intermediate'
-            ? 'Generate a realistic phishing email that is moderately convincing. Use clear language and some deceptive techniques. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.'
+            ? 'Generate a realistic phishing email that is moderately convincing. Use clear language and some deceptive techniques. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY. Ensure it is less than 300 words.'
             : experienceLevel === 'Advanced'
-            ? 'Generate a highly sophisticated phishing email that is unique and highly convincing. Use advanced language and techniques to make it very deceptive. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.'
-            : 'Generate a very realistic phishing email that is unique and highly convincing. Keep it concise but deceiving. Do not include any notes about the legality of phishing emails, as the user is meant to guess and the user knows phishing is wrong. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY.';
+            ? 'Generate a highly sophisticated phishing email that is unique and highly convincing. Use advanced language and techniques to make it very deceptive. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY. Ensure it is less than 300 words.'
+            : 'Generate a very realistic phishing email that is unique and highly convincing. Keep it concise but deceiving. Do not include any notes about the legality of phishing emails, as the user is meant to guess and the user knows phishing is wrong. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. DO NOT INCLUDE ANY PERIPHERAL INFORMATION THAT MAY GIVE IT AWAY. Ensure it is less than 300 words.';
     } else { // If type is legitimate ..
         prompt = experienceLevel === 'Beginner' // Sets prompt based on experience level
-            ? 'Generate a simple legitimate email that is easy to understand. Keep it concise and straightforward. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.'
+            ? 'Generate a simple legitimate email that is easy to understand. Keep it concise and straightforward. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. Ensure it is less than 300 words.'
             : experienceLevel === 'Intermediate'
-            ? 'Generate a moderately professional legitimate email that is convincing. Use clear language and some professional techniques. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.'
+            ? 'Generate a moderately professional legitimate email that is convincing. Use clear language and some professional techniques. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. Ensure it is less than 300 words.'
             : experienceLevel === 'Advanced'
-            ? 'Generate a highly professional legitimate email that is unique and convincing. Use advanced language and techniques to make it very professional. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.'
-            : 'Generate a legitimate (NOT phishing) email that is unique and professional. Keep it concise but convincing. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic.';
+            ? 'Generate a highly professional legitimate email that is unique and convincing. Use advanced language and techniques to make it very professional. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. Ensure it is less than 300 words.'
+            : 'Generate a legitimate (NOT phishing) email that is unique and professional. Keep it concise but convincing. It can be a wide variety of topics, so be very creative. Include random recipient names, sender names, company names made from throwing words together, dates, and other details to make it more realistic. Ensure it is less than 300 words.';
     }
 
     try {
         const result = await model.generateContent({ // Generates content
             contents: [{ role: "user", parts: [{ text: staticPrompt + prompt }] }], // Sets prompt
             generationConfig: { // Generation configuration
-                maxOutputTokens: 200, // Max output tokens
                 temperature: 0.8 // Temperature - controls randomness
             }
         });

@@ -48,7 +48,8 @@ router.post('/register',
             } catch (error) {
                 res.status(500).json({ message: error.message });
             }
-    });
+    }
+);
 
 // CREATE route - for login
 router.post('/login', 
@@ -72,9 +73,26 @@ router.post('/login',
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
-    });
+    }
+);
 
-// READ route - for getting name for dashboard display
+// GET route - for fetching user progress
+router.get('/progress', authenticateToken, async (req, res) => {
+    const userId = req.user.userId;
+
+    try {
+        const user = await User.findById(userId).select('progress');
+        if (!user) {
+            return res.status(404).json({ error: "User not found." });
+        }
+        res.status(200).json(user.progress);
+    } catch (err) {
+        console.error("Error fetching progress:", err);
+        res.status(500).json({ error: "Failed to retrieve progress." });
+    }
+});
+
+    // READ route - for getting name for dashboard display
 router.get('/:userId/name', authenticateToken, 
     [
         param('userId')
@@ -92,7 +110,8 @@ router.get('/:userId/name', authenticateToken,
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
-    });
+    }
+);
 
 // READ route - for getting all user information
 router.get('/:userId', authenticateToken, 
@@ -112,7 +131,8 @@ router.get('/:userId', authenticateToken,
         } catch (error) {
             res.status(500).json({ message: error.message });       
         }
-    });
+    }
+);
 
 // UPDATE route - for updating password
 router.put('/updatepassword', authenticateToken,
@@ -138,7 +158,8 @@ router.put('/updatepassword', authenticateToken,
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
-    });
+    }
+);
 
 // POST route - for updating section progress
 router.post('/progress/complete', authenticateToken, async (req, res) => {
@@ -173,6 +194,7 @@ router.delete('/delete', authenticateToken,
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
-    });
+    }
+);
 
 module.exports = router;

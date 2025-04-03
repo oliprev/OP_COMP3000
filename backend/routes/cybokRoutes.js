@@ -50,7 +50,8 @@ router.post('/knowledge-areas',
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
-    });
+    }
+);
 
 // READ route - for getting all knowledge areas
 router.get('/knowledge-areas', async (req, res) => {
@@ -77,7 +78,8 @@ router.get('/knowledge-areas/:topicId',
         } catch (error) {
             res.status(404).json({ message: error.message });
         }
-    });
+    }
+);
 
 // READ route - for getting subtopics of a specific knowledge area
 router.get('/knowledge-areas/:topicId/subtopics', 
@@ -101,7 +103,8 @@ router.get('/knowledge-areas/:topicId/subtopics',
         } catch (error) {
             res.status(404).json({ message: error.message });
         }
-    });
+    }
+);
 
 // READ route - for getting a specific subtopic of a specific knowledge area
 router.get('/knowledge-areas/:topicId/subtopics/:subtopicId', 
@@ -126,7 +129,8 @@ router.get('/knowledge-areas/:topicId/subtopics/:subtopicId',
         } catch (error) {
             res.status(404).json({ message: error.message });
         }
-    });
+    }
+);
 
 // READ route - for getting sections of a specific subtopic of a specific knowledge area
 router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections', 
@@ -183,6 +187,7 @@ router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections/:sectionId?
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
-    });
+    }
+);
 
 module.exports = router;

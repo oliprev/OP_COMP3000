@@ -18,13 +18,13 @@ import SectionPage from './pages/SectionPage'
 import LearningPage from './pages/LearningPage'
 import PhishingSimulationPage from './pages/PhishingSimulationPage'
 import { ThemeProvider } from '@mui/material/styles'
-import theme from './theme'
+import darkCyberTheme from './theme'
 
 
 function App() {
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkCyberTheme}>
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />

@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Paper, Typography, LinearProgress, Button } from "@mui/material";
@@ -12,6 +12,7 @@ function LearningPage() {
     const [selectedAnswer, setSelectedAnswer] = useState(null); // State to store selected quiz answer
     const [isCorrect, setIsCorrect] = useState(null); // State to track quiz answer correctness
     const [step, setStep] = useState(1); // State to track learning step - informs backend on which content to fetch
+    const navigate = useNavigate(); // Hook to programmatically navigate
     
     // State to store the topic, subtopic, and section names
     const [names, setNames] = useState({
@@ -117,6 +118,27 @@ function LearningPage() {
         }
     };
 
+    const handleFinish = async () => {
+        try {
+            const token = localStorage.getItem("token"); // Retrieves the token from local storage
+            await axios.post('/api/users/progress/complete', {
+                    topicId: topic,
+                    subtopicId: subtopic,
+                    sectionId: section,
+                    completed: true
+                }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            alert("Section marked as complete!");
+            navigate(`/main/topics/${topic}/subtopics`); // Navigates to the subtopics page
+        } catch (error) {
+            console.error("Error marking section complete:", error);
+            navigate(`/main/topics/${topic}/subtopics`); // Navigates to the subtopics page
+        }
+    };
+
     return (
         <div>
             <Link to = {`/main/topics/${topic}/subtopics`} className = "back-link">← Back to Subtopics</Link>
@@ -183,9 +205,18 @@ function LearningPage() {
                     Back
                 </Button>
                 {/* Increments the step state, and disables if step state cannot increment */}
-                <Button onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} disabled = {step === Object.keys(stepList).length || showQuiz}>
-                    Next
-                </Button>
+                {step < Object.keys(stepList).length ? (
+                    <Button 
+                        onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} 
+                        disabled={step === Object.keys(stepList).length || showQuiz}
+                    >
+                        Next
+                    </Button>
+                ) : (
+                    <Button color="success" onClick={handleFinish}>
+                        Finish
+                    </Button>
+                )}
                 <Button onClick={fetchQuiz}>
                     Take a Quiz?
                 </Button>

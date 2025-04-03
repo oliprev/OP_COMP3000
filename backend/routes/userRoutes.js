@@ -140,6 +140,28 @@ router.put('/updatepassword', authenticateToken,
         }
     });
 
+// POST route - for updating section progress
+router.post('/progress/complete', authenticateToken, async (req, res) => {
+    const { topicId, subtopicId, sectionId, completed } = req.body;
+    const userId = req.user.userId;
+    try {
+        await User.findByIdAndUpdate(userId, {
+            $push: {
+                progress: {
+                    topicId,
+                    subtopicId,
+                    sectionId,
+                    completed,
+                    completedAt: new Date()
+                }
+            }
+        });
+        res.status(200).json({ message: "Progress saved!" });
+    } catch (err) {
+        res.status(500).json({ error: "Failed to update progress." });
+    }
+});
+
 // DELETE route - for deleting a user
 router.delete('/delete', authenticateToken, 
     async (req, res) => {

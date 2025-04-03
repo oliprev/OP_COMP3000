@@ -132,16 +132,16 @@ function LearningPage() {
                 }
             });
             alert("Section marked as complete!");
-            navigate(`/main/topics/${topic}/subtopics`); // Navigates to the subtopics page
+            navigate(`/main/topics/${topic}/subtopics/${subtopic}/sections`); // Navigates to the sections page
         } catch (error) {
             console.error("Error marking section complete:", error);
-            navigate(`/main/topics/${topic}/subtopics`); // Navigates to the subtopics page
+            navigate(`/main/topics/${topic}/subtopics/${subtopic}/sections`); // Navigates to the sectionss page
         }
     };
 
     return (
         <div>
-            <Link to = {`/main/topics/${topic}/subtopics`} className = "back-link">← Back to Subtopics</Link>
+            <Link to = {`/main/topics/${topic}/subtopics/${subtopic}/sections`} className = "back-link">← Back to Sections</Link>
             {/* Renders the topic, subtopic, and section names */}
             <div style = {{ marginBottom: '30px' }}> 
                 <Typography variant = 'h2' fontWeight={400}>{names.topic}</Typography>

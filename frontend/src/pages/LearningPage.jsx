@@ -1,7 +1,8 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Paper, Typography, LinearProgress, Button } from "@mui/material";
+import { Paper, Typography, LinearProgress, Button, Container } from "@mui/material";
+import theme from "../theme"; // Imports the theme for styling
 
 function LearningPage() {
     const { topic, subtopic, section } = useParams(); // Retrieves the topic, subtopic, and section IDs from the URL
@@ -140,35 +141,35 @@ function LearningPage() {
     };
 
     return (
-        <div>
+        <Container>
             <Link to = {`/main/topics/${topic}/subtopics/${subtopic}/sections`} className = "back-link">← Back to Sections</Link>
             {/* Renders the topic, subtopic, and section names */}
-            <div style = {{ marginBottom: '30px' }}> 
-                <Typography variant = 'h2' fontWeight={400}>{names.topic}</Typography>
-                <h2>{names.subtopic}</h2>
-                <h4>{names.section}</h4>
-            </div>
-                <h3>{stepNames[step]}</h3> 
+            <Container> 
+                <Typography variant = 'h2' fontWeight={400} style ={{ color: theme.palette.text.primary }}>{names.topic}</Typography>
+                <Typography variant = 'h4' sx ={{ color: theme.palette.text.primary }}>{names.subtopic}</Typography>
+                <Typography variant = 'h5' sx ={{ color: theme.palette.text.primary, mb: '50px' }}>{names.section}</Typography>
+                <Typography variant = 'h6' sx ={{ color: theme.palette.text.primary }}>{stepNames[step]}</Typography>
+            </Container>
             {/* Renders the learning content or quiz based on the showQuiz state */}
             {!showQuiz && (
-                <div>
+                <Container>
                     {loading ? (
-                        <p>Loading content...</p>
+                        <Typography variant = 'body1' sx = {{ color: theme.palette.text.primary }}>Loading content...</Typography>
                     ) : content ? (
-                    <div>
-                        <Paper elevation={4} style = {{ borderRadius: '10px', padding: '10px', marginBottom: '10px', maxWidth: '800px', width: '100%', margin: '0 auto'}}>{content.content}</Paper> {/* Renders the learning content inside a Paper component */}
-                    </div>
+                    <Container>
+                        <Paper elevation={4} sx = {{ borderRadius: '10px', padding: '10px', marginBottom: '10px', maxWidth: '800px', width: '100%', margin: '0 auto'}}>{content.content}</Paper> {/* Renders the learning content inside a Paper component */}
+                    </Container>
                     ) : (
-                        <p>No content available.</p>
+                        <Typography variant = 'body1' sx = {{ color: theme.palette.text.primary }}>No content available.</Typography>
                     )}
-                </div>
+                </Container>
             )}
             {/* Renders the quiz if showQuiz is true */}
             {quiz && showQuiz && (
-                <div>
-                    <h2>Quiz</h2>
-                    <p><strong>{quiz.question}</strong></p>
-                    <ol>
+                <Container>
+                    <Typography variant = 'h5' sx = {{ color: theme.palette.text.primary }}>Quiz</Typography>
+                    <Typography variant = 'h6' sx = {{ color: theme.palette.text.primary }}><strong>{quiz.question}</strong></Typography>
+                    <ol sx = {{ liststyle: 'none' }}>
                         {quiz.options.map((option, index) => ( // Maps over quiz options to render each option as a button
                             <li key = {index}> {/* Assigns the option index as the key */}
                                 <Button onClick={() => {
@@ -191,10 +192,10 @@ function LearningPage() {
                     <Button onClick={() => setShowQuiz(false)}>
                         Finish Quiz
                     </Button>
-                </div>
+                </Container>
             )}
-            <div>
-                <Typography variant="body2" sx = {{ mt: 2 }}>Progress</Typography>
+            <Container>
+                <Typography variant="body2" sx = {{ mt: 2, color: theme.palette.text.primary }}>Progress</Typography>
                     <LinearProgress 
                     variant="determinate" 
                     value={(step / Object.keys(stepList).length) * 100} 
@@ -220,8 +221,8 @@ function LearningPage() {
                 <Button onClick={fetchQuiz}>
                     Take a Quiz?
                 </Button>
-            </div>
-        </div>
+            </Container>
+        </Container>
     );
 }
 

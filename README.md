@@ -142,7 +142,6 @@ tree -I 'node_modules|.git' -L 2 > directorystructure.txt
 Below, you can find the general file structure.
 ```
 .
-.
 ├── backend
 │   ├── functions
 │   ├── models
@@ -166,6 +165,39 @@ Below, you can find the general file structure.
 ├── README.md
 └── TERMS.md
 ```
+
+I have employed a hierarchical structure for my project, consisting of three main categories: backend, frontend, and root.
+
+### **`backend/`**
+
+Contains server-side logic, as well as API endpoint information.
+
+- `functions/` - middleware/helper functions used across backend - e.g. token authentication
+- `models/` - defines MongoDB schemas through Mongoose models, used to organise data
+- `routes/` - defines Express routes
+- `tests/`- unit / integration tests exclusively for backend
+- `server.js` - main entry point for backend server
+- `swagger.js` & `swagger.yaml` - Swagger documentation setup
+- `package.json` - backend-specific dependencies and scripts
+
+### **`frontend/`**
+
+Contains client-side code, including pages, CSS, and more
+
+- `public/` - static assets e.g. images / icons
+- `src/` - core React components, pages, and logic
+- `tests/` - unit / integration tests exclusively for frontend
+- `index.html` - main HTML file used by Vite
+- `eslint.config.js` & `vite.config.js` - configuration for linting and frontend build tool
+- `package.json` - frontend dependencies and scripts
+
+### **Root Directory**
+
+- `LICENSE` - licensing information for repository (Creative Commons)
+- `README.md` - this file
+- `PRIVACY.md` - privacy policy for this project
+- `TERMS.md` - terms and conditions for use / registration
+- `package.json` - project-level scripts e.g. npm run build
 
 ## **License**
 

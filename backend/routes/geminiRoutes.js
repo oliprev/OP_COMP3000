@@ -7,7 +7,7 @@ const router = express.Router();
 const { body, query } = require('express-validator');
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY); // Google API key
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' }); // Model name
+const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' }); // Model name
 
 const tokenizer = new natural.WordTokenizer(); // Initialises tokenizer
 
@@ -195,7 +195,7 @@ router.get('/generate-content',
     ],
     async (req, res) => {
     const { topic, subtopic, section, experienceLevel, step } = req.query; // Gets topic and experience level from query
-    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include line breaks here and there to make it look less overwhelming."; // Static prompt telling to not return any formatting options
+    const staticPrompt = "Do not reply with any formatting options, like making the text bold, bullet points, or asterisks under any circumstance - it formats badly. Please include sources where relevant, so users can investigate themselves."; // Static prompt telling to not return any formatting options
 
     let prompt; // Initialises prompt
    

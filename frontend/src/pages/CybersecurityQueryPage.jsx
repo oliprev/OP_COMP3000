@@ -40,12 +40,12 @@ function CybersecurityQueryPage() {
     return (
         <div>
             <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
-            <h1>Ask Gemini</h1>
-            <h2>Interact with our intuitive chatbot, designed to answer cybersecurity queries.</h2>
+            <h1>SecuLearn Chatbot</h1>
+            <h2>Interact with our intuitive chatbot, designed to answer cybersecurity queries. You can also paste in content - e.g. seemingly malicious emails of which can be analysed.</h2>
 
             <div>
                 {messages.length === 0 ? ( // If no messages, render message
-                    <p>No messages yet. Ask a cybersecurity question!</p>
+                    <p>No messages yet. Ask a question!</p>
                 ) : (
                     messages.map((msg, index) => ( // Maps over messages array to render each message
                         // Assigns the message index as the key and sets the text alignment based on the role

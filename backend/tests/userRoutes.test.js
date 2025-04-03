@@ -46,6 +46,32 @@ describe('POST /users/register', () => {
       experienceLevel: 'Beginner',
     });
   });
+
+  it('should return 400 for invalid data', async () => {
+    User.findOne = jest.fn().mockResolvedValue(null);
+    bcrypt.hash.mockResolvedValue('password');
+
+    const res = await request(app).post('/users/register').send({
+      name: 'Test User',
+      email: 'invalid-email', // intentionally invalid
+      password: 'password',
+      dateOfBirth: '1990-01-01',
+      experienceLevel: 'Beginner',
+      tosAccepted: 'true',
+      privacyPolicyAccepted: 'true',
+    });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          msg: 'Invalid email format.',
+          param: 'email',
+          location: 'body',
+        }),
+      ])
+    );
+  });
 });
 
 const jwt = require('jsonwebtoken');
@@ -76,7 +102,19 @@ describe('POST /users/login', () => {
       experienceLevel: 'Beginner',
     });
   });
-});
+
+  it('should return 400 for invalid credentials', async () => {
+    User.findOne = jest.fn().mockResolvedValue(null); // simulate user not found
+  
+    const res = await request(app).post('/users/login').send({
+      email: 'incorrect@user.com',
+      password: 'wrongpassword',
+    });
+  
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toEqual({ message: "Invalid credentials provided." });
+  });
+});   
 
 describe('GET /users/:userId/name', () => {
   it('should return the name of the user', async () => {
@@ -114,6 +152,101 @@ describe('GET /users/:userId', () => {
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(mockUser);
   });
-
-  it 
 });
+
+describe('PUT /users/updatepassword', () => {
+  it('should update the password if currentPassword is correct', async () => {
+    const mockUser = {
+      _id: '67ec8844b5a1f7729b6e6292',
+      password: 'hashedOldPassword',
+      save: jest.fn(),
+    };
+
+    User.findOne = jest.fn().mockResolvedValue(mockUser);
+    bcrypt.compare.mockResolvedValue(true);
+    bcrypt.hash.mockResolvedValue('hashedNewPassword');
+
+    const res = await request(app).put('/users/updatepassword').send({
+      currentPassword: 'oldPassword',
+      newPassword: 'newSecurePassword',
+    });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({ message: "Password updated successfully." });
+    expect(mockUser.password).toBe('hashedNewPassword');
+    expect(mockUser.save).toHaveBeenCalled();
+  });
+
+  it('should return 400 if current password is incorrect', async () => {
+    User.findOne = jest.fn().mockResolvedValue({ password: 'hashedPass' });
+    bcrypt.compare.mockResolvedValue(false);
+
+    const res = await request(app).put('/users/updatepassword').send({
+      currentPassword: 'wrong',
+      newPassword: 'newPassword',
+    });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toBe("Incorrect current password.");
+  });
+});
+
+describe('GET /users/progress', () => {
+  it('should return user progress', async () => {
+    const mockSelect = jest.fn().mockResolvedValue({ progress: [{ topicId: '1', completed: true }] });
+    User.findById = jest.fn().mockReturnValue({ select: mockSelect });
+
+    const res = await request(app).get('/users/progress');
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual([{ topicId: '1', completed: true }]);
+  });
+
+  it('should return 404 if user not found', async () => {
+    const mockSelect = jest.fn().mockResolvedValue(null);
+    User.findById = jest.fn().mockReturnValue({ select: mockSelect });
+
+    const res = await request(app).get('/users/progress');
+
+    expect(res.statusCode).toBe(404);
+    expect(res.body).toEqual({ error: "User not found." });
+  });
+});
+
+
+describe('POST /users/progress/complete', () => {
+  it('should update user progress', async () => {
+    User.findByIdAndUpdate = jest.fn().mockResolvedValue({});
+
+    const res = await request(app).post('/users/progress/complete').send({
+      topicId: 'topic1',
+      subtopicId: 'sub1',
+      sectionId: 'sec1',
+      completed: true,
+    });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({ message: "Progress saved!" });
+  });
+});
+
+describe('DELETE /users/delete', () => {
+  it('should delete the user account', async () => {
+    User.findOneAndDelete = jest.fn().mockResolvedValue({ _id: '67ec8844b5a1f7729b6e6292' });
+
+    const res = await request(app).delete('/users/delete');
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({ message: "User deleted successfully." });
+  });
+
+  it('should return 404 if user does not exist', async () => {
+    User.findOneAndDelete = jest.fn().mockResolvedValue(null);
+
+    const res = await request(app).delete('/users/delete');
+
+    expect(res.statusCode).toBe(404);
+    expect(res.body).toEqual({ message: "User not found." });
+  });
+});
+

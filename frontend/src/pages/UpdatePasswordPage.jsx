@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Button, TextField } from "@mui/material";
 
 function UpdatePasswordPage() {
   const [currentPassword, setCurrentPassword] = useState(""); // State to store current password
@@ -41,7 +42,7 @@ function UpdatePasswordPage() {
         <form onSubmit = {handleSubmit}> {/* Calls handleSubmit on form submission */}
             <div>
                 <label>Current Password:</label>
-                <input
+                <TextField
                 type = "password"
                 value = {currentPassword} // Gets value from currentPassword state
                 onChange = {(e) => setCurrentPassword(e.target.value)} // Updates currentPassword state on input change
@@ -50,7 +51,7 @@ function UpdatePasswordPage() {
             </div>
             <div>
                 <label>New Password:</label>
-                <input
+                <TextField
                 type = "password"
                 value = {newPassword} // Gets value from newPassword state
                 onChange = {(e) => setNewPassword(e.target.value)} // Updates newPassword state on input change
@@ -59,14 +60,14 @@ function UpdatePasswordPage() {
             </div>
             <div>
             <label>Confirm New Password:</label>
-                <input
+                <TextField
                 type = "password"
                 value = {confirmPassword} // Gets value from confirmPassword state
                 onChange = {(e) => setConfirmPassword(e.target.value)} // Updates confirmPassword state on input change
                 required
                 />
             </div>
-            <button type = "submit">Update Password</button> {/* Submits form */}
+            <Button type = "submit">Update Password</Button> {/* Submits form */}
         </form>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { Button } from "@mui/material";
 
 function DeleteProfilePage() {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ function DeleteProfilePage() {
     return (
         <div>
             <h1>Delete Profile</h1>
-            <button onClick = {handleDelete}>Delete Profile</button> {/* Calls handleDelete on click */}
+            <Button onClick = {handleDelete}>Delete Profile</Button> {/* Calls handleDelete on click */}
             <Link to = "/main/profile">Cancel</Link>
         </div>
     );

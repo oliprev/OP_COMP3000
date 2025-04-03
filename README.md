@@ -30,6 +30,7 @@ Key features of my application will consist of:
  
 - **Dynamic Content Creation** - leverages Google Gemini through API calls
 - **Lessons** - using the CyBOK (Cybersecurity Body of Knowledge) curriculum and adhering to Bloom's Taxonomy Model, lessons are generated based on the section name, subtopic name, and topic name - with the option for quizzes whenever the user decides they want to test their knowledge
+- **Progress Storage** - lesson progress is stored in the database, so you can see what sections you have completed, and which you have not
 - **Phishing Email Simulations** - users can have emails generated with artificial intelligence, of which they will need to decide whether they are phishing emails or legitimate emails - increases recognition through being able to spot key signs
 - **Chatbot Interface** - users can interact with a chatbot that uses Gemini to provide a chatbot exclusively limited to cybersecurity - I used NLP to train a classifier that deduces relevance
 - **Full-Stack MERN Architecture** - a fully integrated solution using MongoDB, Express.JS, React, and Node.js to ensure seamless communication across/between the stack
@@ -38,7 +39,7 @@ Key features of my application will consist of:
 - **Secure Data Management** - stores and retrieves user data using a NoSQL (MongoDB) database with appropriate security measures - such as hashing and salting of user passwords before storage
 - **Profile Management** - users can view their profile information, update their password and delete their profile with instant effect if they desire
 - **Adhering to Agile & SDLC** - being built following Agile principles, as well as the SDLC
-- **Version Control** - regular, meaningful commits to my GitHub repository with clear documentation - GitHub actions was also used to showcase a working CI/CD pipeline, in which SecuLearn is tested, built, and deployed
+- **Version Control** - regular, meaningful commits to my GitHub repository with clear documentation - GitHub actions was also used to showcase a working CI/CD pipeline, in which SecuLearn is tested, built, and deploye
 
 ## **Running the Project**
 

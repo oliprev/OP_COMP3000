@@ -11,6 +11,8 @@ function SectionPage() {
         topic: "",
         subtopic: ""
     });
+    const [progress, setProgress] = useState([]); // State to store progress array
+    
 
     // Fetches the topic and subtopic names from the API
     useEffect(() => {
@@ -41,6 +43,26 @@ function SectionPage() {
             });
     }, [topic, subtopic]);
 
+    useEffect(() => {
+        const fetchProgress = async () => {
+            const token = localStorage.getItem("token");
+            try {
+                const res = await axios.get("/api/users/progress", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+                setProgress(res.data);
+            } catch (error) {
+                console.error("Failed to load progress:", error);
+            }
+            };
+        fetchProgress();
+      }, []);
+
+    const isSectionCompleted = (sectionId) =>
+        progress.some(p => p.sectionId === sectionId && p.completed);
+
     if (loading) return <p>Loading...</p>;
 
     return (
@@ -66,7 +88,7 @@ function SectionPage() {
                                 style = {{
                                     padding: '16px',
                                     textAlign: 'center',
-                                    backgroundColor: '#f0f0f0',
+                                    backgroundColor: isSectionCompleted(section._id) ? '#c8facc' : '#f0f0f0',
                                     borderRadius: '10px',
                                 }}
                             >

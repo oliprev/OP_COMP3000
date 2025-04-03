@@ -11,6 +11,7 @@ function SubtopicPage() {
     const [knowledgeArea, setKnowledgeArea] = useState(null); // State to store the knowledge area name
     const [loading, setLoading] = useState(true); // State to track loading status
     const hasSections = (subtopic) => subtopic?.sections?.length > 0; // Function to check if a subtopic has sections
+    const [progress, setProgress] = useState([]); // State to store progress array
 
     // Fetches subtopics for the selected topic from the API, assigns them to the state, and updates the loading status
     useEffect(() => {
@@ -32,6 +33,30 @@ function SubtopicPage() {
 
         fetchSubtopics();
     }, [topic]);
+
+    useEffect(() => {
+      const fetchProgress = async () => {
+        const token = localStorage.getItem("token");
+        try {
+          const res = await axios.get("/api/users/progress", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setProgress(res.data);
+        } catch (error) {
+          console.error("Failed to load progress:", error);
+        }
+      };
+    
+      fetchProgress();
+    }, []);
+
+    const isSectionCompleted = (sectionId) =>
+      progress.some(p => p.sectionId === sectionId && p.completed);
+    
+    const isSubtopicCompleted = (subtopic) =>
+      subtopic.sections.every(section => isSectionCompleted(section._id));
 
     // Navigates to the subtopic's sections page if the subtopic has sections, otherwise navigates to the subtopic's learn page
     const handleSubtopicClick = (subtopic) => {
@@ -65,7 +90,7 @@ return (
                 style = {{
                   padding: '16px',
                   textAlign: 'center',
-                  backgroundColor: '#f0f0f0',
+                  backgroundColor: isSubtopicCompleted(subtopic) ? '#c8facc' : '#f0f0f0',
                   borderRadius: '10px',
                 }}
               >

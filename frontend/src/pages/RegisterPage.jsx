@@ -130,7 +130,7 @@ function RegisterPage() {
               onChange={handleChange} // Call handleChange function on input change
             /><label htmlFor="privacyPolicy" fullWidth 
             margin="normal"> Acknowledge <Link to="/privacy" className="link-inline" sx = {{ color: theme.palette.text.primary }}>Privacy Policy</Link></label><br></br>{/* Generates link to privacy policy page */}
-            <Button type="submit" sx = {{ backgroundColor: 'black', borderRadius: '10px', color: 'white', variant: 'h4' }}>Register</Button>
+            <Button variant = 'contained' type="submit" sx = {{ backgroundColor: '#f0f0f0', borderRadius: '10px', color: '#1e293b' }}>Register</Button>
           </form>
           <Link to="/login">Already have an account? Login</Link>
           {errors.length > 0 && (

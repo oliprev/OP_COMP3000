@@ -59,7 +59,7 @@ function MainPage() {
                 ].map((item) => (
                     <Grid2 item md= {3} key = {item.label}>
                         <Card>
-                            <CardActionArea component = {Link} to = {item.path} sx = {{ padding: 4, backgroundColor: "#f0f0f0", borderRadius: 2}}>
+                            <CardActionArea component = {Link} to = {item.path} sx = {{ padding: 4, backgroundColor: "#f0f0f0", borderRadius: '10px'}}>
                                 <Typography variant = "h6" fontWeight = {600} sx = {{ color: '#1e293b' }}>{item.label}</Typography>
                             </CardActionArea>
                         </Card>

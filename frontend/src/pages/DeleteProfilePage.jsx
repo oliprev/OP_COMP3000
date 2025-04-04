@@ -29,8 +29,8 @@ function DeleteProfilePage() {
 
     return (
         <Container>
-            <Typography variant = 'h1' fontWeight = '650' sx = {{ color: theme.palette.text.primary }}>Delete Profile</Typography>
-            <Button onClick = {handleDelete}>Delete Profile</Button> {/* Calls handleDelete on click */}
+            <Typography variant = 'h2' fontWeight = '600' sx = {{ color: theme.palette.text.primary }}>Delete Profile</Typography>
+            <Button variant = 'contained' onClick = {handleDelete}>Delete Profile</Button> {/* Calls handleDelete on click */}
             <Link to = "/main/profile">Cancel</Link>
         </Container>
     );

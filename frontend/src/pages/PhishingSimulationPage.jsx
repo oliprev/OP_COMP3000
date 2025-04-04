@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Button } from "@mui/material";
+import { Button, Container, Typography, Box, Paper } from "@mui/material";
+import theme from "../theme"; // Importing the theme for styling
 
 function PhishingSimulationPage () {
     const [email, setEmail] = useState(""); // State to store the email content
     const [correctType, setCorrectType] = useState(""); // State to store the correct type of email
     const [userChoice, setUserChoice] = useState(null); // State to store the user's choice
     const [feedback, setFeedback] = useState(""); // State to store the feedback message
+    const [loading, setLoading] = useState(true); // State to track loading status
 
     // Fetches an email from the API, assigns it to the state, and resets the user's choice and feedback message
     const fetchEmail = async () => {
@@ -23,6 +25,7 @@ function PhishingSimulationPage () {
             });
             setEmail(response.data.email);
             setCorrectType(response.data.type);
+            setLoading(false);
         } catch (error) {
             setEmail("Error loading email. Try again.");
         }
@@ -42,24 +45,67 @@ function PhishingSimulationPage () {
     useEffect(() => {
         fetchEmail(); 
     }, []);
-
     return (
-        <div>
-            <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
-            <h1>Phishing or Legitimate?</h1>
-            <h4>Read the email below and decide for yourself whether it is likely to be a phishing email, or a legitimate one.</h4>
+        <Container sx={{ py: 4 }}>
+            <Link to="/main" className="back-link">
+                ← Back to Dashboard
+            </Link>
 
-            <div>
-                <p>{email}</p> {/* Renders the email content */}
-            </div>
+            <Typography variant="h3" sx={{ mt: 2, mb: 1 }}>
+                Phishing or Legitimate?
+            </Typography>
 
-            <Button onClick={() => handleChoice("phishing")}>Phishing</Button> {/* Calls handleChoice with "phishing" as the argument */}
-            <Button onClick={() => handleChoice("legitimate")}>Legitimate</Button> {/* Calls handleChoice with "legitimate" as the argument */}
+            <Typography variant="h6" sx={{ mb: 3 }}>
+                Read the email below and decide whether it is likely to be a phishing email or a legitimate one.
+            </Typography>
 
-            {feedback && <p>{feedback}</p>} {/* Renders the feedback message if it exists */}
+            {/* Styled Paper component with email content */}
+            {loading ? (
+                <Typography variant="body1" sx={{ color: theme.palette.text.primary }}>
+                    Loading content...
+                </Typography>
+            ) : email ? (
+                <Paper
+                    elevation={4}
+                    sx={{
+                        borderRadius: "10px",
+                        padding: "20px",
+                        marginBottom: "30px",
+                        maxWidth: "800px",
+                        width: "100%",
+                        backgroundColor: theme.palette.background.paper,
+                        color: theme.palette.text.primary,
+                    }}
+                >
+                    <Typography >{email}</Typography>
+                </Paper>
+            ) : (
+                <Typography variant="body1" sx={{ color: theme.palette.text.primary }}>
+                    No email available.
+                </Typography>
+            )}
 
-            <Button onClick={fetchEmail}>New Email</Button> {/* Calls fetchEmail on button click */}
-        </div>
+            {/* Answer buttons */}
+            <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flexWrap: "wrap", mb: 2 }}>
+                <Button variant="contained" onClick={() => handleChoice("phishing")}>
+                    Phishing
+                </Button>
+                <Button variant="contained" onClick={() => handleChoice("legitimate")}>
+                    Legitimate
+                </Button>
+            </Box>
+
+            {/* Feedback */}
+            {feedback && (
+                <Typography variant="body1" sx={{ mb: 2 }}>
+                    {feedback}
+                </Typography>
+            )}
+
+            <Button variant="outlined" onClick={fetchEmail}>
+                New Email
+            </Button>
+        </Container>
     );
 }
 

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Button, TextField } from "@mui/material";
+import { Button, Container, TextField, Typography, Paper, Box } from "@mui/material";
+import theme from "../theme"; // Importing the theme for styling
 
 function CybersecurityQueryPage() {
     const [query, setQuery] = useState(""); // Query state
@@ -38,27 +39,45 @@ function CybersecurityQueryPage() {
     };
 
     return (
-        <div>
+        <Container>
             <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
-            <h1>SecuLearn Chatbot</h1>
-            <h2>Interact with our intuitive chatbot, designed to answer cybersecurity queries. You can also paste in content - e.g. seemingly malicious emails of which can be analysed.</h2>
+            <Typography variant = 'h3' sx = {{ color: theme.palette.text.primary }}>SecuLearn Chatbot</Typography>
+            <Typography variant = 'body1' sx = {{ color: theme.palette.text.primary }}>Interact with our intuitive chatbot, designed to answer cybersecurity queries. You can also paste in content - e.g. seemingly malicious emails of which can be analysed.</Typography>
 
-            <div>
+            <Container sx = {{ marginTop: '40px', padding: '10px' }}>
                 {messages.length === 0 ? ( // If no messages, render message
-                    <p>No messages yet. Ask a question!</p>
+                    <Typography variant = 'body2' sx = {{ color: theme.palette.text.primary }}>No messages yet. Ask a question!</Typography>
                 ) : (
-                    messages.map((msg, index) => ( // Maps over messages array to render each message
-                        // Assigns the message index as the key and sets the text alignment based on the role
-                        <p key = {index} style={{ textAlign: msg.role === "user" ? "right" : "left" }}> 
-                            {msg.content}
-                        </p>
+                    messages.map((msg, index) => (
+                        <Box
+                            key={index}
+                            sx={{
+                                display: "flex",
+                                justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
+                                my: 1,
+                            }}
+                        >
+                            <Paper
+                                elevation={3}
+                                sx={{
+                                    p: 2,
+                                    maxWidth: "75%",
+                                    backgroundColor: msg.role === "user" ? "#0284c7" : theme.palette.background.paper,
+                                    color: msg.role === "user" ? "#ffffff" : theme.palette.text.primary,
+                                    borderRadius: 2,
+                                    wordBreak: "break-word",
+                                }}
+                            >
+                                <Typography variant="body2">{msg.content}</Typography>
+                            </Paper>
+                        </Box>
                     ))
                 )}
-            </div>
+            </Container>
 
             {error && <p>{error}</p>} {/* Renders error message if error state is not null */}
 
-            <div>
+            <Container>
                 <TextField
                     type = "text"
                     placeholder = "Type your cybersecurity query..."
@@ -67,11 +86,11 @@ function CybersecurityQueryPage() {
                     onChange = {(e) => setQuery(e.target.value)} // Updates query state on change
                     disabled = {loading} // Disables input field if loading
                 />
-                <Button onClick = {sendQuery} disabled = {loading}> {/* Calls sendQuery function on click */}
+                <Button variant = 'contained' onClick = {sendQuery} disabled = {loading}> {/* Calls sendQuery function on click */}
                     {loading ? "Thinking..." : "Ask"} {/* Renders "Thinking..." if loading, otherwise "Ask" */}
                 </Button>
-            </div>
-        </div>
+            </Container>
+        </Container>
     );
 }
 

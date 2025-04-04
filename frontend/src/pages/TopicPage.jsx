@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Grid2, Paper, Box, Typography } from "@mui/material"
+import theme from '../theme'; // Importing the theme for styling
 
 function TopicPage() {
     const [knowledgeAreas, setKnowledgeAreas] = useState([]); // State to store fetched knowledge areas
@@ -24,7 +25,7 @@ function TopicPage() {
     return (
         <Container>
           <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
-          <Typography variant = 'h2' fontWeight={600}>Topics</Typography>
+          <Typography variant = 'h2' fontWeight={600} sx = {{ color: theme.palette.text.primary }}>Topics</Typography>
           {knowledgeAreas.length > 0 ? (
             <Grid2 container spacing = {4} justifyContent = {'center'}>
               {knowledgeAreas.map((knowledgeArea) => (
@@ -44,6 +45,7 @@ function TopicPage() {
                         textAlign: 'center',
                         backgroundColor: '#f0f0f0',
                         borderRadius: '10px',
+                        color: '#1e293b'
                       }}
                     >
                       <Typography variant = 'h4' fontWeight = {600} style = {{ marginBottom: '8px' }}>
@@ -58,7 +60,7 @@ function TopicPage() {
           ) : (
             <p>No knowledge areas available</p> // Renders if knowledge areas array is empty
           )}
-          <Typography variant = 'h6' style = {{ marginTop: '20px' }}>All topics, subtopics, and sections have been kindly provided by CyBOK.</Typography>
+          <Typography variant = 'h6' sx = {{ marginTop: '20px', color: theme.palette.text.primary }}>All topics, subtopics, and sections have been kindly provided by CyBOK.</Typography>
         </Container>
       );
 };

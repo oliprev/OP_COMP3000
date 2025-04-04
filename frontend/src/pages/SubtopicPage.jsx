@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Grid2, Paper, Box, Typography } from "@mui/material"
+import { Grid2, Paper, Box, Typography, Container } from "@mui/material"
 import { Button } from '@mui/material';
+import theme from '../theme'; // Importing the theme for styling
 
 function SubtopicPage() {
     const { topic } = useParams(); // Retrieves the topic ID from the URL
@@ -70,10 +71,10 @@ function SubtopicPage() {
     if (loading) return <p>Loading...</p>;
 
 return (
-  <div>
+  <Container>
     <Link to="/main/topics" className="back-link">← Back to Learning</Link>
-    {knowledgeArea && <Typography variant = 'h2' fontWeight = {600}>{knowledgeArea}</Typography>}
-    <Typography variant = 'h4'>Subtopics</Typography>
+    {knowledgeArea && <Typography variant = 'h2' fontWeight = {600} sx = {{ color: theme.palette.text.primary }}>{knowledgeArea}</Typography>}
+    <Typography variant = 'h4' sx = {{ color: theme.palette.text.primary }}>Subtopics</Typography>
     {subtopics.length > 0 ? ( // Checks that subtopics array is not empty
       <Grid2 container spacing = {4} justifyContent = {'center'} marginTop = {'10px'}> {/* Renders subtopics in a grid layout with spacing */}
         {subtopics.map((subtopic) => ( // Maps over subtopics array to render each subtopic
@@ -92,6 +93,7 @@ return (
                   textAlign: 'center',
                   backgroundColor: isSubtopicCompleted(subtopic) ? '#c8facc' : '#f0f0f0',
                   borderRadius: '10px',
+                  color: '#1e293b'
                 }}
               >
               <Typography variant = 'h6' fontWeight = {550}>{subtopic.name}</Typography> {/* Renders the subtopic name */}
@@ -103,7 +105,7 @@ return (
     ) : (
         <p>No subtopics available.</p> // Renders if subtopics array is empty
     )}
-  </div>
+  </Container>
 );
 }
 

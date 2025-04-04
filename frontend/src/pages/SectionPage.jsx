@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Grid2, Paper, Box, Typography } from "@mui/material"
+import theme from '../theme'; // Importing the theme for styling
 
 function SectionPage() {
     const { topic, subtopic } = useParams(); // Retrieves the topic and subtopic IDs from the URL
@@ -68,9 +69,9 @@ function SectionPage() {
     return (
     <div>
         <Link to = {`/main/topics/${topic}/subtopics`} className = "back-link">← Back to Subtopics</Link>
-        <Typography variant = "h2" fontWeight = {600}>{names.topic}</Typography>
-        <Typography variant = "h4">{names.subtopic}</Typography>
-        <Typography variant = "h5">Sections</Typography>
+        <Typography variant = "h2" fontWeight = {600} sx = {{ color: theme.palette.text.primary }}>{names.topic}</Typography>
+        <Typography variant = "h4" sx = {{ color: theme.palette.text.primary }}>{names.subtopic}</Typography>
+        <Typography variant = "h5" sx = {{ color: theme.palette.text.primary }}>Sections</Typography>
         {sections.length > 0 ? ( // Checks that sections array is not empty
             <Grid2 container spacing = {4}> {/* Renders sections in a grid layout with spacing */}
                 {sections.map((section) => ( // Maps over sections array to render each section
@@ -85,11 +86,12 @@ function SectionPage() {
                         >
                             <Paper
                                 elevation = {4} // Adds a shadow effect to the paper
-                                style = {{
+                                sx = {{
                                     padding: '16px',
                                     textAlign: 'center',
                                     backgroundColor: isSectionCompleted(section._id) ? '#c8facc' : '#f0f0f0',
                                     borderRadius: '10px',
+                                    color: '#1e293b'
                                 }}
                             >
                             <Typography variant = 'h6' fontWeight = {550}>{section.name}</Typography> {/* Renders the section name */}

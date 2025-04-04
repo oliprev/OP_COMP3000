@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { Button } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
+import theme from "../theme"; // Importing the theme for styling
 
 function DeleteProfilePage() {
     const navigate = useNavigate();
@@ -27,11 +28,11 @@ function DeleteProfilePage() {
     };
 
     return (
-        <div>
-            <h1>Delete Profile</h1>
+        <Container>
+            <Typography variant = 'h1' fontWeight = '650' sx = {{ color: theme.palette.text.primary }}>Delete Profile</Typography>
             <Button onClick = {handleDelete}>Delete Profile</Button> {/* Calls handleDelete on click */}
             <Link to = "/main/profile">Cancel</Link>
-        </div>
+        </Container>
     );
 }
 

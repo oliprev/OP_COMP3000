@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Paper, Typography, LinearProgress, Button, Container } from "@mui/material";
+import { Paper, Typography, LinearProgress, Button, Container, Box } from "@mui/material";
 import theme from "../theme"; // Imports the theme for styling
 
 function LearningPage() {
@@ -148,7 +148,6 @@ function LearningPage() {
                 <Typography variant = 'h2' fontWeight={400} style ={{ color: theme.palette.text.primary }}>{names.topic}</Typography>
                 <Typography variant = 'h4' sx ={{ color: theme.palette.text.primary }}>{names.subtopic}</Typography>
                 <Typography variant = 'h5' sx ={{ color: theme.palette.text.primary, mb: '50px' }}>{names.section}</Typography>
-                <Typography variant = 'h6' sx ={{ color: theme.palette.text.primary }}>{stepNames[step]}</Typography>
             </Container>
             {/* Renders the learning content or quiz based on the showQuiz state */}
             {!showQuiz && (
@@ -157,6 +156,7 @@ function LearningPage() {
                         <Typography variant = 'body1' sx = {{ color: theme.palette.text.primary }}>Loading content...</Typography>
                     ) : content ? (
                     <Container>
+                        <Typography variant = 'h6' sx ={{ color: theme.palette.text.primary }}>{stepNames[step]}</Typography>
                         <Paper elevation={4} sx = {{ borderRadius: '10px', padding: '10px', marginBottom: '10px', maxWidth: '800px', width: '100%', margin: '0 auto'}}>{content.content}</Paper> {/* Renders the learning content inside a Paper component */}
                     </Container>
                     ) : (
@@ -169,27 +169,29 @@ function LearningPage() {
                 <Container>
                     <Typography variant = 'h5' sx = {{ color: theme.palette.text.primary }}>Quiz</Typography>
                     <Typography variant = 'h6' sx = {{ color: theme.palette.text.primary }}><strong>{quiz.question}</strong></Typography>
-                    <ol sx = {{ liststyle: 'none' }}>
-                        {quiz.options.map((option, index) => ( // Maps over quiz options to render each option as a button
-                            <li key = {index}> {/* Assigns the option index as the key */}
-                                <Button onClick={() => {
-                                    setSelectedAnswer(option); // Sets the selected answer to the option text
-                                    setIsCorrect(option.trim().toLowerCase() === quiz.correctAnswer.text.trim().toLowerCase()); // Checks if the selected answer is correct
+                    <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
+                        {quiz.options.map((option, index) => (
+                        <Box component="li" key={index} sx={{ mb: 1 }}>
+                            <Button
+                                variant='contained'
+                                onClick={() => {
+                                setSelectedAnswer(option);
+                                setIsCorrect(option.trim().toLowerCase() === quiz.correctAnswer.text.trim().toLowerCase());
                                 }}
-                                disabled = {selectedAnswer !== null} // Disables the button if an answer has been selected
+                                disabled={selectedAnswer !== null}
                                 >
-                                    {option}
-                                </Button>
-                            </li>
+                                {option}
+                            </Button>
+                        </Box>
                         ))}
-                    </ol>
+                    </Box>
                     {selectedAnswer && (
                         <p>Your answer: {selectedAnswer}</p>
                     )}
                     {isCorrect !== null && (
                         <p>{isCorrect ? "Correct!" : `Incorrect. The correct answer was ${quiz.correctAnswer.label}.`}</p> // Renders feedback based on the correctness state
                     )}
-                    <Button onClick={() => setShowQuiz(false)}>
+                    <Button variant = 'contained' onClick={() => setShowQuiz(false)}>
                         Finish Quiz
                     </Button>
                 </Container>
@@ -201,26 +203,28 @@ function LearningPage() {
                     value={(step / Object.keys(stepList).length) * 100} 
                     sx={{ height: 10, borderRadius: 5, mb: 1 }} 
                 />   
-                {/* Decrements the step state, and disables if step state cannot decrement */}
-                <Button onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled = {step === 1 || showQuiz} > 
-                    Back
-                </Button>
-                {/* Increments the step state, and disables if step state cannot increment */}
-                {step < Object.keys(stepList).length ? (
-                    <Button 
-                        onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} 
-                        disabled={step === Object.keys(stepList).length || showQuiz}
-                    >
-                        Next
+                 <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 2 }}>
+                    {/* Decrements the step state, and disables if step state cannot decrement */}
+                    <Button variant = 'contained' onClick={() => setStep(prev => Math.max(prev - 1, 1))} disabled = {step === 1 || showQuiz} > 
+                        Back
                     </Button>
-                ) : (
-                    <Button color="success" onClick={handleFinish}>
-                        Finish
+                    {/* Increments the step state, and disables if step state cannot increment */}
+                    {step < Object.keys(stepList).length ? (
+                        <Button 
+                            variant = 'contained' onClick={() => setStep(prev => Math.min(prev + 1, Object.keys(stepList).length))} 
+                            disabled={step === Object.keys(stepList).length || showQuiz}
+                        >
+                            Next
+                        </Button>
+                    ) : (
+                        <Button variant = 'contained' color="success" onClick={handleFinish}>
+                            Finish
+                        </Button>
+                    )}
+                    <Button variant = 'outlined' onClick={fetchQuiz}>
+                        Take a Quiz?
                     </Button>
-                )}
-                <Button onClick={fetchQuiz}>
-                    Take a Quiz?
-                </Button>
+                </Box>
             </Container>
         </Container>
     );

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Container, Grid2, Card, CardActionArea, Typography } from "@mui/material";
+import { Container, Grid2, Card, CardActionArea, Typography, Box } from "@mui/material";
 import theme from "../theme"; // Importing the theme for styling
-import SchoolIcon from '@mui/icons-material/School';
-import "@fontsource/inter";
 
 function MainPage() {
     const navigate = useNavigate(); // Initialises the navigate function from the useNavigate hook
@@ -49,7 +47,9 @@ function MainPage() {
     return (
         <Container>
             <Link to = "/" onClick={handleLogout} className = "back-link">← Log out</Link><br></br>
-            <Typography variant = 'h1' fontWeight = '650' sx = {{ color: theme.palette.text.primary, fontFamily: "Inter, sans-serif" }}>Secu<SchoolIcon sx = {{ fontSize: 40 }}/>Learn </Typography>
+            <Box sx = {{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: '35px' }}>
+                <img src="/seculearnlogo.svg" alt="SecuLearn Logo" style = {{ maxWidth: '600px', width: '100%', height: 'auto',  }} />
+            </Box>
             <Typography variant = "h3" margin = {5} sx = {{ color: theme.palette.text.primary }}>Dashboard</Typography>
             {firstName && <Typography variant = "h4" margin = {5} sx = {{ color: theme.palette.text.primary }}>Welcome, {firstName}!</Typography>} {/* Renders the user's first name */}
             <Grid2 container spacing = {4}>

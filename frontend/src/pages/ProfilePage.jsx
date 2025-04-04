@@ -1,5 +1,7 @@
+import { Container, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import theme from "../theme"; // Importing the theme for styling
 
 function ProfilePage() {
     const [profileData, setProfileData] = useState(null); // State to store fetched profile data
@@ -32,11 +34,11 @@ function ProfilePage() {
     }, []);
     
     return (
-        <div>
+        <Container>
           <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
-          <h1>Profile</h1>
+          <Typography variant = 'h2' sx = {{ color: theme.palette.text.primary }}>Profile</Typography>
           <p>Find your profile information below</p>
-          <div>
+          <Container>
             {/* Renders the user's profile data */}
             {profileData ? (
               <div>
@@ -50,8 +52,8 @@ function ProfilePage() {
             ) : (
               <p>Loading profile data...</p> // Renders if profile data is still loading
             )}
-          </div>
-        </div>
+          </Container>
+        </Container>
       );
 }
 

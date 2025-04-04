@@ -71,7 +71,7 @@ function LoginPage() {
               margin="normal"
             />
             <br></br><Link to ="/register" sx = {{ color: theme.palette.text.primary }}>No login? Make an account</Link><br></br>
-            <Button type="submit" sx = {{ backgroundColor: 'black', borderRadius: '10px', color: 'white', variant: 'h4' }}>Login</Button>
+            <Button variant = 'contained' type="submit" sx = {{ backgroundColor: 'black', borderRadius: '10px', color: 'white', variant: 'h4' }}>Login</Button>
           </form>
           {errors.length > 0 && (
             <div>

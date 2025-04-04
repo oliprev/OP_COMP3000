@@ -1,3 +1,5 @@
+![SecuLearnLogo](https://github.com/oliprev/OP_COMP3000/blob/b7505b567cbf87bbd642994d27647f74ddd41618/frontend/public/seculearnlogo.svg)
+
 # **SecuLearn - An AI-Driven Cybersecurity Learning Platform**
 
 ## **Creator**

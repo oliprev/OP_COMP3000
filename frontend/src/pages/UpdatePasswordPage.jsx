@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Button, TextField } from "@mui/material";
+import { Button, Container, TextField, Typography } from "@mui/material";
+import theme from "../theme"; // Importing the theme for styling
 
 function UpdatePasswordPage() {
   const [currentPassword, setCurrentPassword] = useState(""); // State to store current password
@@ -36,40 +37,46 @@ function UpdatePasswordPage() {
   };
 
   return (
-    <div>
+    <Container>
         <Link to = "/main/profile" className = "back-link">← Back to Profile</Link>
-        <h1>Update Password</h1>
+        <Typography variant = 'h2' fontWeight = '600' sx = {{ color: theme.palette.text.primary }}>Update Password</Typography>
         <form onSubmit = {handleSubmit}> {/* Calls handleSubmit on form submission */}
-            <div>
-                <label>Current Password:</label>
+            <Container>
                 <TextField
+                required
                 type = "password"
                 value = {currentPassword} // Gets value from currentPassword state
+                label = "Current Password"
                 onChange = {(e) => setCurrentPassword(e.target.value)} // Updates currentPassword state on input change
-                required
+                fullWidth
+                margin="normal"
                 />
-            </div>
-            <div>
-                <label>New Password:</label>
+            </Container>
+            <Container>
                 <TextField
+                required
                 type = "password"
                 value = {newPassword} // Gets value from newPassword state
+                label = "New Password"
                 onChange = {(e) => setNewPassword(e.target.value)} // Updates newPassword state on input change
-                required
+                fullWidth
+                margin="normal"
                 />
-            </div>
-            <div>
-            <label>Confirm New Password:</label>
+            </Container>
+            <Container>
                 <TextField
+                required
                 type = "password"
                 value = {confirmPassword} // Gets value from confirmPassword state
+                label = "Confirm Password"
                 onChange = {(e) => setConfirmPassword(e.target.value)} // Updates confirmPassword state on input change
-                required
+                fullWidth
+                margin="normal"
                 />
-            </div>
-            <Button type = "submit">Update Password</Button> {/* Submits form */}
+            </Container>
+            <Button variant = 'contained' type = "submit">Update Password</Button> {/* Submits form */}
         </form>
-    </div>
+    </Container>
   );
 }
 

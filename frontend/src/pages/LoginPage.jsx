@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { Button, Container, TextField, Typography } from "@mui/material";
+import theme from "../theme"; // Importing the theme for styling
 
 function LoginPage() {
     const [formData, setFormData] = useState({
@@ -39,7 +40,7 @@ function LoginPage() {
     return (
         <Container>
           <Link to="/" className="back-link">← Back</Link>
-          <Typography variant = 'h2' fontWeight = {600} marginBottom = '30px'>Login</Typography>
+          <Typography variant = 'h2' fontWeight = {600} marginBottom = '30px' sx = {{ color: theme.palette.text.primary }}>Login</Typography>
           <form onSubmit={handleSubmit}>
             <TextField
               required
@@ -50,7 +51,7 @@ function LoginPage() {
               onChange={handleChange} // Call handleChange function on input change
               slotProps={{
                 input: {
-                  style: { color: 'black'}
+                  sx: { color: theme.palette.text.primary }
               }}}
               fullWidth
               margin="normal"
@@ -64,12 +65,12 @@ function LoginPage() {
               onChange={handleChange} // Call handleChange function on input change
               slotProps={{
                 input: {
-                  style: { color: 'black'}
+                  sx: { color: theme.palette.text.primary }
               }}}
               fullWidth
               margin="normal"
             />
-            <br></br><Link to ="/register">No login? Make an account</Link><br></br>
+            <br></br><Link to ="/register" sx = {{ color: theme.palette.text.primary }}>No login? Make an account</Link><br></br>
             <Button type="submit" sx = {{ backgroundColor: 'black', borderRadius: '10px', color: 'white', variant: 'h4' }}>Login</Button>
           </form>
           {errors.length > 0 && (

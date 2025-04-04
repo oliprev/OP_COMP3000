@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { Button, Container, TextField, Typography } from "@mui/material";
+import theme from "../theme"; // Importing the theme for styling
 
 function RegisterPage() {
     const [formData, setFormData] = useState({ // Initialise state for form data with empty strings
@@ -46,7 +47,7 @@ function RegisterPage() {
     return (
         <Container>
           <Link to="/" className="back-link">← Back</Link>
-          <Typography variant = 'h2' fontWeight = {600} marginBottom = '30px'>Register</Typography>
+          <Typography variant = 'h2' fontWeight = {600} marginBottom = '30px' sx = {{ color: theme.palette.text.primary }}>Register</Typography>
           <form onSubmit={handleSubmit}>
             <TextField
               required
@@ -57,7 +58,7 @@ function RegisterPage() {
               onChange={handleChange} // Call handleChange function on input change
               slotProps={{
                 input: {
-                  style: { color: 'black'}
+                  sx: { color: theme.palette.text.primary }
               }}}
               fullWidth
               margin="normal"
@@ -71,7 +72,7 @@ function RegisterPage() {
               onChange={handleChange} // Call handleChange function on input change
               slotProps={{
                 input: {
-                  style: { color: 'black'}
+                  sx: { color: theme.palette.text.primary }
               }}}
               fullWidth
               margin="normal"
@@ -85,7 +86,7 @@ function RegisterPage() {
               onChange={handleChange} // Call handleChange function on input change
               slotProps={{
                 input: {
-                  style: { color: 'black'}
+                  sx: { color: theme.palette.text.primary }
               }}}
               fullWidth
               margin="normal"
@@ -100,7 +101,7 @@ function RegisterPage() {
               slotProps={{
                 inputLabel: { shrink: true },
                 input: {
-                  style: { color: 'black'}
+                  sx: { color: theme.palette.text.primary }
               }}}
               fullWidth
               margin="normal"
@@ -120,7 +121,7 @@ function RegisterPage() {
               id="tos"
               checked={formData.tosAccepted} // Gets value
               onChange={handleChange} // Call handleChange function on input change
-            /><label htmlFor="tos" fullWidth margin="normal"> Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label><br></br> {/* Generates link to terms of service page */}
+            /><label htmlFor="tos" fullWidth margin="normal" sx = {{ color: theme.palette.text.primary }}> Accept <Link to="/tos" className="link-inline">Terms of Service</Link></label><br></br> {/* Generates link to terms of service page */}
             <input
               type="checkbox"
               name="privacyPolicyAccepted"
@@ -128,7 +129,7 @@ function RegisterPage() {
               checked={formData.privacyPolicyAccepted} // Gets value
               onChange={handleChange} // Call handleChange function on input change
             /><label htmlFor="privacyPolicy" fullWidth 
-            margin="normal"> Acknowledge <Link to="/privacy" className="link-inline">Privacy Policy</Link></label><br></br>{/* Generates link to privacy policy page */}
+            margin="normal"> Acknowledge <Link to="/privacy" className="link-inline" sx = {{ color: theme.palette.text.primary }}>Privacy Policy</Link></label><br></br>{/* Generates link to privacy policy page */}
             <Button type="submit" sx = {{ backgroundColor: 'black', borderRadius: '10px', color: 'white', variant: 'h4' }}>Register</Button>
           </form>
           <Link to="/login">Already have an account? Login</Link>

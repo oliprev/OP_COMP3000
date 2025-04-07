@@ -2,6 +2,8 @@
 
 # **SecuLearn - An AI-Driven Cybersecurity Learning Platform**
 
+---
+
 ## **Creator**
 
 - **Name**: Oliver Prevett

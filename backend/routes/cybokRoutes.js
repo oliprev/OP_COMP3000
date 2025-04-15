@@ -4,9 +4,10 @@ const KnowledgeArea = require('../models/KnowledgeArea');
 const validateIds = require('../functions/validateIds');
 const { body, param } = require('express-validator');
 const expressValidation = require('../functions/expressValidation');
+const authenticateToken = require('../functions/authenticateToken');
 
 // CREATE route - developer side for adding new knowledge areas easily
-router.post('/knowledge-areas', 
+router.post('/knowledge-areas', authenticateToken,
     [
         body('name')
             .notEmpty().withMessage('Name is required.')
@@ -54,7 +55,7 @@ router.post('/knowledge-areas',
 );
 
 // READ route - for getting all knowledge areas
-router.get('/knowledge-areas', async (req, res) => {
+router.get('/knowledge-areas', authenticateToken, async (req, res) => {
     try {
         const knowledgeAreas = await KnowledgeArea.find();
         res.status(200).json(knowledgeAreas);
@@ -64,7 +65,7 @@ router.get('/knowledge-areas', async (req, res) => {
 });
 
 // READ route - for getting a specific knowledge area
-router.get('/knowledge-areas/:topicId', 
+router.get('/knowledge-areas/:topicId', authenticateToken,
     [
         param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')
@@ -82,7 +83,7 @@ router.get('/knowledge-areas/:topicId',
 );
 
 // READ route - for getting subtopics of a specific knowledge area
-router.get('/knowledge-areas/:topicId/subtopics', 
+router.get('/knowledge-areas/:topicId/subtopics', authenticateToken,
     [
         param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')
@@ -107,7 +108,7 @@ router.get('/knowledge-areas/:topicId/subtopics',
 );
 
 // READ route - for getting a specific subtopic of a specific knowledge area
-router.get('/knowledge-areas/:topicId/subtopics/:subtopicId', 
+router.get('/knowledge-areas/:topicId/subtopics/:subtopicId', authenticateToken,
     [
         param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')
@@ -133,7 +134,7 @@ router.get('/knowledge-areas/:topicId/subtopics/:subtopicId',
 );
 
 // READ route - for getting sections of a specific subtopic of a specific knowledge area
-router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections', 
+router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections', authenticateToken,
     [
         param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')
@@ -156,7 +157,7 @@ router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections',
 });
 
 // READ route - for getting a specific section of a specific subtopic of a specific knowledge area
-router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections/:sectionId?', 
+router.get('/knowledge-areas/:topicId/subtopics/:subtopicId/sections/:sectionId?', authenticateToken,
     [
         param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')

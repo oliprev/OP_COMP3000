@@ -170,7 +170,7 @@ router.get('/generate-email', authenticateToken,
 });
 
 // READ route - for content generation
-router.get('/generate-content', 
+router.get('/generate-content', authenticateToken, 
     [
         query('topic')
             .notEmpty().withMessage('Topic is required.')
@@ -266,7 +266,7 @@ router.get('/generate-content',
 });
 
 // READ route - for quiz generation
-router.get('/generate-quiz', 
+router.get('/generate-quiz', authenticateToken,
     [ 
         query('topic')
             .notEmpty().withMessage('Topic is required.')

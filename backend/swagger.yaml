@@ -375,3 +375,186 @@ paths:
           description: Quiz content and answer generated successfully
         '500':
           description: Quiz generation failed
+
+  /cybok/knowledge-areas:
+    post:
+      summary: Add a new knowledge area
+      tags:
+        - CyBOK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - subtopics
+              properties:
+                name:
+                  type: string
+                  description: Name of the knowledge area
+                description:
+                  type: string
+                  description: Optional description of the knowledge area
+                subtopics:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - name
+                    properties:
+                      name:
+                        type: string
+                      sections:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - name
+                          properties:
+                            name:
+                              type: string
+                            description:
+                              type: string
+      responses:
+        '201':
+          description: Knowledge area created successfully
+        '400':
+          description: Validation error
+        '500':
+          description: Server error
+
+    get:
+      summary: Get all knowledge areas
+      tags:
+        - CyBOK
+      responses:
+        '200':
+          description: List of all knowledge areas
+        '404':
+          description: No knowledge areas found
+
+  /cybok/knowledge-areas/{topicId}:
+    get:
+      summary: Get a specific knowledge area
+      tags:
+        - CyBOK
+      parameters:
+        - in: path
+          name: topicId
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the knowledge area
+      responses:
+        '200':
+          description: Knowledge area retrieved successfully
+        '400':
+          description: Invalid topicId
+        '404':
+          description: Knowledge area not found
+
+  /cybok/knowledge-areas/{topicId}/subtopics:
+    get:
+      summary: Get subtopics for a specific knowledge area
+      tags:
+        - CyBOK
+      parameters:
+        - in: path
+          name: topicId
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the knowledge area
+      responses:
+        '200':
+          description: Subtopics retrieved successfully
+        '400':
+          description: Invalid topicId
+        '404':
+          description: Knowledge area not found
+
+  /cybok/knowledge-areas/{topicId}/subtopics/{subtopicId}:
+    get:
+      summary: Get a specific subtopic from a knowledge area
+      tags:
+        - CyBOK
+      parameters:
+        - in: path
+          name: topicId
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the knowledge area
+        - in: path
+          name: subtopicId
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the subtopic
+      responses:
+        '200':
+          description: Subtopic retrieved successfully
+        '400':
+          description: Invalid IDs
+        '404':
+          description: Subtopic not found
+
+  /cybok/knowledge-areas/{topicId}/subtopics/{subtopicId}/sections:
+    get:
+      summary: Get all sections of a specific subtopic
+      tags:
+        - CyBOK
+      parameters:
+        - in: path
+          name: topicId
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the knowledge area
+        - in: path
+          name: subtopicId
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the subtopic
+      responses:
+        '200':
+          description: Sections retrieved successfully
+        '400':
+          description: Invalid IDs
+        '404':
+          description: Sections not found
+
+  /cybok/knowledge-areas/{topicId}/subtopics/{subtopicId}/sections/{sectionId}:
+    get:
+      summary: Get a specific section from a subtopic
+      tags:
+        - CyBOK
+      parameters:
+        - in: path
+          name: topicId
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the knowledge area
+        - in: path
+          name: subtopicId
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the subtopic
+        - in: path
+          name: sectionId
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the section
+      responses:
+        '200':
+          description: Section retrieved successfully
+        '400':
+          description: Invalid IDs
+        '500':
+          description: Server error

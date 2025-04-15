@@ -15,14 +15,9 @@ function PhishingSimulationPage () {
     const fetchEmail = async () => {
         setFeedback("");
         setUserChoice(null);
-        const token = localStorage.getItem("token");
 
         try {
-            const response = await axios.get("/api/gemini/generate-email", { 
-                headers: { 
-                    Authorization: `Bearer ${token}` 
-                } 
-            });
+            const response = await axios.get("/api/gemini/generate-email");
             setEmail(response.data.email);
             setCorrectType(response.data.type);
             setLoading(false);

@@ -14,7 +14,6 @@ function SectionPage() {
     });
     const [progress, setProgress] = useState([]); // State to store progress array
     
-
     // Fetches the topic and subtopic names from the API
     useEffect(() => {
         const fetchNames = async () => {

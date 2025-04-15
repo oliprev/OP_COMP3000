@@ -11,17 +11,12 @@ function MainPage() {
 
     // Fetches the user's name from the API, based on their userId in localStorage, and assigns it to the state
     useEffect(() => {
-        const token = localStorage.getItem("token");
         const userId = localStorage.getItem("userId");
 
         const fetchUserName = async () => {
-            if (userId && token) {
+            if (userId) {
                 try {
-                    const response = await axios.get(`/api/users/${userId}/name`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`, // Passes the token in the request header
-                        },
-                    });
+                    const response = await axios.get(`/api/users/${userId}/name`);
                     setName(response.data.name);
                     const firstName = response.data.name.split(" ")[0]; // Extracts the first name from the full name
                     setFirstName(firstName);
@@ -29,7 +24,7 @@ function MainPage() {
                     console.error(error);
                 }
             } else {
-                console.error("User ID or token not found.");
+                console.error("User ID not found.");
             }
         };
     

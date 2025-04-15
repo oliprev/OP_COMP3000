@@ -10,19 +10,14 @@ function ProfilePage() {
     useEffect(() => {
         const fetchProfileData = async () => {
             const userId = localStorage.getItem("userId");
-            const token = localStorage.getItem("token");
 
-            if (!userId || !token) {
-                console.error("User ID or token not found.");
+            if (!userId) {
+                console.error("User ID not found.");
                 return;
             }
 
             try {
-                const response = await fetch(`/api/users/${userId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const response = await fetch(`/api/users/${userId}`);
                 const data = await response.json();
                 setProfileData(data);
             } catch (error) {

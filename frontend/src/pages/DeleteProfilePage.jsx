@@ -10,12 +10,7 @@ function DeleteProfilePage() {
     // Function to delete profile
     const handleDelete = async () => {
         try {
-            const token = localStorage.getItem("token"); // Get token from local storage
-            const response = await axios.delete("/api/users/delete", { // Send request to delete route
-                headers: {
-                    Authorization: `Bearer ${token}` // Send token in header
-                }
-            });
+            const response = await axios.delete("/api/users/delete") // Send request to delete route)
             if (response.status === 200) { // If successful .. 
                 localStorage.removeItem("token"); // Remove token from local storage
                 localStorage.removeItem("userId"); // Remove userId from local storage

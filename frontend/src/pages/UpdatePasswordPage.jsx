@@ -19,14 +19,9 @@ function UpdatePasswordPage() {
     }
 
     try {
-        const token = localStorage.getItem("token");
         const response = await axios.put('/api/users/updatepassword', {
         currentPassword, // Passes the current password
         newPassword // Passes the new password
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
       });
         alert(response.data.message);
         navigate("/main/profile");

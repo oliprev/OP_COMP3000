@@ -67,6 +67,7 @@ paths:
           description: User created successfully
         '400':
           description: Validation error
+
   /users/login:
     post:
       summary: Login a user
@@ -110,3 +111,146 @@ paths:
                     description: User's experience level
         '400':
           description: Validation error
+
+  /users/progress:
+    get:
+      summary: Get user progress
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User progress retrieved successfully
+        '404':
+          description: User not found
+        '500':
+          description: Failed to retrieve progress
+
+  /users/{userId}/name:
+    get:
+      summary: Get user name by ID
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: MongoDB user ID
+      responses:
+        '200':
+          description: User name retrieved successfully
+        '400':
+          description: Invalid userId
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+
+  /users/{userId}:
+    get:
+      summary: Get full user profile by ID
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: MongoDB user ID
+      responses:
+        '200':
+          description: User data retrieved successfully
+        '400':
+          description: Invalid userId
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+
+  /users/updatepassword:
+    put:
+      summary: Update user password
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - currentPassword
+                - newPassword
+              properties:
+                currentPassword:
+                  type: string
+                  description: Current user password
+                newPassword:
+                  type: string
+                  minLength: 8
+                  description: New password, must be at least 8 characters
+      responses:
+        '200':
+          description: Password updated successfully
+        '400':
+          description: Incorrect current password or invalid request
+        '500':
+          description: Server error
+
+  /users/progress/complete:
+    post:
+      summary: Update section completion progress
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - topicId
+                - subtopicId
+                - sectionId
+                - completed
+              properties:
+                topicId:
+                  type: string
+                subtopicId:
+                  type: string
+                sectionId:
+                  type: string
+                completed:
+                  type: boolean
+      responses:
+        '200':
+          description: Progress saved successfully
+        '500':
+          description: Failed to update progress
+          
+  /users/delete:
+    delete:
+      summary: Delete user account
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User deleted successfully
+        '404':
+          description: User not found
+        '500':
+          description: Server error

@@ -66,7 +66,7 @@ router.get('/knowledge-areas', async (req, res) => {
 // READ route - for getting a specific knowledge area
 router.get('/knowledge-areas/:topicId', 
     [
-        param('id')
+        param('topicId')
             .notEmpty().withMessage('Knowledge Area ID is required.')
             .isMongoId().withMessage('Invalid Knowledge Area ID format.'),
         expressValidation,

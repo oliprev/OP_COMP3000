@@ -309,6 +309,8 @@ paths:
       summary: Generate learning content
       tags:
         - Gemini
+      security:
+        - BearerAuth: []
       parameters:
         - in: query
           name: topic
@@ -348,6 +350,8 @@ paths:
       summary: Generate quiz question
       tags:
         - Gemini
+      security:
+        - BearerAuth: []
       parameters:
         - in: query
           name: topic
@@ -381,6 +385,8 @@ paths:
       summary: Add a new knowledge area
       tags:
         - CyBOK
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -429,6 +435,8 @@ paths:
       summary: Get all knowledge areas
       tags:
         - CyBOK
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: List of all knowledge areas
@@ -440,6 +448,8 @@ paths:
       summary: Get a specific knowledge area
       tags:
         - CyBOK
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: topicId
@@ -460,6 +470,8 @@ paths:
       summary: Get subtopics for a specific knowledge area
       tags:
         - CyBOK
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: topicId
@@ -480,6 +492,8 @@ paths:
       summary: Get a specific subtopic from a knowledge area
       tags:
         - CyBOK
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: topicId
@@ -506,6 +520,8 @@ paths:
       summary: Get all sections of a specific subtopic
       tags:
         - CyBOK
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: topicId
@@ -532,6 +548,8 @@ paths:
       summary: Get a specific section from a subtopic
       tags:
         - CyBOK
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: topicId

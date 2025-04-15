@@ -70,7 +70,7 @@ paths:
 
   /users/login:
     post:
-      summary: Login a user
+      summary: Login a user - returns JWT token
       tags:
         - Users
       requestBody:
@@ -239,7 +239,7 @@ paths:
           description: Progress saved successfully
         '500':
           description: Failed to update progress
-          
+
   /users/delete:
     delete:
       summary: Delete user account
@@ -254,3 +254,124 @@ paths:
           description: User not found
         '500':
           description: Server error
+
+  /gemini/chatbot:
+    post:
+      summary: Generate AI chatbot response
+      tags:
+        - Gemini
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - prompt
+              properties:
+                prompt:
+                  type: string
+                  maxLength: 200
+                  description: User input prompt related to cybersecurity
+      responses:
+        '200':
+          description: AI-generated chatbot response
+        '400':
+          description: Prompt is not relevant to cybersecurity or is missing
+        '500':
+          description: Internal server error during generation
+
+  /gemini/generate-email:
+    get:
+      summary: Generate phishing or legitimate training email
+      tags:
+        - Gemini
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: experienceLevel
+          required: false
+          schema:
+            type: string
+            enum: [Beginner, Intermediate, Advanced]
+          description: Learner's experience level (default is Beginner)
+      responses:
+        '200':
+          description: Generated email and type (phishing or legitimate)
+        '500':
+          description: Email generation failed
+
+  /gemini/generate-content:
+    get:
+      summary: Generate learning content
+      tags:
+        - Gemini
+      parameters:
+        - in: query
+          name: topic
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: subtopic
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: section
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: experienceLevel
+          required: false
+          schema:
+            type: string
+            enum: [Beginner, Intermediate, Advanced]
+        - in: query
+          name: step
+          required: true
+          schema:
+            type: string
+            enum: [introduction, core-concept-1, core-concept-2, example, summary]
+      responses:
+        '200':
+          description: Learning content generated successfully
+        '500':
+          description: Error generating learning content
+
+  /gemini/generate-quiz:
+    get:
+      summary: Generate quiz question
+      tags:
+        - Gemini
+      parameters:
+        - in: query
+          name: topic
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: subtopic
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: section
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: experienceLevel
+          required: false
+          schema:
+            type: string
+            enum: [Beginner, Intermediate, Advanced]
+      responses:
+        '200':
+          description: Quiz content and answer generated successfully
+        '500':
+          description: Quiz generation failed

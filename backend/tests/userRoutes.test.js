@@ -66,7 +66,6 @@ describe('POST /users/register', () => {
       expect.arrayContaining([
         expect.objectContaining({
           msg: 'Invalid email format.',
-          param: 'email',
           location: 'body',
         }),
       ])

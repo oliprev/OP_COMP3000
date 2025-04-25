@@ -2,28 +2,28 @@ import { Container, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import theme from "../theme"; // Importing the theme for styling
+import axios from "axios"; 
 
 function ProfilePage() {
     const [profileData, setProfileData] = useState(null); // State to store fetched profile data
 
     // Fetches the user's profile data from the API
     useEffect(() => {
-        const fetchProfileData = async () => {
-            const userId = localStorage.getItem("userId");
-
-            if (!userId) {
-                console.error("User ID not found.");
-                return;
-            }
-
-            try {
-                const response = await fetch(`/api/users/${userId}`);
-                const data = await response.json();
-                setProfileData(data);
-            } catch (error) {
-                console.error("Error fetching profile data:", error);
-            }
-        };
+      const fetchProfileData = async () => {
+        const userId = localStorage.getItem("userId");
+      
+        if (!userId) {
+          console.error("User ID not found.");
+          return;
+        }
+      
+        try {
+          const response = await axios.get(`/api/users/${userId}`);
+          setProfileData(response.data);
+        } catch (error) {
+          console.error("Error fetching profile data:", error);
+        }
+      };
 
         fetchProfileData();
     }, []);

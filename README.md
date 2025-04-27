@@ -2,7 +2,7 @@
 
 ---
 
-# **SecuLearn - An AI-Driven Cybersecurity Learning Platform**
+# **SecuLearn - An AI-Driven Cybersecurity Education Platform**
 
 ## **Creator**
 

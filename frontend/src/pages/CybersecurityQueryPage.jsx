@@ -39,7 +39,7 @@ function CybersecurityQueryPage() {
         <Container>
             <Link to = "/main" className = "back-link">← Back to Dashboard</Link>
             <Typography variant = 'h3' sx = {{ color: theme.palette.text.primary }}>SecuLearn Chatbot</Typography>
-            <Typography variant = 'body1' sx = {{ color: theme.palette.text.primary }}>Interact with our intuitive chatbot, designed to answer cybersecurity queries. You can also paste in content - e.g. seemingly malicious emails of which can be analysed.</Typography>
+            <Typography variant = 'body1' sx = {{ color: theme.palette.text.primary }}>Interact with our intuitive chatbot, designed to answer cybersecurity queries. You can also paste in content - e.g. seemingly malicious emails of which can be analysed (5000 character limit).</Typography>
 
             <Container sx = {{ marginTop: '40px', padding: '10px' }}>
                 {messages.length === 0 ? ( // If no messages, render message

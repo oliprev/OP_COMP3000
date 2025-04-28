@@ -2,7 +2,7 @@
 
 ---
 
-# **SecuLearn - An AI-Driven Cybersecurity Learning Platform**
+# **SecuLearn - An AI-Driven Cybersecurity Education Platform**
 
 ## **Creator**
 
@@ -77,13 +77,14 @@ npm install && npm install --prefix backend && npm install --prefix frontend
 ```
 npm run build && npm start
 ```
-15) Now, navigate to localhost:9000
+15) Now, navigate to http://localhost:9000
 16) You should now be able to access my project!
 17) If you wish to stop hosting, click on the terminal and hit CTRL + C
 18) If you wish to run through the tests, run the following in the project root
 ```
 npm test
 ```
+19) If you wish to view the Swagger documentation, navigate to http://localhost:9000/api/documentation
 
 ## **Technologies**
 
@@ -110,7 +111,7 @@ I chose to use the MERN stack because I wanted the option to use JavaScript for 
 - **path** - used for handling and transforming file paths
 - **bcrypt** - used to hash and salt passwords before database storage
 - **jsonwebtoken** - allows JSON Web Token implementation for secure user authentication
-- **yaml** - parses / loads YAML-based configuration - used for Swagger
+- **yaml** - parses / loads YAML-based configuration - used for Swagger (used [here](backend/swagger.yaml))
 - **@google/generative-ai** - provides access to Google Gemini for content generation
 - **natural** - NLP library used for text analysis
 - **@mui/material** - library used extensively for a modern, responsive UI

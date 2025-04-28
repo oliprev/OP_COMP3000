@@ -64,7 +64,7 @@ router.post('/chatbot', authenticateToken,
     [
         body('prompt')
             .notEmpty().withMessage('Prompt is required.')
-            .isLength({ max: 200 }).withMessage('Prompt must be less than 200 characters.')
+            .isLength({ max: 5000 }).withMessage('Prompt must be less than 200 characters.')
             .trim()
             .escape(),
         expressValidation,

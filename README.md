@@ -91,7 +91,7 @@ npm test
 - **Express.js** - backend framework for building RESTful API
 - **React** - frontend framework for building seamless user interfaces
 - **Node.js** - runtime environment for executing JavaScript on the server
-- **Jest** - used for integration testing
+- **Jest** - used for automated testing
 
 I chose to use the MERN stack because I wanted the option to use JavaScript for the entire implementation - within the backend as well as the frontend. As well as this, the extensive range of libraries and frameworks through NPM were also beneficial to providing extra functionality. I explored the possibility of using Angular rather than React, but vastly preferred the flexibility that React offers through picking and choosing different libraries to install and work with. As well as this, I am much more proficient with React as a developer. It also seems to be much more sought after in industry.
 
@@ -162,7 +162,6 @@ Below, you can find the general file structure.
 │   ├── package.json
 │   ├── public
 │   ├── src
-│   ├── tests
 │   └── vite.config.js
 ├── LICENSE
 ├── package.json
@@ -180,7 +179,7 @@ Contains server-side logic, as well as API endpoint information.
 - `functions/` - middleware/helper functions used across backend - e.g. token authentication
 - `models/` - defines MongoDB schemas through Mongoose models, used to organise data
 - `routes/` - defines Express routes
-- `tests/`- unit / integration tests exclusively for backend
+- `tests/`- automated tests exclusively for backend
 - `server.js` - main entry point for backend server
 - `swagger.js` & `swagger.yaml` - Swagger documentation setup
 - `package.json` - backend-specific dependencies and scripts
@@ -191,7 +190,6 @@ Contains client-side code, including pages, CSS, and more
 
 - `public/` - static assets e.g. images / icons
 - `src/` - core React components, pages, and logic
-- `tests/` - unit / integration tests exclusively for frontend
 - `index.html` - main HTML file used by Vite
 - `eslint.config.js` & `vite.config.js` - configuration for linting and frontend build tool
 - `package.json` - frontend dependencies and scripts
@@ -230,14 +228,14 @@ Given the ambitious nature of my project, some limitations were to be expected g
 
 SecuLearn has evolved a lot since Sprint 0, and future development will consist of the following:
 
+- Means of gamification - through use of achievements, leaderboards among users, or incentivised competitions
+- Improved mobile optimisation
+- Role-based learning paths, pointing users towards specific careers
 - Monetisation, through advertisements / subscription plans
 - Expand the functionality of phishing email simulations, to make them seamless from real emails
 - Offline mode e.g. option to download a given knowledge area and all of its contents for learning on-the-go
-- Support for different languages - perhaps using translation APIs?
-- Means of gamification - through use of achievements, leaderboards among users, or incentivised competitions
+- Support for different languages - using translation APIs
 - Visual dashboard which can show personal statistics
 - Specialised admin dashboard / features
 - Feedback system so users can report inaccurate or inappropriate AI responses
 - Single Sign On (SSO) integration
-
-

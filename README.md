@@ -4,6 +4,8 @@
 
 # **SecuLearn - An AI-Driven Cybersecurity Education Platform**
 
+# **Grade**: 71.33% 
+
 ## **Creator**
 
 - **Name**: Oliver Prevett

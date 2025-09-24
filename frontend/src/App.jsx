@@ -43,6 +43,7 @@ function App() {
           <Route path="/main/gemini" element={<ProtectedRoute element ={CybersecurityQueryPage} />} />
           <Route path="/main/phishing" element={<ProtectedRoute element ={PhishingSimulationPage} />} />
           <Route path="/main/profile" element={<ProtectedRoute element ={ProfilePage} />} />
+          <Route path="/main/achievements" element={<ProtectedRoute element ={AchievementPage} />} />
           <Route path="/main/profile/updatepassword" element={<ProtectedRoute element ={UpdatePasswordPage} />} />
           <Route path="/main/profile/deleteprofile" element={<ProtectedRoute element ={DeleteProfilePage} />} />
         </Routes>

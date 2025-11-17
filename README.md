@@ -49,9 +49,7 @@ Key features of my application will consist of:
 
 ## **Running the Project**
 
-There are two options when it comes to running the project - you can either access the deployed version at **https://SecuLearn.org.uk** which shows evidence of my fully working pipeline (you can contact me to whitelist your IP address, as it is only available to me).
-
-Alternatively, you can follow the steps below:
+To run the project, you can follow the steps below:
 
 1) Navigate to the GitHub repository to ensure you have access (**https://github.com/oliprev/OP_COMP3000**)
 2) Ensure you have the latest version of Git installed (**https://git-scm.com/downloads**)
